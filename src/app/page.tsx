@@ -15,7 +15,7 @@ export default function Home() {
         {/* Sections 1 et 2 : défilement horizontal */}
         <HorizontalScroll>
           <HeroPanel />
-          <SectionTitlePanel num="02." title="Nos engagements" />
+          <SectionTitlePanel title="Nos engagements" />
           {engagements.map((e) => (
             <EngagementPanel key={e.num} item={e} />
           ))}

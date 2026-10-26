@@ -77,43 +77,49 @@ export const logos = {
 export const besoins = {
   title: "Vos besoins, nos solutions",
   intro:
-    "Un bon accompagnement commence par le bon problème. Leads trop rares, site silencieux, marque floue, visibilité en berne : trouvez le vôtre parmi ces six situations. Nous démarrons par lui, sans bousculer vos partenaires actuels.",
-  cards: [
+    "**Un bon accompagnement** commence par le bon problème.\nLeads trop rares, site silencieux, marque floue, visibilité en berne : trouvez le vôtre parmi ces six situations. Nous démarrons par lui, sans bousculer vos partenaires actuels.",
+  items: [
     {
-      title: "« Je manque de leads »",
-      text: "Vos commerciaux attendent des contacts qui n’arrivent pas. Nous activons les canaux adaptés à vos acheteurs pour générer plus de leads qualifiés.",
+      title: "Je manque de leads",
+      text: "Vos commerciaux attendent des contacts qui n’arrivent pas. Nous activons les canaux adaptés à vos acheteurs pour **générer plus de leads qualifiés**.",
       offer: "Génération de leads",
       href: "/developpement-commercial/generation-leads/",
+      image: "/images/besoin-leads.jpg",
     },
     {
-      title: "« Mon site ne génère aucune demande »",
-      text: "Du trafic, mais ni appel ni formulaire envoyé. Nous repensons vos pages pour obtenir un site qui transforme vos visiteurs en contacts.",
+      title: "Mon site ne génère aucune demande",
+      text: "Du trafic, mais ni appel ni formulaire envoyé. Nous repensons vos pages pour obtenir **un site qui transforme vos visiteurs en contacts**.",
       offer: "Site institutionnel",
       href: "/digital/site-institutionnel/",
+      image: "/images/besoin-site.jpg",
     },
     {
-      title: "« Ma marque n’est pas claire »",
-      text: "Chacun présente l’entreprise à sa façon, vos prospects s’y perdent. Nous vous aidons à clarifier votre positionnement de marque pour de bon.",
+      title: "Ma marque n’est pas claire",
+      text: "Chacun présente l’entreprise à sa façon, vos prospects s’y perdent. Nous vous aidons à **clarifier votre positionnement de marque** pour de bon.",
       offer: "Plateforme de marque",
       href: "/branding/plateforme-de-marque/",
+      image: "/images/besoin-marque.jpg",
     },
     {
-      title: "« Mes ventes plafonnent »",
-      text: "Le chiffre d’affaires stagne malgré l’énergie de vos équipes. Notre audit commercial permet de comprendre ce qui bloque vos ventes, puis d’agir.",
+      title: "Mes ventes plafonnent",
+      text: "Le chiffre d’affaires stagne malgré l’énergie de vos équipes. Notre audit commercial permet de **comprendre ce qui bloque vos ventes**, puis d’agir.",
       offer: "Audit commercial",
       href: "/conseil/audit-diagnostic-commercial/",
+      image: "/images/besoin-ventes.jpg",
     },
     {
-      title: "« On ne nous trouve ni sur Google ni dans les IA »",
-      text: "Vos concurrents ressortent partout, pas vous. Nous travaillons votre SEO et votre GEO pour être visible sur Google et dans les IA.",
+      title: "On ne nous trouve ni sur Google ni dans les IA",
+      text: "Vos concurrents ressortent partout, pas vous. Nous travaillons votre SEO et votre GEO pour **être visible sur Google et dans les IA**.",
       offer: "SEO",
       href: "/acquisition/seo/",
+      image: "/images/besoin-visibilite.jpg",
     },
     {
-      title: "« Je ne sais pas ce qui rapporte »",
-      text: "Publicité, salons, réseaux sociaux : impossible de dire ce qui paie. Nous installons un suivi pour mesurer ce que rapporte chaque canal.",
+      title: "Je ne sais pas ce qui rapporte",
+      text: "Publicité, salons, réseaux sociaux : impossible de dire ce qui paie. Nous installons un suivi pour **mesurer ce que rapporte chaque canal**.",
       offer: "Web analytics",
       href: "/acquisition/tracking-analytics/",
+      image: "/images/besoin-analytics.jpg",
     },
   ],
 };
