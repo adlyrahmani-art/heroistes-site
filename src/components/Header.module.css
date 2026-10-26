@@ -1,0 +1,88 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: calc(clamp(16px, 2.4vw, 28px) + env(safe-area-inset-top, 0px));
+  padding-inline: var(--gut);
+  pointer-events: none;
+}
+.header a {
+  pointer-events: auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-brand);
+  font-size: 22px;
+}
+.mark {
+  width: 22px;
+  height: auto;
+}
+
+/* Nav : Onest Bold 12 maj. + n° 10 px turquoise */
+.menu {
+  display: flex;
+  gap: clamp(16px, 2.2vw, 36px);
+  align-items: flex-end;
+}
+.menu a {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gris-clair);
+  transition: color var(--dur-s);
+}
+.menu a:hover,
+.menu a[aria-current="page"] {
+  color: var(--blanc);
+}
+.menu i {
+  font-style: normal;
+  font-size: 10px;
+  color: var(--turquoise);
+}
+
+.cta {
+  border: 1px solid var(--turquoise);
+  color: var(--turquoise);
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  transition: background var(--dur-m) var(--ease-overlay), color var(--dur-m) var(--ease-overlay);
+}
+.cta:hover,
+.cta:focus-visible {
+  background: var(--turquoise);
+  color: var(--encre);
+}
+
+.header a:focus-visible {
+  outline: 2px solid var(--blanc);
+  outline-offset: 3px;
+}
+
+@media (max-width: 1080px) {
+  .menu {
+    display: none;
+  }
+}
+@media (max-width: 560px) {
+  .cta {
+    display: none;
+  }
+}
