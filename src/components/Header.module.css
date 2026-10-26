@@ -1,68 +1,91 @@
+/* Header fixe, cotes de la maquette 1920 × 1080 (unité --u) */
 .header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding-top: calc(clamp(16px, 2.4vw, 28px) + env(safe-area-inset-top, 0px));
-  padding-inline: var(--gut);
+  padding: calc(26 * var(--u) + env(safe-area-inset-top, 0px)) var(--gut) 0;
+  color: var(--blanc);
   pointer-events: none;
+  transition: color var(--dur-m) var(--ease-overlay);
 }
 .header a {
   pointer-events: auto;
 }
 
+/* Sur une lame claire, le header passe en encre */
+:global(body[data-tone="light"]) .header {
+  color: var(--encre);
+}
+
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: max(10px, calc(14 * var(--u)));
   font-family: var(--font-brand);
-  font-size: 22px;
+  font-size: max(20px, calc(26 * var(--u)));
+  line-height: 1;
 }
 .mark {
-  width: 22px;
+  width: max(22px, calc(34 * var(--u)));
   height: auto;
 }
 
 /* Nav : Onest Bold 12 maj. + n° 10 px turquoise */
 .menu {
   display: flex;
-  gap: clamp(16px, 2.2vw, 36px);
+  gap: calc(39 * var(--u));
   align-items: flex-end;
+  margin-left: auto;
+  margin-right: calc(100 * var(--u));
 }
 .menu a {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  padding-left: 6px;
+  border-left: 1px solid transparent;
   font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 0.06em;
+  font-size: max(11px, calc(12 * var(--u)));
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--gris-clair);
-  transition: color var(--dur-s);
+  opacity: 0.85;
+  transition: opacity var(--dur-s), border-color var(--dur-m);
 }
-.menu a:hover,
+.menu a:hover {
+  opacity: 1;
+}
 .menu a[aria-current="page"] {
-  color: var(--blanc);
+  opacity: 1;
+  border-left-color: var(--turquoise);
 }
 .menu i {
   font-style: normal;
-  font-size: 10px;
+  font-size: max(9px, calc(10 * var(--u)));
+  font-weight: 400;
+  opacity: 0.7;
+}
+.menu a[aria-current="page"] i {
   color: var(--turquoise);
+  opacity: 1;
 }
 
 .cta {
   border: 1px solid var(--turquoise);
-  color: var(--turquoise);
+  color: inherit;
   font-weight: 900;
-  font-size: 12px;
-  letter-spacing: 0.05em;
+  font-size: max(11px, calc(12 * var(--u)));
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 10px 22px;
+  padding: calc(10 * var(--u)) calc(42 * var(--u));
+  min-height: 34px;
+  display: flex;
+  align-items: center;
   transition: background var(--dur-m) var(--ease-overlay), color var(--dur-m) var(--ease-overlay);
 }
 .cta:hover,
@@ -72,7 +95,7 @@
 }
 
 .header a:focus-visible {
-  outline: 2px solid var(--blanc);
+  outline: 2px solid currentColor;
   outline-offset: 3px;
 }
 

@@ -1,0 +1,96 @@
+.section {
+  padding: calc(160 * var(--u)) var(--gut);
+  background: var(--noir);
+}
+.head {
+  max-width: 900px;
+  margin-bottom: calc(72 * var(--u));
+}
+.num {
+  font-weight: 700;
+  font-size: max(18px, calc(28 * var(--u)));
+  color: var(--turquoise);
+  margin-bottom: 12px;
+}
+.title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: max(36px, calc(90 * var(--u)));
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 28px;
+}
+.intro {
+  font-weight: 300;
+  font-size: max(15px, calc(18 * var(--u)));
+  line-height: 1.65;
+  color: var(--gris-clair);
+  max-width: 62ch;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.grid li {
+  display: flex;
+}
+.card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: calc(40 * var(--u)) max(20px, calc(36 * var(--u)));
+  background: var(--anthracite);
+  border: 1px solid var(--graphite);
+  transition: border-color var(--dur-m), background var(--dur-m);
+}
+.card:hover,
+.card:focus-visible {
+  border-color: var(--turquoise);
+  background: var(--encre);
+}
+.card:focus-visible {
+  outline: 2px solid var(--blanc);
+  outline-offset: 3px;
+}
+.idx {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--turquoise);
+}
+.cardTitle {
+  font-family: var(--font-brand);
+  font-size: max(22px, calc(30 * var(--u)));
+  line-height: 1.15;
+  font-weight: 400;
+}
+.cardText {
+  flex: 1;
+  font-weight: 300;
+  font-size: max(14px, calc(16 * var(--u)));
+  line-height: 1.6;
+  color: var(--gris-clair);
+}
+.more {
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--turquoise);
+}
+
+@media (max-width: 1080px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

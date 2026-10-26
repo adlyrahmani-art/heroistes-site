@@ -9,8 +9,9 @@ const onest = Onest({ variable: "--font-onest", subsets: ["latin"], weight: ["30
 const spaceMono = Space_Mono({ variable: "--font-space-mono", subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
-  title: "Héroïstes · Agence marketing B2B, héros du R.O.I.",
-  description: "Héroïstes, l’agence marketing B2B de Grenoble et Paris jugée sur vos ventes.",
+  title: "Agence marketing B2B orientée résultats | Héroïstes",
+  description:
+    "Agence marketing B2B à 360 degrés, Héroïstes réunit conseil, ventes, marque et acquisition, et suit chaque action jusqu’au lead.",
 };
 
 export const viewport: Viewport = {

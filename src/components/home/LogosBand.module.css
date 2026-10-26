@@ -1,0 +1,56 @@
+.band {
+  padding: calc(120 * var(--u)) 0;
+  background: var(--noir);
+  border-top: 1px solid var(--graphite);
+  border-bottom: 1px solid var(--graphite);
+}
+.text {
+  padding-inline: var(--gut);
+  margin-bottom: calc(56 * var(--u));
+  font-family: var(--font-mono);
+  font-size: max(11px, calc(13 * var(--u)));
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--acier);
+  text-align: center;
+}
+
+/* Défilement continu, en pause au survol */
+.marquee {
+  display: flex;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+.marquee:hover .row {
+  animation-play-state: paused;
+}
+.row {
+  display: flex;
+  flex-shrink: 0;
+  gap: calc(110 * var(--u));
+  padding-right: calc(110 * var(--u));
+  margin: 0;
+  list-style: none;
+  animation: marquee 32s linear infinite;
+}
+.logo {
+  font-family: var(--font-brand);
+  font-size: max(26px, calc(46 * var(--u)));
+  white-space: nowrap;
+  color: var(--acier);
+  transition: color var(--dur-m);
+}
+.logo:hover {
+  color: var(--gris-clair);
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row {
+    animation: none;
+  }
+}

@@ -1,0 +1,70 @@
+.panel {
+  flex: 0 0 100vw;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.light {
+  background: var(--fond-clair);
+  color: var(--encre);
+}
+.dark {
+  background: var(--noir);
+  color: var(--blanc);
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: calc(10 * var(--u));
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: max(52px, calc(190 * var(--u)));
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+.num {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: max(20px, calc(48 * var(--u)));
+  letter-spacing: 0;
+  color: var(--turquoise);
+  opacity: 0;
+  transition: opacity var(--dur-l) var(--ease-reveal);
+}
+.ln {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+.ln > span {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform var(--dur-xl) var(--ease-reveal) 100ms;
+}
+/* Trait turquoise qui se déroule sous le titre */
+.bar {
+  display: block;
+  height: max(4px, calc(10 * var(--u)));
+  background: var(--turquoise);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-xl) var(--ease-overlay) 350ms;
+}
+
+:global(.is-in) .num {
+  opacity: 1;
+}
+:global(.is-in) .ln > span,
+:global(.is-in) .bar {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .num,
+  .ln > span,
+  .bar {
+    transition: none;
+  }
+}

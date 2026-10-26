@@ -1,19 +1,29 @@
 import Header from "@/components/Header";
-import Hero from "@/components/hero/Hero";
-import styles from "./page.module.css";
+import HorizontalScroll from "@/components/home/HorizontalScroll";
+import HeroPanel from "@/components/home/HeroPanel";
+import SectionTitlePanel from "@/components/home/SectionTitlePanel";
+import EngagementPanel from "@/components/home/EngagementPanel";
+import LogosBand from "@/components/home/LogosBand";
+import Besoins from "@/components/home/Besoins";
+import { engagements } from "@/content/accueil";
 
 export default function Home() {
   return (
     <>
       <Header />
       <main id="accueil">
-        <Hero />
-        {/* Lames suivantes à développer une par une (cf. brief, prochaine étape 4) */}
-        <section id="expertises" className={styles.placeholder} aria-label="Expertises">
-          <p className={styles.num}>02.</p>
-          <h2 className={styles.title}>Expertises</h2>
-          <p className={styles.note}>Lame à venir : cartes empilées sticky (réf. grenark).</p>
-        </section>
+        {/* Sections 1 et 2 : défilement horizontal */}
+        <HorizontalScroll>
+          <HeroPanel />
+          <SectionTitlePanel num="02." title="Nos engagements" />
+          {engagements.map((e) => (
+            <EngagementPanel key={e.num} item={e} />
+          ))}
+        </HorizontalScroll>
+
+        {/* Sections suivantes : défilement vertical */}
+        <LogosBand />
+        <Besoins />
       </main>
     </>
   );

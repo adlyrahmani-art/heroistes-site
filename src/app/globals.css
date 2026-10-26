@@ -9,6 +9,7 @@
   --acier: #5e5d5d;
   --gris-clair: #cfcfcf;
   --blanc: #ffffff;
+  --fond-clair: #e9e9e9; /* fond des lames claires (maquettes Section2) */
 
   --font-display: var(--font-gloock), var(--font-dm-serif), Georgia, serif;
   --font-brand: var(--font-dm-serif), Georgia, serif;
@@ -24,8 +25,13 @@
   --ease-overlay: cubic-bezier(0.76, 0, 0.24, 1);
   --stagger: 60ms;
 
+  /* Unité maquette : 1 px de la maquette 1920 × 1080, mise à l'échelle de l'écran */
+  --u: min(calc(100vw / 1920), calc(100svh / 1080));
+  /* Positions verticales : 1 px de hauteur maquette */
+  --uy: calc(100svh / 1080);
+
   /* Grille : marges 40 desktop, 16 mobile */
-  --gut: max(16px, min(40px, 2.6vw), env(safe-area-inset-left, 0px));
+  --gut: max(16px, calc(40 * var(--u)), env(safe-area-inset-left, 0px));
 
   color-scheme: dark;
 }
@@ -65,6 +71,15 @@ h2 {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 /* Lenis */
@@ -116,8 +131,29 @@ html.lenis body {
 .btn-primary::before {
   background: var(--turquoise-profond);
 }
+/* Secondaire sur fond sombre : contour blanc */
+.btn-light {
+  border-color: var(--blanc);
+  color: var(--blanc);
+}
+.btn-light::before {
+  background: var(--blanc);
+}
+/* Secondaire sur lame claire : contour gris */
+.btn-ghost {
+  border-color: #8d8d8d;
+  color: #8d8d8d;
+}
+.btn-ghost::before {
+  background: var(--encre);
+}
+.btn-ghost:hover,
+.btn-ghost:focus-visible {
+  color: var(--blanc);
+  border-color: var(--encre);
+}
 .btn:focus-visible {
-  outline: 2px solid var(--blanc);
+  outline: 2px solid currentColor;
   outline-offset: 3px;
 }
 
