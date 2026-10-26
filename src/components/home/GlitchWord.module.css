@@ -1,0 +1,39 @@
+.word {
+  display: inline-block;
+  position: absolute;
+}
+/* Copie invisible qui donne sa taille au bloc */
+.sizer {
+  visibility: hidden;
+}
+/* Chaque colonne ne montre que sa tranche du mot */
+.col {
+  position: absolute;
+  inset: 0;
+}
+.copy {
+  display: block;
+  mask-size: 100% 100%;
+}
+/* La tranche glisse depuis la gauche d'une largeur de colonne, colonnes décalées de 0,1 s */
+.slide {
+  display: block;
+  transform: translateX(-25%);
+  opacity: 0;
+  transition:
+    transform 0.9s var(--ease-reveal),
+    opacity 0.3s ease;
+  transition-delay: calc(0.35s + var(--i) * 0.1s);
+}
+:global(.is-in) .slide {
+  transform: none;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+}

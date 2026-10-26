@@ -1,6 +1,7 @@
 import type { Engagement } from "@/content/accueil";
 import RichText from "@/components/RichText";
 import { Bolt } from "@/components/Logo";
+import GlitchWord from "./GlitchWord";
 import styles from "./EngagementPanel.module.css";
 
 /** Lame d'un engagement (maquettes Section2-1*) : titre d'un côté de la ligne centrale, texte et photo de l'autre. */
@@ -14,9 +15,7 @@ export default function EngagementPanel({ item }: { item: Engagement }) {
       aria-labelledby={`eng-${item.num}`}
     >
       <span className={styles.axis} aria-hidden="true" />
-      <span className={styles.ghost} data-speed="0.18" aria-hidden="true">
-        {item.ghost}
-      </span>
+      <GlitchWord text={item.ghost} className={styles.ghost} speed="0.18" />
 
       <div className={styles.head}>
         <p className={styles.num}>{item.num}</p>

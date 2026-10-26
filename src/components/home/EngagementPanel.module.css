@@ -173,10 +173,12 @@
 }
 
 /* Révélation : titre d'abord, puis texte, photo et boutons */
+/* Marge haute compensée pour ne pas rogner les accents (SPÉCIALISATION, ACCÈS, MESURÉ) */
 .ln {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.04em;
+  padding: 0.16em 0 0.04em;
+  margin-top: -0.16em;
 }
 .ln > span {
   display: inline-block;

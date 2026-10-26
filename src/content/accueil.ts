@@ -54,7 +54,7 @@ export const engagements: Engagement[] = [
     title: ["Impact", "mesuré"],
     ghost: "Impact",
     text: "**Chaque action se mesure** à ce qu’elle apporte à votre chiffre d’affaires, pas en clics.",
-    image: "/images/impact-mesure.jpg",
+    image: "/images/impact-mesure.png",
     imageAlt: "Silhouette dans une rue baignée de lumière",
     side: "right",
   },
