@@ -21,17 +21,18 @@
   transition: transform var(--dur-xl) var(--ease-overlay);
 }
 
-/* Mot fantôme géant, en parallaxe derrière la photo */
+/* Mot fantôme géant, en parallaxe, en voile translucide par-dessus la photo */
 .ghost {
   position: absolute;
   top: calc(560 * var(--uy));
-  z-index: 0;
+  z-index: 3;
+  opacity: 0.55;
   font-family: var(--font-display);
   text-transform: uppercase;
   font-size: calc(330 * var(--u));
   line-height: 0.8;
   letter-spacing: -0.03em;
-  color: #dedede;
+  color: #d4d4d4;
   white-space: nowrap;
   pointer-events: none;
 }

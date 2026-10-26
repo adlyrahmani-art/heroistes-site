@@ -33,15 +33,20 @@
   list-style: none;
   animation: marquee 32s linear infinite;
 }
-.logo {
-  font-family: var(--font-brand);
-  font-size: max(26px, calc(46 * var(--u)));
-  white-space: nowrap;
-  color: var(--acier);
-  transition: color var(--dur-m);
+.row {
+  align-items: center;
 }
-.logo:hover {
-  color: var(--gris-clair);
+.logo img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: max(48px, calc(80 * var(--u)));
+  max-width: max(110px, calc(180 * var(--u)));
+  opacity: 0.75;
+  transition: opacity var(--dur-m);
+}
+.logo:hover img {
+  opacity: 1;
 }
 @keyframes marquee {
   to {

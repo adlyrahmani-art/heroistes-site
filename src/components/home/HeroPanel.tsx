@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import { hero } from "@/content/accueil";
 import RichText from "@/components/RichText";
 import Constellation from "./Constellation";
+import HeroImage from "./HeroImage";
 import styles from "./HeroPanel.module.css";
 
 const delay = (i: number) => ({ "--i": i }) as CSSProperties;
@@ -11,6 +12,7 @@ export default function HeroPanel() {
   return (
     <section className={styles.hero} data-panel data-tone="dark" aria-labelledby="hero-title">
       <div className={styles.bg} aria-hidden="true" />
+      <HeroImage src="/images/hero-bg.jpg" className={styles.photo} />
       <Constellation className={styles.constellation} />
       <div className="fx-grain" aria-hidden="true" />
 

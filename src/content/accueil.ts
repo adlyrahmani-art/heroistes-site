@@ -27,7 +27,7 @@ export const engagements: Engagement[] = [
     title: ["Approche", "globale"],
     ghost: "Globale",
     text: "**Marque, site et acquisition** sont pensés ensemble, pour que vos actions se renforcent au lieu de se contredire.",
-    image: "/images/approche-globale.jpg",
+    image: "/images/approche-globale.png",
     imageAlt: "Deux poings tendus vers l’objectif",
     side: "left",
   },
@@ -36,7 +36,7 @@ export const engagements: Engagement[] = [
     title: ["Spécialisation", "B2B"],
     ghost: "B2B",
     text: "Des cycles de vente longs, plusieurs décideurs : nous ne travaillons qu’avec **des entreprises qui vendent aux entreprises.**",
-    image: "/images/specialisation-b2b.jpg",
+    image: "/images/specialisation-b2b.png",
     imageAlt: "Professionnels marchant devant un mur de béton",
     side: "right",
   },
@@ -45,7 +45,7 @@ export const engagements: Engagement[] = [
     title: ["Accès", "direct"],
     ghost: "Direct",
     text: "**Vous échangez avec les associés qui décident**, pas avec un chef de projet intermédiaire.",
-    image: "/images/acces-direct.jpg",
+    image: "/images/acces-direct.png",
     imageAlt: "Mains sur le clavier d’un ordinateur portable",
     side: "left",
   },
@@ -62,7 +62,16 @@ export const engagements: Engagement[] = [
 
 export const logos = {
   text: "Ils nous confient déjà leur croissance, de la stratégie aux campagnes.",
-  clients: ["Carpigiani", "Pranéo", "Arkolia", "Isère Habitat", "Beauchamp", "Isotac", "Rezo Partage"],
+  // Logos gris sur fond transparent ; largeur/hauteur = taille native du PNG
+  clients: [
+    { name: "Carpigiani", src: "/images/logos/carpigiani.png", w: 173, h: 74 },
+    { name: "Pranéo", src: "/images/logos/praneo.png", w: 126, h: 126 },
+    { name: "Arkolia", src: "/images/logos/arkolia.png", w: 188, h: 82 },
+    { name: "Isère Habitat", src: "/images/logos/isere-habitat.png", w: 154, h: 146 },
+    { name: "Beauchamp", src: "/images/logos/beauchamp.png", w: 210, h: 49 },
+    { name: "Isotac", src: "/images/logos/isotac.png", w: 147, h: 26 },
+    { name: "Rezo Partage", src: "/images/logos/rezo-partage.png", w: 176, h: 135 },
+  ],
 };
 
 export const besoins = {
