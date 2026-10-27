@@ -1,0 +1,241 @@
+/* Cotes : maquettes « Section Pourquoi choisir » et « … du plan aux résultats » (1920 de large) */
+.scene {
+  /* Sections verticales : l'échelle suit la largeur seule (pas de contrainte de hauteur) */
+  --u: calc(100vw / 1920);
+  position: relative;
+  z-index: 2; /* glisse par-dessus la piste Expertises (transition en parallaxe) */
+  background: #efefef;
+  color: var(--encre);
+}
+
+/* Fond animé (symbole 3D flou) fixe pendant la traversée des deux sections (calque le plus profond) */
+.bg {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  margin-bottom: -100svh;
+  z-index: 0;
+  overflow: hidden;
+  /* Secours sans WebGL : la même image, fixe */
+  background: url("/images/b2b-bg.jpg") right top / cover no-repeat #efefef;
+}
+.smoke {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity var(--dur-l) ease;
+}
+
+.section {
+  position: relative;
+  z-index: 1;
+  padding: calc(115 * var(--u)) calc(242 * var(--u)) calc(113 * var(--u));
+  pointer-events: none; /* la souris atteint la fumée entre les blocs… */
+}
+/* Espacements relevés sur la maquette « … du plan aux résultats » */
+.plan {
+  padding-top: calc(125 * var(--u));
+  padding-bottom: calc(88 * var(--u));
+}
+.section :is(header, p, figure, a, li > div, ol, ul) {
+  pointer-events: auto; /* …mais le contenu reste sélectionnable et cliquable */
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: max(34px, calc(80 * var(--u)));
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+}
+.subtitle {
+  margin-top: 0.08em;
+  text-transform: none;
+  font-size: 0.7em;
+  line-height: 1;
+}
+
+.intro {
+  margin-top: calc(62 * var(--u));
+  max-width: calc(1180 * var(--u));
+  min-width: min(100%, 320px);
+  font-weight: 300;
+  font-size: max(14px, calc(16.5 * var(--u)));
+  line-height: 1.45;
+  white-space: pre-line;
+}
+.intro strong,
+.text strong {
+  font-weight: 700;
+}
+
+.h3 {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-size: max(28px, calc(48 * var(--u)));
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+.text {
+  margin-top: calc(45 * var(--u));
+  font-weight: 300;
+  font-size: max(14px, calc(16.5 * var(--u)));
+  line-height: 1.45;
+  white-space: pre-line;
+}
+
+/* ---------- 9.5 : trois réalités ---------- */
+.reasons {
+  display: grid;
+  grid-template-columns: repeat(3, calc(320 * var(--u)));
+  column-gap: calc(207 * var(--u));
+  margin: calc(100 * var(--u)) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.reason {
+  display: flex;
+  flex-direction: column;
+}
+.reasonText {
+  margin-top: calc(40 * var(--u));
+}
+.reasonText .text {
+  max-width: calc(330 * var(--u));
+  min-width: min(100%, 240px);
+}
+/* Colonne du milieu décalée : le texte d'abord, la photo dessous */
+.reasonMid {
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  padding-top: calc(103 * var(--u));
+}
+.reasonMid .reasonText {
+  margin: 0 0 calc(60 * var(--u));
+}
+
+.portrait,
+.landscape {
+  margin: 0;
+  overflow: hidden;
+}
+.portrait {
+  aspect-ratio: 317 / 542;
+}
+.landscape {
+  aspect-ratio: 625 / 543;
+}
+.portrait img,
+.landscape img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- 9.6 : deux volets ---------- */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(2, calc(627 * var(--u)));
+  column-gap: calc(185 * var(--u));
+  margin: calc(110 * var(--u)) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.stepText {
+  margin-top: calc(50 * var(--u));
+}
+/* Titres alignés par le bas, quel que soit leur nombre de lignes */
+.stepText .h3 {
+  min-height: 2em;
+  justify-content: flex-end;
+}
+.stepText .text {
+  max-width: calc(560 * var(--u));
+  min-width: min(100%, 260px);
+}
+
+/* ---------- Conclusion + bouton ---------- */
+.outro {
+  margin-top: calc(68 * var(--u));
+  max-width: calc(830 * var(--u));
+  min-width: min(100%, 320px);
+  font-size: max(14px, calc(16.5 * var(--u)));
+  line-height: 1.45;
+}
+.outro strong {
+  font-weight: 700;
+}
+.plan .outro {
+  margin-top: calc(110 * var(--u));
+  max-width: calc(1440 * var(--u));
+}
+.cta {
+  margin-top: calc(49 * var(--u));
+  padding: max(12px, calc(15 * var(--u))) max(18px, calc(28 * var(--u)));
+  min-width: calc(270 * var(--u));
+  text-align: center;
+}
+.plan .cta {
+  margin-top: calc(85 * var(--u));
+}
+.bolt {
+  position: absolute;
+  right: calc(68 * var(--u));
+  bottom: calc(150 * var(--u));
+  width: max(16px, calc(24 * var(--u)));
+  height: auto;
+}
+
+/* ---------- Entrées ---------- */
+.section [data-in] {
+  opacity: 0;
+  translate: 0 40px;
+  transition:
+    opacity 1s var(--ease-reveal),
+    translate 1s var(--ease-reveal);
+}
+.section .in {
+  opacity: 1;
+  translate: none;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 900px) {
+  .section {
+    padding: 80px 20px 96px;
+  }
+  .reasons,
+  .steps {
+    grid-template-columns: 1fr;
+    row-gap: 56px;
+  }
+  .reasonMid {
+    flex-direction: column;
+    padding-top: 0;
+  }
+  .reasonMid .reasonText {
+    margin: 32px 0 0;
+  }
+  .portrait {
+    width: min(100%, 360px);
+  }
+  .stepText .h3 {
+    min-height: 0;
+  }
+  .bolt {
+    bottom: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section [data-in] {
+    opacity: 1;
+    translate: none;
+    transition: none;
+  }
+}

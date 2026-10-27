@@ -179,3 +179,60 @@ export const expertises = {
     },
   ] as Expertise[],
 };
+
+/** Bloc 9.5 · Pourquoi une agence spécialisée (maquette « Section Pourquoi choisir »). */
+export const pourquoi = {
+  title: ["Pourquoi choisir une", "agence spécialisée en B2B ?"],
+  intro:
+    "**Vendre à une entreprise ne ressemble en rien à vendre à un particulier**.\nLes recettes du marketing grand public y fonctionnent mal, et une agence généraliste le découvre souvent trop tard. Trois réalités changent la donne :",
+  items: [
+    {
+      title: ["Un cycle de", "vente long"],
+      text: "Entre le premier contact et la signature, il s’écoule souvent des mois. **Vos prospects doivent trouver le bon contenu** à chaque étape, sans relance maladroite.",
+      image: "/images/pourquoi-cycle.jpg",
+      imageAlt: "Longue route droite qui file vers l’horizon",
+    },
+    {
+      title: ["Plusieurs", "décideurs à", "convaincre"],
+      text: "**Dirigeant, acheteur, direction technique** : chacun juge votre offre avec ses propres critères. Votre discours doit rassurer chacun d’eux, sans jamais en oublier un seul.",
+      image: "/images/pourquoi-decideurs.jpg",
+      imageAlt: "Homme devant un mur couvert de portraits épinglés",
+    },
+    {
+      title: ["Des ventes et", "un marketing", "à aligner"],
+      text: "Quand le marketing envoie des contacts que vos commerciaux jugent inutiles, tout le monde perd. **Une logique RevOps donne les mêmes objectifs aux deux équipes.**",
+      image: "/images/pourquoi-alignement.jpg",
+      imageAlt: "Téléphone public couvert de graffitis",
+    },
+  ],
+  outro:
+    "Nos associés cumulent 15 ans d’expérience en marketing et en développement commercial. Ils ont fondé Héroïstes pour mettre ce savoir-faire au service des dirigeants qui veulent des résultats concrets.",
+  cta: { label: "Découvrez l’agence Héroïstes", href: "/agence/" },
+};
+
+/** Bloc 9.6 · Du plan aux résultats (maquette « Agence marketing B2B _ comment passer du plan aux résultats »). */
+export const plan = {
+  title: "Agence marketing B2B :",
+  subtitle: "Comment passer du plan aux résultats ?",
+  intro:
+    "Combien de plans marketing ne dépassent jamais le stade du document ? Une agence B2B ne devrait pas s’arrêter au conseil.\nChez Héroïstes, les mêmes équipes conçoivent le plan, le déploient, puis répondent de ses résultats.",
+  steps: [
+    {
+      title: ["Définir la stratégie"],
+      text: "Tout commence par un diagnostic de vos ventes, de votre marché et de votre marque. Avec vous, nous fixons cibles prioritaires, positionnement et objectifs commerciaux, puis une feuille de route : quelles actions, dans quel ordre, avec quel budget.",
+      image: "/images/plan-strategie.jpg",
+      imageAlt: "Partie d’échecs géants sur une place",
+    },
+    {
+      title: ["La mettre en œuvre", "et la mesurer"],
+      text: "Nos équipes déploient ensuite le plan : prospection, site web, contenus, campagnes Google Ads ou LinkedIn, marketing automation.\nAucun passage de relais entre prestataires. Chaque action est tracée jusque dans votre CRM, et nos rapports parlent de leads et de ventes.",
+      image: "/images/plan-mesure.jpg",
+      imageAlt: "Compteur à aiguille sur un tableau de bord ancien",
+    },
+  ],
+  outro: [
+    "C’est tout le sens de notre signature, le Héros du R.O.I. Nous savons ce que produit chaque action : ce qui fait avancer vos ventes est renforcé, le reste est corrigé ou arrêté.",
+    "Les objectifs sont fixés avec vous dès le départ, et nous faisons le point ensemble à chaque étape. Vous restez libre : on peut commencer par un seul besoin, puis aller plus loin quand vous êtes convaincu.",
+  ],
+  cta: { label: "Discutons de votre projet", href: "/contact/" },
+};

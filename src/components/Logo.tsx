@@ -1,6 +1,6 @@
 // Tracés exacts du symbole (ressources/Logo Heroistes final.svg)
-const BLADE_LEFT = "M266.506 0L153 113.574V349.68L328.636 173.939H267.94L266.506 0Z";
-const BLADE_RIGHT = "M267.494 388L381 274.426V38.3203L205.364 214.045H266.06L267.494 388Z";
+export const BLADE_LEFT = "M266.506 0L153 113.574V349.68L328.636 173.939H267.94L266.506 0Z";
+export const BLADE_RIGHT = "M267.494 388L381 274.426V38.3203L205.364 214.045H266.06L267.494 388Z";
 
 /** Symbole H : deux lames. */
 export function LogoMark({ className }: { className?: string }) {
