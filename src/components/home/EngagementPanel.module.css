@@ -45,7 +45,8 @@
 
 .head {
   position: absolute;
-  top: calc(88 * var(--uy));
+  /* Sous le flou du menu (Header .blur), pour que le numéro reste net */
+  top: max(118px, calc(130 * var(--uy)));
   z-index: 2;
 }
 .titleLeft .head {

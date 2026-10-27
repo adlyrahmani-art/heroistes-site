@@ -18,6 +18,40 @@
   pointer-events: auto;
 }
 
+/* Flou progressif (réf. ressources/image 17.jpg) : 5 couches de flou croissant, chacune masquée
+   un peu plus haut, pour un dégradé de netteté sans bande visible ni couleur ajoutée */
+.blur {
+  position: absolute;
+  inset: 0 0 auto;
+  height: max(110px, calc(150 * var(--u)) + env(safe-area-inset-top, 0px));
+  z-index: -1;
+  pointer-events: none;
+}
+.blur span {
+  position: absolute;
+  inset: 0;
+}
+.blur span:nth-child(1) {
+  backdrop-filter: blur(1px);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 60%, transparent 100%);
+}
+.blur span:nth-child(2) {
+  backdrop-filter: blur(2px);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 85%);
+}
+.blur span:nth-child(3) {
+  backdrop-filter: blur(4px);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 32%, transparent 70%);
+}
+.blur span:nth-child(4) {
+  backdrop-filter: blur(8px);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 20%, transparent 55%);
+}
+.blur span:nth-child(5) {
+  backdrop-filter: blur(16px);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 10%, transparent 40%);
+}
+
 /* Sur une lame claire, le header passe en encre */
 :global(body[data-tone="light"]) .header {
   color: var(--encre);

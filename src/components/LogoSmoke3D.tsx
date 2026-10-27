@@ -267,8 +267,11 @@ export default function LogoSmoke3D({ className }: { className?: string }) {
 
     const render = (t: number) => {
       mouse.lerp(mouseTarget, 0.04);
-      // Balancement doux : le logo reste lisible de face
-      pivot.rotation.set(0.12 * Math.sin(t * 0.17) + mouse.y * 0.15, 0.35 * Math.sin(t * 0.13) + mouse.x * 0.3, -0.06 + 0.04 * Math.sin(t * 0.09));
+      // Demi-tour simple (180°) à plat pendant chaque dispersion : le symbole étant symétrique,
+      // il se reconstruit à l'endroit, et la boucle est continue
+      const k = Math.min(Math.max(((t % CYCLE) - 4) / 9.5, 0), 1);
+      const turn = (Math.floor(t / CYCLE) + k * k * (3 - 2 * k)) * Math.PI;
+      pivot.rotation.set(mouse.y * 0.15, mouse.x * 0.3, turn);
       pivot.position.y = 0.08 * Math.sin(t * 0.2) + drift;
       material.uniforms.uTime.value = t;
 
