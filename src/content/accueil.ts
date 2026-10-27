@@ -158,8 +158,6 @@ export const expertises = {
       link: { before: "Votre offre mérite d’être bien racontée : nous vous aidons à", label: "structurer votre image de marque", href: "/branding/" },
     },
   ] as Expertise[],
-  rollout:
-    "Vient ensuite la mise en œuvre, où nous intervenons comme une agence de marketing digital B2B à part entière :",
   delivery: [
     {
       title: ["Digital", "Experience"],

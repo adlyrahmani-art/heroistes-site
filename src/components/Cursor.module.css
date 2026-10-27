@@ -7,9 +7,11 @@
   height: 0;
   pointer-events: none;
   will-change: transform;
+  color: var(--turquoise);
 }
 
-/* Forme du curseur, centrée sur la position ; transitions reprises de m-n.fr (0,6 s) */
+/* Anneau, centré sur la position ; transitions reprises de m-n.fr (0,6 s). Toujours en contour :
+   il ne recouvre jamais le contenu. */
 .inner {
   position: absolute;
   left: -36px;
@@ -19,18 +21,16 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  border: 1.5px solid transparent;
-  background: var(--turquoise);
-  color: var(--encre);
-  transform: scale(0.17);
-  opacity: 1;
+  border: 1.5px solid currentColor;
+  background: currentColor;
+  transform: scale(0.15);
   transition:
     transform 0.6s cubic-bezier(0.77, 0, 0.175, 1),
-    background-color 0.4s ease,
-    border-color 0.4s ease,
+    background-color 0.3s ease,
     opacity 0.3s ease;
 }
-.cursor[data-visible="false"] .inner {
+.cursor[data-visible="false"] .inner,
+.cursor[data-visible="false"] .caret {
   opacity: 0;
 }
 
@@ -44,22 +44,49 @@
     transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-/* Lien / bouton : anneau turquoise, le contenu reste lisible */
+/* Barre de saisie sur le texte : fine, à la hauteur des lettres survolées */
+.caret {
+  position: absolute;
+  left: -1px;
+  top: calc(var(--caret, 24px) / -2);
+  width: 2px;
+  height: var(--caret, 24px);
+  background: currentColor;
+  transform: scaleY(0);
+  transition:
+    transform 0.35s cubic-bezier(0.77, 0, 0.175, 1),
+    height 0.3s ease,
+    top 0.3s ease,
+    opacity 0.3s ease;
+}
+.cursor[data-state="text"] .caret {
+  transform: scaleY(1);
+  animation: blink 1.1s steps(1) 0.4s infinite;
+}
+.cursor[data-state="text"] .inner {
+  transform: scale(0);
+}
+@keyframes blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* Lien / bouton : anneau */
 .cursor[data-state="link"] .inner {
   transform: scale(0.6);
-  background: transparent;
-  border-color: var(--turquoise);
+  background-color: transparent;
 }
-/* Carte : grand anneau qui encadre la lecture */
+/* Carte : grand anneau fin qui encadre la lecture */
 .cursor[data-state="card"] .inner {
-  transform: scale(1.25);
-  background: transparent;
-  border-color: var(--turquoise);
+  transform: scale(1.2);
+  background-color: transparent;
   border-width: 1px;
 }
-/* Piste horizontale : disque turquoise, flèches encre (jamais de blanc sur turquoise) */
+/* Piste horizontale : anneau avec flèches turquoise */
 .cursor[data-state="scroll"] .inner {
   transform: scale(1);
+  background-color: transparent;
 }
 .cursor[data-state="scroll"] .arrows {
   opacity: 1;
@@ -69,5 +96,5 @@
   transform: scale(0.8);
 }
 .cursor[data-pressed="true"][data-state="default"] .inner {
-  transform: scale(0.12);
+  transform: scale(0.1);
 }

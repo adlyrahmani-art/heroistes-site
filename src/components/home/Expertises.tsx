@@ -96,7 +96,7 @@ export default function Expertises() {
         <Bolt className={styles.bolt} />
       </div>
       <div className={`${styles.panel} ${styles.cardsPanel}`} data-panel data-reveal data-tone="dark">
-        <p className={styles.rollout}>{expertises.rollout}</p>
+        <p className="visually-hidden">Ligne 2 : mise en œuvre</p>
         <div className={styles.cards}>
           {expertises.delivery.map((e, i) => (
             <Card key={e.title.join(" ")} item={e} num={i + 4} i={i} />

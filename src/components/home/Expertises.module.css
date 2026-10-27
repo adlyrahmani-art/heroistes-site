@@ -73,6 +73,10 @@
   white-space: nowrap;
   margin-bottom: calc(70 * var(--u));
 }
+/* Le masque de révélation prend la largeur du titre, pas celle de la colonne */
+.heading .ln {
+  width: max-content;
+}
 .intro {
   font-weight: 300;
   font-size: max(14px, calc(16.5 * var(--u)));
@@ -116,19 +120,6 @@
 }
 
 /* ---------- Lames de cartes ---------- */
-.rollout {
-  position: absolute;
-  top: calc(250 * var(--uy));
-  left: calc(50% - 882 * var(--u)); /* aligné sur la première carte */
-  max-width: calc(760 * var(--u));
-  min-width: min(300px, 80vw);
-  font-weight: 300;
-  font-size: max(14px, calc(16.5 * var(--u)));
-  line-height: 1.45;
-  color: var(--gris-clair);
-  opacity: 0;
-  transition: opacity var(--dur-l) var(--ease-reveal) 200ms;
-}
 .cards {
   position: absolute;
   top: calc(365 * var(--uy));
@@ -268,7 +259,6 @@
   transform: none;
 }
 :global(.is-in) .intro,
-:global(.is-in) .rollout,
 :global(.is-in) .card {
   opacity: 1;
   transform: none;
@@ -315,35 +305,13 @@
     width: min(82vw, 380px);
     height: min(72svh, 520px);
   }
-  .rollout {
-    top: 80px;
-    left: 16px;
-    max-width: 80vw;
-  }
-  .detailsText {
-    top: 96px;
-    left: 20px;
-    right: 20px;
-    width: auto;
-  }
-  .photo {
-    top: auto;
-    bottom: 40px;
-    left: 20px;
-    width: min(60vw, 280px);
-  }
-  .titlePanel {
-    padding: 0 20px;
-  }
-}
-
+  
 @media (prefers-reduced-motion: reduce) {
   .ln > span,
   .bar,
   .intro,
   .photo,
   .photo img,
-  .rollout,
   .card,
   .card::before,
   .desc {
