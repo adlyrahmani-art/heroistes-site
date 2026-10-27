@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Serif_Display, Gloock, Onest, Space_Mono } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
+import Cursor from "@/components/Cursor";
 import "./globals.css";
 
 const gloock = Gloock({ variable: "--font-gloock", subsets: ["latin"], weight: "400" });
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="fr" className={`${gloock.variable} ${dmSerif.variable} ${onest.variable} ${spaceMono.variable}`}>
       <body>
         <SmoothScroll>{children}</SmoothScroll>
+        <Cursor />
       </body>
     </html>
   );

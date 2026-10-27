@@ -123,3 +123,61 @@ export const besoins = {
     },
   ],
 };
+
+export type Expertise = {
+  title: [string] | [string, string];
+  lead: string; // première phrase, en gras
+  text: string;
+  link?: { before: string; label: string; href: string }; // phrase finale avec lien explicite
+};
+
+/** Bloc 9.4 · Expertises (maquettes « Expertises - Titre / Details / Cards »). */
+export const expertises = {
+  title: ["Six expertises réunies", "dans une agence 360"],
+  heading: "Nos expertises",
+  intro:
+    "Une agence qui fait tout ne fait rien à fond ?\n**Chez Héroïstes, chaque pôle a ses propres spécialistes.**\nLes trois premiers posent la stratégie, les trois suivants la déploient, et tous travaillent sur le même dossier : le vôtre.",
+  image: "/images/expertises-dactylo.jpg",
+  strategy: [
+    {
+      title: ["Conseil"],
+      lead: "Avant d’investir, sachez où agir.",
+      text: "Nous analysons votre stratégie marketing et votre stratégie numérique, puis traçons une feuille de route claire.",
+      link: { before: "Un regard extérieur précieux pour les dirigeants : découvrez notre offre de", label: "conseil et stratégie digitale", href: "/conseil/" },
+    },
+    {
+      title: ["Développement", "commercial"],
+      lead: "Prospection commerciale, génération de leads, séquences de relance : nous alimentons votre pipeline commercial.",
+      text: "Vos commerciaux cherchent moins de contacts et signent davantage.",
+      link: { before: "Pour sortir de la dépendance au bouche-à-oreille, nous vous aidons à", label: "développer vos ventes", href: "/developpement-commercial/" },
+    },
+    {
+      title: ["Branding", "et contenu"],
+      lead: "Plateforme de marque, identité visuelle, marketing de contenu : nous agissons en agence de communication B2B, au service de vos ventes.",
+      text: "",
+      link: { before: "Votre offre mérite d’être bien racontée : nous vous aidons à", label: "structurer votre image de marque", href: "/branding/" },
+    },
+  ] as Expertise[],
+  rollout:
+    "Vient ensuite la mise en œuvre, où nous intervenons comme une agence de marketing digital B2B à part entière :",
+  delivery: [
+    {
+      title: ["Digital", "Experience"],
+      lead: "Site institutionnel, e-commerce, landing pages, applications métier, UX/UI : des outils pensés pour la conversion et connectés à votre CRM.",
+      text: "",
+      link: { before: "Une étape clé de votre transformation numérique, menée avec vous : découvrez", label: "nos sites et outils digitaux", href: "/digital/" },
+    },
+    {
+      title: ["Acquisition", "et performance"],
+      lead: "SEO, GEO, publicité en ligne sur Google Ads et LinkedIn, marketing automation : nous pilotons tout votre webmarketing, jusque dans les moteurs d’intelligence artificielle.",
+      text: "",
+      link: { before: "Pour une acquisition client maîtrisée, nous vous aidons à", label: "structurer votre acquisition digitale", href: "/acquisition/" },
+    },
+    {
+      // Pas de lien tant que la page /cybersecurite/ n'est pas publiée (note du docx)
+      title: ["Cybersécurité"],
+      lead: "Un site piraté ou des données exposées peuvent ruiner des mois d’efforts commerciaux.",
+      text: "Nous auditons la sécurité de vos outils digitaux, puis corrigeons les failles prioritaires, pour préserver la confiance de vos clients sans monter d’équipe dédiée.",
+    },
+  ] as Expertise[],
+};

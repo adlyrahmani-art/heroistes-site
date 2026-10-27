@@ -23,7 +23,18 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
     lenisRef.current = lenis;
+
+    // La hauteur de page change (accordéon, images) : on recalcule les sections épinglées
+    let timer = 0;
+    const ro = new ResizeObserver(() => {
+      clearTimeout(timer);
+      timer = window.setTimeout(() => ScrollTrigger.refresh(), 200);
+    });
+    ro.observe(document.body);
+
     return () => {
+      ro.disconnect();
+      clearTimeout(timer);
       gsap.ticker.remove(tick);
       lenis.destroy();
       lenisRef.current = null;

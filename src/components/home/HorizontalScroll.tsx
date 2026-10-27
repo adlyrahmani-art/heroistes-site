@@ -13,9 +13,12 @@ gsap.registerPlugin(ScrollTrigger);
  * - [data-panel]       une lame ; data-tone="light|dark" règle la couleur du header
  * - [data-reveal]      la lame reçoit la classe .is-in quand elle entre à l'écran
  * - [data-speed="0.2"] parallaxe horizontale (positif = plus lent que la piste)
+ * `background` reste fixe derrière la piste pendant que les lames défilent.
  */
-export default function HorizontalScroll({ children }: { children: ReactNode }) {
-  const wrapRef = useRef<HTMLDivElement>(null);
+type Props = { children: ReactNode; id?: string; label?: string; background?: ReactNode };
+
+export default function HorizontalScroll({ children, id, label, background }: Props) {
+  const wrapRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -92,10 +95,15 @@ export default function HorizontalScroll({ children }: { children: ReactNode }) 
   }, []);
 
   return (
-    <div ref={wrapRef} className={styles.wrap}>
+    <section ref={wrapRef} id={id} aria-label={label} className={styles.wrap} data-cursor="scroll">
+      {background && (
+        <div className={styles.bg} aria-hidden="true">
+          {background}
+        </div>
+      )}
       <div ref={trackRef} className={styles.track}>
         {children}
       </div>
-    </div>
+    </section>
   );
 }

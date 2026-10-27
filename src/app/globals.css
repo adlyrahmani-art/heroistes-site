@@ -218,3 +218,12 @@ html.lenis body {
     animation: none;
   }
 }
+
+/* Curseur personnalisé actif (souris uniquement) : on masque le curseur natif, sauf dans les champs */
+.has-cursor,
+.has-cursor * {
+  cursor: none !important;
+}
+.has-cursor :is(input, textarea, select, [contenteditable="true"]) {
+  cursor: auto !important;
+}

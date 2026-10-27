@@ -4,7 +4,13 @@
   overflow: clip;
 }
 
+.bg {
+  position: absolute;
+  inset: 0;
+}
+
 .track {
+  position: relative;
   display: flex;
   height: 100%;
   width: max-content;

@@ -1,0 +1,73 @@
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Forme du curseur, centrée sur la position ; transitions reprises de m-n.fr (0,6 s) */
+.inner {
+  position: absolute;
+  left: -36px;
+  top: -36px;
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  background: var(--turquoise);
+  color: var(--encre);
+  transform: scale(0.17);
+  opacity: 1;
+  transition:
+    transform 0.6s cubic-bezier(0.77, 0, 0.175, 1),
+    background-color 0.4s ease,
+    border-color 0.4s ease,
+    opacity 0.3s ease;
+}
+.cursor[data-visible="false"] .inner {
+  opacity: 0;
+}
+
+.arrows {
+  width: 30px;
+  height: auto;
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity 0.3s ease,
+    transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* Lien / bouton : anneau turquoise, le contenu reste lisible */
+.cursor[data-state="link"] .inner {
+  transform: scale(0.6);
+  background: transparent;
+  border-color: var(--turquoise);
+}
+/* Carte : grand anneau qui encadre la lecture */
+.cursor[data-state="card"] .inner {
+  transform: scale(1.25);
+  background: transparent;
+  border-color: var(--turquoise);
+  border-width: 1px;
+}
+/* Piste horizontale : disque turquoise, flèches encre (jamais de blanc sur turquoise) */
+.cursor[data-state="scroll"] .inner {
+  transform: scale(1);
+}
+.cursor[data-state="scroll"] .arrows {
+  opacity: 1;
+  transform: none;
+}
+.cursor[data-pressed="true"] .inner {
+  transform: scale(0.8);
+}
+.cursor[data-pressed="true"][data-state="default"] .inner {
+  transform: scale(0.12);
+}
