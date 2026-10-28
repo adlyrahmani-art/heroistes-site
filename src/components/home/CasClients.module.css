@@ -1,0 +1,414 @@
+/* Cotes : maquettes « Nos Cas clients » (1920 × 908) et « Cas 1/2 » (1920 × 1009).
+   Largeurs en --u, hauteurs en --vy (hauteur de la maquette ramenée à l'écran). */
+.root {
+  position: relative;
+  z-index: 2;
+}
+
+/* ---------- Intro claire ---------- */
+.intro {
+  --vy: calc(100svh / 908);
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  overflow: clip;
+  background: var(--fond-clair);
+  color: var(--encre);
+}
+.axis {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: #c3c3c3;
+}
+.title {
+  position: absolute;
+  /* sous le flou du menu (Header .blur) */
+  top: max(118px, calc(95 * var(--vy)));
+  right: calc(50% + 17 * var(--u));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: max(34px, calc(80 * var(--u)));
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.introBody {
+  position: absolute;
+  top: calc(290 * var(--vy));
+  left: calc(50% + 17 * var(--u));
+  display: flex;
+  flex-direction: column;
+  gap: calc(39 * var(--vy));
+}
+.introText {
+  width: calc(475 * var(--u));
+  min-width: 260px;
+  font-weight: 300;
+  font-size: max(13px, calc(16.5 * var(--u)));
+  line-height: 1.45;
+}
+.introText strong {
+  font-weight: 700;
+}
+.introPhoto {
+  width: calc(536 * var(--u));
+  aspect-ratio: 536 / 321;
+  margin: 0;
+  overflow: hidden;
+}
+.introPhoto img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hint {
+  position: absolute;
+  top: calc(770 * var(--vy));
+  left: calc(414 * var(--u));
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  font-size: max(11px, calc(13 * var(--u)));
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+.hint small {
+  font-weight: 400;
+  font-size: 0.8em;
+  text-transform: none;
+  color: #8d8d8d;
+}
+.hint:hover {
+  color: var(--turquoise-profond);
+}
+.bolt {
+  position: absolute;
+  right: calc(68 * var(--u));
+  top: calc(785 * var(--vy));
+  width: max(16px, calc(24 * var(--u)));
+  height: auto;
+}
+
+/* Entrées de l'intro */
+.intro [data-in] {
+  opacity: 0;
+  translate: 0 40px;
+  transition:
+    opacity 1s var(--ease-reveal),
+    translate 1s var(--ease-reveal);
+}
+.intro .introPhoto[data-in] {
+  transition-delay: 150ms;
+}
+.intro .in {
+  opacity: 1;
+  translate: none;
+}
+
+/* ---------- Cas : panneaux épinglés qui se recouvrent (réf. mattis) ----------
+   Chaque cas occupe 2 écrans, chevauchés d'un écran : quand un panneau s'épingle, le suivant
+   commence à monter par-dessus. Le dernier est tenu un demi-écran de plus. */
+.item {
+  height: 200svh;
+}
+.item + .item {
+  margin-top: -100svh;
+}
+.item:last-child {
+  height: 250svh;
+}
+.slide {
+  --vy: calc(100svh / 1009);
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  background: #3a3a3a;
+  color: var(--blanc);
+}
+.bg {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Léger grain sur le fond (la photo centrale, au-dessus, reste nette) */
+.slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.32;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Nom du client en défilement continu (réf. mattis), à la hauteur du centre de la photo */
+.marquee {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc((148 + 238) * var(--vy));
+  translate: 0 -50%;
+  overflow: hidden;
+  pointer-events: none;
+}
+.track {
+  display: flex;
+  width: max-content;
+  animation: cas-marquee 40s linear infinite;
+}
+.track > span {
+  display: flex;
+}
+.word {
+  padding-right: 0.35em;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: calc(250 * var(--u));
+  line-height: 1;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  color: var(--blanc);
+}
+@keyframes cas-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Photo centrale, étiquette et logo */
+.card {
+  position: absolute;
+  top: calc(148 * var(--vy));
+  left: calc(50% - 662.5 * var(--u));
+  width: calc(1325 * var(--u));
+  aspect-ratio: 1325 / 476;
+  margin: 0;
+  overflow: hidden;
+}
+.cardImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.tag {
+  position: absolute;
+  top: calc(23 * var(--u));
+  left: calc(18 * var(--u));
+  padding: calc(7 * var(--u)) calc(21 * var(--u));
+  background: var(--turquoise);
+  color: var(--encre);
+  font-weight: 700;
+  font-size: max(10px, calc(12 * var(--u)));
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--size) * var(--u));
+  height: auto;
+  translate: -50% -50%;
+  border-radius: 50%;
+}
+
+/* Titre, puces et actions : deux colonnes de part et d'autre de la ligne centrale */
+.info {
+  position: absolute;
+  top: calc(665 * var(--vy));
+  left: calc(50% - 662.5 * var(--u));
+  width: calc(1325 * var(--u));
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.caseTitle {
+  font-family: var(--font-display);
+  font-size: max(24px, calc(44 * var(--u)));
+  line-height: 0.86;
+  letter-spacing: -0.02em;
+  max-width: calc(640 * var(--u));
+}
+.name {
+  color: var(--turquoise);
+  text-transform: uppercase;
+}
+.items {
+  margin: calc(68 * var(--vy)) 0 0;
+  padding: 0;
+  list-style: none;
+  font-weight: 300;
+  font-size: max(13px, calc(16.5 * var(--u)));
+  line-height: 1.45;
+}
+.items li {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+}
+.items li::before {
+  content: "→";
+  font-size: 1.1em;
+  opacity: 0.7;
+}
+.stat {
+  margin-top: calc(18 * var(--vy));
+  max-width: calc(580 * var(--u));
+  font-weight: 300;
+  font-size: max(13px, calc(16.5 * var(--u)));
+  line-height: 1.45;
+}
+.stat strong {
+  font-weight: 700;
+}
+/* « Découvrez » et le bouton au niveau de la première ligne du titre : ils restent visibles
+   même quand le panneau suivant monte par-dessus */
+.actions {
+  align-self: start;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-left: calc(25 * var(--u));
+}
+.discover {
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  font-size: max(11px, calc(13 * var(--u)));
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+.discover small {
+  font-weight: 400;
+  font-size: 0.8em;
+  text-transform: none;
+  opacity: 0.6;
+}
+/* Contour turquoise, texte blanc ; au survol fond turquoise et texte encre (.btn) */
+.cta {
+  color: var(--blanc);
+  min-width: calc(240 * var(--u));
+  padding: max(12px, calc(15 * var(--u))) max(18px, calc(26 * var(--u)));
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ---------- Mobile : cas empilés, sans épinglage ---------- */
+@media (max-width: 900px) {
+  .intro {
+    height: auto;
+    min-height: 0;
+    padding: 96px 20px 64px;
+  }
+  .axis,
+  .bolt {
+    display: none;
+  }
+  .title,
+  .introBody,
+  .introText,
+  .introPhoto,
+  .hint {
+    position: static;
+    width: auto;
+  }
+  .title {
+    align-items: flex-start;
+    text-align: left;
+    white-space: normal;
+  }
+  .introBody {
+    margin-top: 32px;
+    gap: 32px;
+  }
+  .hint {
+    margin-top: 32px;
+  }
+
+  .item,
+  .item:last-child {
+    height: auto;
+    margin-top: 0;
+  }
+  .slide {
+    position: relative;
+    height: auto;
+    padding: 72px 20px 56px;
+  }
+  .line {
+    display: none;
+  }
+  .marquee {
+    top: 140px;
+  }
+  .word {
+    font-size: 96px;
+  }
+  .card,
+  .info {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+  }
+  .logo {
+    width: calc(var(--size) * 0.5px);
+  }
+  .info {
+    margin-top: 32px;
+    grid-template-columns: 1fr;
+    row-gap: 32px;
+  }
+  .items {
+    margin-top: 24px;
+  }
+  .actions {
+    padding-left: 0;
+    flex-wrap: wrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+  .intro [data-in] {
+    opacity: 1;
+    translate: none;
+    transition: none;
+  }
+}
+/* Sans animation : les cas se suivent simplement, sans pile */
+@media (prefers-reduced-motion: reduce) and (min-width: 901px) {
+  .item,
+  .item:last-child {
+    height: auto;
+    margin-top: 0;
+  }
+  .slide {
+    position: relative;
+  }
+}

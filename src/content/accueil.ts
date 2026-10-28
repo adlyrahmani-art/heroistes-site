@@ -236,3 +236,77 @@ export const plan = {
   ],
   cta: { label: "Discutons de votre projet", href: "/contact/" },
 };
+
+/* ---------- Bloc 9.7 · Cas clients ---------- */
+export type CasClient = {
+  slug: string;
+  /** Nom du client : en turquoise dans le titre, et en grand dans le texte défilant */
+  name: string;
+  question: string;
+  tag: string;
+  image: string;
+  imageAlt: string;
+  /** Fond flouté et assombri, plein écran */
+  bg: string;
+  logo: string;
+  logoAlt: string;
+  /** Diamètre du logo sur la maquette (px à 1920) */
+  logoSize: number;
+  items: string[];
+  /** Chiffre clé (Isère Habitat seulement) : résultat en gras, puis période et source */
+  stat?: { result: string; detail: string };
+};
+
+export const casClients = {
+  title: ["Nos cas clients", "trois expertises", "en action"],
+  intro:
+    "Plutôt que de longs discours, voici quelques projets menés pour nos clients. Choisir une agence digitale B2B, c’est attendre des réponses concrètes : **chacun de ces cas répond à un enjeu précis**, avec l’expertise la mieux placée pour le traiter.",
+  image: "/images/cas-intro.jpg",
+  imageAlt: "Bureau d’agence : écran affichant une carte, documents et affiches au mur",
+  cases: [
+    {
+      slug: "praneo",
+      name: "Pranéo",
+      question: "comment lancer une offre avec des landing pages dédiées ?",
+      tag: "Landing pages · Bien-être",
+      image: "/images/cas-praneo.jpg",
+      imageAlt: "Soin bien-être : une praticienne auprès d’une cliente allongée",
+      bg: "/images/cas-praneo-bg.jpg",
+      logo: "/images/logo-praneo.png",
+      logoAlt: "Logo Pranéo",
+      logoSize: 122,
+      items: ["Stratégie de lancement", "Landing pages et SEO", "Campagnes Google et Meta", "Tracking et séquences e-mail"],
+    },
+    {
+      slug: "rezo-partage",
+      name: "Rezo Partage",
+      question: "comment clarifier sa marque et son offre ?",
+      tag: "Plateforme de marque",
+      image: "/images/cas-rezo-partage.jpg",
+      imageAlt: "Mains assemblant les pièces d’un puzzle",
+      bg: "/images/cas-rezo-partage-bg.jpg",
+      logo: "/images/logo-rezo-partage.png",
+      logoAlt: "Logo Rezo Partage",
+      logoSize: 177,
+      items: ["Audit de l’existant", "Ateliers de marque", "Architecture de l’offre"],
+    },
+    {
+      slug: "isere-habitat",
+      name: "Isère Habitat",
+      question: "comment gagner en visibilité sur Google ?",
+      tag: "Site web · Promotion immobilière",
+      image: "/images/cas-isere-habitat.jpg",
+      imageAlt: "Résidence neuve au pied des montagnes",
+      bg: "/images/cas-isere-habitat-bg.jpg",
+      logo: "/images/logo-isere-habitat.png",
+      logoAlt: "Logo Isère Habitat",
+      logoSize: 177,
+      items: ["Audit complet", "Refonte du site", "Suivi des résultats"],
+      stat: {
+        result: "+12 % de clics Google sur 4 mois.",
+        detail: "Juin à octobre 2026, comparé à la même période de 2025, source Google Search Console.",
+      },
+    },
+  ] satisfies CasClient[],
+  cta: { label: "Voir nos cas clients", href: "/cas-clients/" },
+};

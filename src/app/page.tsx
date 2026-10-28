@@ -7,6 +7,7 @@ import LogosBand from "@/components/home/LogosBand";
 import Besoins from "@/components/home/Besoins";
 import Expertises from "@/components/home/Expertises";
 import B2BSections from "@/components/home/B2BSections";
+import CasClients from "@/components/home/CasClients";
 import { engagements } from "@/content/accueil";
 
 export default function Home() {
@@ -32,6 +33,9 @@ export default function Home() {
 
         {/* Pourquoi une agence B2B + Du plan aux résultats : fond fumée WebGL et parallaxe en calques */}
         <B2BSections />
+
+        {/* Cas clients : intro puis cas épinglés, dévoilés un à un (réf. mattis « We build websites ») */}
+        <CasClients />
       </main>
     </>
   );
