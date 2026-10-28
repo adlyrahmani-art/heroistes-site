@@ -8,6 +8,8 @@ import Besoins from "@/components/home/Besoins";
 import Expertises from "@/components/home/Expertises";
 import B2BSections from "@/components/home/B2BSections";
 import CasClients from "@/components/home/CasClients";
+import Blog from "@/components/home/Blog";
+import Faq from "@/components/home/Faq";
 import { engagements } from "@/content/accueil";
 
 export default function Home() {
@@ -36,6 +38,9 @@ export default function Home() {
 
         {/* Cas clients : intro puis cas épinglés, dévoilés un à un (réf. mattis « We build websites ») */}
         <CasClients />
+
+        <Blog />
+        <Faq />
       </main>
     </>
   );

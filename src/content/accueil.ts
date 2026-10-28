@@ -310,3 +310,87 @@ export const casClients = {
   ] satisfies CasClient[],
   cta: { label: "Voir nos cas clients", href: "/cas-clients/" },
 };
+
+/* ---------- Bloc 9.8 · Blog (derniers articles) ---------- */
+export type Article = {
+  /** Début du titre en gras, suite en texte courant */
+  lead: string;
+  rest: string;
+  date: string;
+  /** Format de la photo sur la maquette : haute (438 × 454) ou basse (438 × 321) */
+  tall: boolean;
+  image: string;
+  imageAlt: string;
+  href: string;
+};
+
+export const blog = {
+  title: ["Blog", "Nos dernières", "publications"],
+  // [À brancher] Les 3 derniers articles publiés doivent remonter automatiquement ; URL à confirmer
+  articles: [
+    {
+      lead: "L’illusion de l’esthétique :",
+      rest: "pourquoi votre refonte UI ne convertit pas (et la méthode à adopter)",
+      date: "27 octobre 2026",
+      tall: true,
+      image: "/images/blog-1.jpg",
+      imageAlt: "Plans d’architecte et crayons sur une table à dessin",
+      href: "/blog/illusion-esthetique-refonte-ui/",
+    },
+    {
+      lead: "Comment une simple refonte de la grille de layout a fait chuter le taux de rebond de 40%",
+      rest: "",
+      date: "27 octobre 2026",
+      tall: false,
+      image: "/images/blog-2.jpg",
+      imageAlt: "Visage derrière un filet tendu",
+      href: "/blog/refonte-grille-layout-taux-de-rebond/",
+    },
+    {
+      lead: "Petits détails, grands impacts :",
+      rest: "l’art du design comportemental dans la conversion B2B",
+      date: "27 octobre 2026",
+      tall: true,
+      image: "/images/blog-3.jpg",
+      imageAlt: "Femme sur un balcon face à l’Arc de triomphe",
+      href: "/blog/design-comportemental-conversion-b2b/",
+    },
+    {
+      lead: "Friction intentionnelle :",
+      rest: "quand briser les règles de l’UX classique génère plus d’engagement",
+      date: "27 octobre 2026",
+      tall: false,
+      image: "/images/blog-4.jpg",
+      imageAlt: "Bureau lumineux avec un ordinateur",
+      href: "/blog/friction-intentionnelle-ux/",
+    },
+  ] satisfies Article[],
+  cta: { label: "Tous nos articles", href: "/blog/" },
+};
+
+/* ---------- Bloc 9.9 · FAQ ---------- */
+export const faq = {
+  title: ["Vos questions,", "nos réponses"],
+  items: [
+    {
+      q: "Que fait concrètement une agence marketing B2B ?",
+      a: "Une agence marketing B2B commence par trouver où se bloquent vos ventes, puis mobilise les bons leviers pour générer des leads qualifiés. Prenons un fabricant qui reçoit des visites mais peu de devis : l’agence analyse son parcours, revoit les pages clés, cible les acheteurs de son secteur et suit chaque demande jusqu’à la vente.",
+    },
+    {
+      q: "Quelle différence entre le marketing B2B et le B2C ?",
+      a: "En B2B, vous vendez à une entreprise : le montant est plus élevé, le cycle plus long et la décision partagée entre plusieurs personnes. Le B2C joue davantage sur l’émotion et l’impulsion. Il faut donc d’abord rassurer, prouver son expertise et soigner la fidélisation client, d’où l’intérêt d’une agence marketing BtoB habituée à ces parcours.",
+    },
+    {
+      q: "Comment structurer son marketing quand on vend aux entreprises ?",
+      a: "Commencez par définir vos cibles prioritaires et votre positionnement, puis choisissez deux ou trois canaux adaptés à vos acheteurs plutôt que d’être partout. Fixez des objectifs mesurables, partagés avec les commerciaux, et suivez les résultats dans votre CRM. Quand marketing et ventes partagent les mêmes indicateurs, aucun lead ne se perd entre les deux équipes.",
+    },
+    {
+      q: "Quel marketing est le plus efficace pour trouver des clients professionnels ?",
+      a: "Il n’existe pas de canal miracle : tout dépend de votre cible et du rythme de vos ventes. Le marketing de contenu et le SEO attirent des prospects en recherche, LinkedIn et Google Ads accélèrent la visibilité, le marketing automation entretient le lien. Combinés en inbound marketing, ces leviers offrent le meilleur retour sur investissement.",
+    },
+    {
+      q: "Qui sont les clients B2B et comment les atteindre ?",
+      a: "Ce sont avant tout des entreprises, le plus souvent des PME et des ETI, mais aussi des grands comptes et des administrations. Pour les atteindre, identifiez les décideurs, comprenez leurs priorités et soyez présent là où ils s’informent : Google, assistants d’IA, LinkedIn, salons professionnels. Votre message doit parler de leur problème avant votre offre.",
+    },
+  ],
+};
