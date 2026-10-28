@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import HorizontalScroll from "@/components/home/HorizontalScroll";
 import HeroPanel from "@/components/home/HeroPanel";
 import SectionTitlePanel from "@/components/home/SectionTitlePanel";
@@ -42,6 +43,9 @@ export default function Home() {
         <Blog />
         <Faq />
       </main>
+
+      {/* Footer : entre de droite à gauche par-dessus la FAQ (mouvement des Expertises) */}
+      <Footer />
     </>
   );
 }

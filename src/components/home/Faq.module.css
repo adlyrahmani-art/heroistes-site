@@ -4,7 +4,7 @@
   position: relative;
   z-index: 2;
   overflow: hidden;
-  padding: max(118px, calc(135 * var(--u))) calc(67 * var(--u)) calc(100 * var(--u));
+  padding: max(130px, calc(150 * var(--u))) calc(67 * var(--u)) calc(160 * var(--u));
   background: url("/images/expertises-titre-bg.jpg") center / cover no-repeat var(--noir);
   color: var(--blanc);
 }

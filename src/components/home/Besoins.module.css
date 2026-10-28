@@ -2,7 +2,7 @@
 .section {
   position: relative;
   overflow: clip;
-  padding: calc(135 * var(--u)) var(--gut) calc(110 * var(--u));
+  padding: calc(135 * var(--u)) var(--gut) calc(150 * var(--u));
   background:
     radial-gradient(ellipse 40% 60% at 10% 40%, rgb(255 255 255 / 0.035), transparent 70%),
     radial-gradient(ellipse 30% 50% at 35% 80%, rgb(255 255 255 / 0.03), transparent 70%),

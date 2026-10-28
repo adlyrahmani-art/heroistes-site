@@ -1,0 +1,394 @@
+/* Cotes : maquette « Footer » (1920 × 1558), ligne centrale à 50 % */
+.zone {
+  --u: calc(100vw / 1920);
+  position: relative;
+  z-index: 3;
+  /* chevauche le dernier écran de la FAQ et réserve un écran pour le glissement horizontal */
+  margin-top: -100svh;
+  overflow-x: clip;
+  pointer-events: none;
+}
+/* Deux écrans de défilement réservés au glissement : un vrai bloc (le collage ignore le padding) */
+.zone::after {
+  content: "";
+  display: block;
+  height: 200svh;
+}
+.track {
+  position: sticky;
+  top: 0;
+}
+
+/* ---------- Titre avant le footer (maquette « Footer titre », 1920 × 1080) ---------- */
+.titlePanel {
+  position: absolute;
+  top: 0;
+  right: 100%;
+  width: 100vw;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-left: calc(190 * var(--u));
+  background: var(--fond-clair);
+  color: var(--encre);
+  pointer-events: auto;
+}
+.bigTitle {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: max(40px, calc(125 * var(--u)));
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+.ln {
+  display: block;
+  overflow: hidden;
+  padding-top: 0.12em;
+  margin-top: -0.12em;
+}
+.ln > span {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform var(--dur-xl) var(--ease-reveal);
+}
+.ln + .ln > span {
+  transition-delay: 120ms;
+}
+.bar {
+  display: block;
+  width: calc(1512 * var(--u));
+  height: max(5px, calc(16 * var(--u)));
+  margin-top: calc(38 * var(--u));
+  background: var(--turquoise);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-xl) var(--ease-overlay) 350ms;
+}
+.in .ln > span,
+.in .bar {
+  transform: none;
+}
+.bolt {
+  position: absolute;
+  right: calc(68 * var(--u));
+  bottom: 9svh;
+  width: max(16px, calc(24 * var(--u)));
+  height: auto;
+}
+
+.sheet {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--fond-clair);
+  color: var(--encre);
+  pointer-events: auto;
+}
+.axis {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: #c3c3c3;
+}
+
+/* ---------- Colonne gauche ---------- */
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: calc(108 * var(--u)) 0 calc(113 * var(--u)) calc(196 * var(--u));
+}
+.visual {
+  display: block;
+  width: calc(652 * var(--u));
+  height: auto;
+  margin-left: calc(-45 * var(--u));
+}
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: calc(52 * var(--u));
+  font-family: var(--font-brand);
+  font-size: calc(150 * var(--u));
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #2e2e2e;
+}
+.brand span {
+  margin-top: calc(14 * var(--u));
+  font-family: var(--font-ui);
+  font-weight: 300;
+  font-size: calc(36 * var(--u));
+  letter-spacing: 0.5em;
+  color: var(--encre);
+}
+
+.newsletter {
+  width: calc(597 * var(--u));
+  min-width: 280px;
+  margin-top: calc(66 * var(--u));
+}
+.newsTitle {
+  font-family: var(--font-display);
+  font-size: max(24px, calc(40 * var(--u)));
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.newsText {
+  margin-top: calc(16 * var(--u));
+  font-size: max(13px, calc(16.5 * var(--u)));
+  line-height: 1.45;
+}
+.newsletter .input {
+  margin-top: calc(30 * var(--u));
+}
+.subscribe {
+  display: block;
+  width: 100%;
+  height: max(52px, calc(80 * var(--u)));
+  margin-top: calc(28 * var(--u));
+  border: 0;
+  background: #d4d4d4;
+  color: var(--encre);
+  font: 900 max(11px, calc(12 * var(--u))) / 1 var(--font-ui);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background var(--dur-m) var(--ease-overlay),
+    color var(--dur-m) var(--ease-overlay);
+}
+.subscribe:hover,
+.subscribe:focus-visible {
+  background: var(--encre);
+  color: var(--blanc);
+}
+
+.linkedin {
+  display: block;
+  width: max(26px, calc(32 * var(--u)));
+  margin-top: calc(64 * var(--u));
+  color: #2e2e2e;
+  transition: color var(--dur-m);
+}
+.linkedin svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.linkedin:hover {
+  color: var(--turquoise-profond);
+}
+.copyright {
+  margin-top: calc(30 * var(--u));
+  font-size: max(12px, calc(16 * var(--u)));
+  letter-spacing: 0.06em;
+}
+.email {
+  display: flex;
+  flex-direction: column;
+  margin-top: calc(26 * var(--u));
+  margin-left: calc(-6 * var(--u));
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: max(30px, calc(80 * var(--u)));
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  transition: color var(--dur-m);
+}
+.email:hover,
+.email:focus-visible {
+  color: var(--turquoise-profond);
+}
+
+/* ---------- Colonne droite : formulaire ---------- */
+.formCol {
+  padding: calc(95 * var(--u)) calc(121 * var(--u)) calc(116 * var(--u)) 0;
+}
+.title {
+  display: flex;
+  flex-direction: column;
+  margin-left: calc(25 * var(--u));
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: max(34px, calc(80 * var(--u)));
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+}
+.intro {
+  max-width: calc(410 * var(--u));
+  min-width: 260px;
+  margin: calc(45 * var(--u)) 0 0 calc(33 * var(--u));
+  font-size: max(13px, calc(16.5 * var(--u)));
+  line-height: 1.45;
+  white-space: pre-line;
+}
+.intro strong {
+  font-weight: 700;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: calc(34 * var(--u));
+  margin-top: calc(60 * var(--u));
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: calc(14 * var(--u));
+  padding-left: calc(33 * var(--u));
+}
+.label {
+  display: flex;
+  align-items: center;
+  gap: calc(22 * var(--u));
+  font-size: max(12px, calc(16 * var(--u)));
+  text-transform: uppercase;
+}
+.label::before {
+  content: "";
+  width: calc(32 * var(--u));
+  height: 1px;
+  background: currentColor;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  height: max(48px, calc(77 * var(--u)));
+  padding: 0 calc(54 * var(--u));
+  border: 1px solid #c3c3c3;
+  border-radius: 0;
+  background: transparent;
+  color: var(--encre);
+  font: 400 max(13px, calc(16 * var(--u))) / 1.4 var(--font-ui);
+  letter-spacing: 0.05em;
+  transition: border-color var(--dur-m);
+}
+.newsletter .input {
+  padding: 0 calc(25 * var(--u));
+}
+.input::placeholder {
+  color: #9a9a9a;
+}
+.input:hover {
+  border-color: #8d8d8d;
+}
+.input:focus {
+  outline: none;
+  border-color: var(--turquoise-profond);
+}
+.textarea {
+  height: max(120px, calc(175 * var(--u)));
+  padding-top: calc(26 * var(--u));
+  resize: vertical;
+}
+
+/* Bouton aligné sur les champs (maquette « Footer ») */
+.send {
+  align-self: flex-start;
+  margin-left: calc(33 * var(--u));
+  min-width: calc(240 * var(--u));
+  margin-top: calc(11 * var(--u));
+  padding: max(12px, calc(15 * var(--u))) max(18px, calc(26 * var(--u)));
+  text-align: center;
+}
+.privacy {
+  margin: calc(-14 * var(--u)) 0 0 calc(33 * var(--u));
+  font-size: max(11px, calc(13 * var(--u)));
+  color: #6e6e6e;
+}
+.privacy a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.privacy a:hover {
+  color: var(--encre);
+}
+
+/* ---------- Mobile : une colonne, sans glissement ---------- */
+@media (max-width: 900px) {
+  .zone {
+    margin-top: 0;
+  }
+  .zone::after {
+    display: none;
+  }
+  .track {
+    position: relative;
+  }
+  .titlePanel {
+    position: relative;
+    right: auto;
+    width: auto;
+    height: auto;
+    padding: 120px 20px 40px;
+  }
+  .bar {
+    width: 100%;
+  }
+  .bolt {
+    display: none;
+  }
+  .sheet {
+    grid-template-columns: 1fr;
+  }
+  .axis {
+    display: none;
+  }
+  .formCol {
+    order: -1;
+    padding: 96px 20px 48px;
+  }
+  .brandCol {
+    padding: 0 20px 64px;
+  }
+  .visual {
+    width: 100%;
+    margin-left: 0;
+  }
+  .brand {
+    font-size: 64px;
+  }
+  .brand span {
+    font-size: 16px;
+  }
+  .newsletter {
+    width: 100%;
+    min-width: 0;
+  }
+  .field,
+  .intro,
+  .privacy {
+    padding-left: 0;
+    margin-left: 0;
+  }
+  .title {
+    margin-left: 0;
+  }
+}
+/* Animations limitées : le footer suit simplement la FAQ */
+@media (prefers-reduced-motion: reduce) {
+  .zone {
+    margin-top: 0;
+  }
+  .zone::after {
+    display: none;
+  }
+  .track {
+    position: relative;
+  }
+  .titlePanel {
+    position: relative;
+    right: auto;
+  }
+  .ln > span,
+  .bar {
+    transition: none;
+  }
+}

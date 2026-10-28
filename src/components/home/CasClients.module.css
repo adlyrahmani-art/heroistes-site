@@ -115,7 +115,8 @@
 
 /* ---------- Cas : panneaux épinglés qui se recouvrent (réf. mattis) ----------
    Chaque cas occupe 2 écrans, chevauchés d'un écran : quand un panneau s'épingle, le suivant
-   commence à monter par-dessus. Le dernier est tenu un demi-écran de plus. */
+   commence à monter par-dessus. Le dernier n'est pas tenu : la page repart aussitôt (sinon la
+   molette tourne dans le vide). */
 .item {
   height: 200svh;
 }
@@ -123,7 +124,7 @@
   margin-top: -100svh;
 }
 .item:last-child {
-  height: 250svh;
+  height: 100svh;
 }
 .slide {
   --vy: calc(100svh / 1009);
@@ -247,7 +248,7 @@
 .caseTitle {
   font-family: var(--font-display);
   font-size: max(24px, calc(44 * var(--u)));
-  line-height: 0.86;
+  line-height: 1.02;
   letter-spacing: -0.02em;
   max-width: calc(640 * var(--u));
 }
@@ -256,7 +257,7 @@
   text-transform: uppercase;
 }
 .items {
-  margin: calc(68 * var(--vy)) 0 0;
+  margin: calc(44 * var(--vy)) 0 0;
   padding: 0;
   list-style: none;
   font-weight: 300;
@@ -274,8 +275,8 @@
   opacity: 0.7;
 }
 .stat {
-  margin-top: calc(18 * var(--vy));
-  max-width: calc(580 * var(--u));
+  margin-top: calc(14 * var(--vy));
+  max-width: calc(640 * var(--u));
   font-weight: 300;
   font-size: max(13px, calc(16.5 * var(--u)));
   line-height: 1.45;

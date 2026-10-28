@@ -4,7 +4,7 @@
   --u: calc(100vw / 1920);
   position: relative;
   z-index: 2;
-  padding: max(118px, calc(95 * var(--u))) 0 calc(58 * var(--u));
+  padding: max(130px, calc(150 * var(--u))) 0 calc(160 * var(--u));
   background: var(--fond-clair);
   color: var(--encre);
   text-align: center;

@@ -14,7 +14,8 @@
   pointer-events: none;
   transition: color var(--dur-m) var(--ease-overlay);
 }
-.header a {
+.header a,
+.header button {
   pointer-events: auto;
 }
 
@@ -52,9 +53,12 @@
   mask-image: linear-gradient(to bottom, #000 0%, #000 10%, transparent 40%);
 }
 
-/* Sur une lame claire, le header passe en encre */
+/* Sur une lame claire, le header passe en encre ; menus ouverts (fond sombre) : toujours blanc */
 :global(body[data-tone="light"]) .header {
   color: var(--encre);
+}
+:global(body) .header[data-open] {
+  color: var(--blanc);
 }
 
 .brand {
@@ -70,15 +74,22 @@
   height: auto;
 }
 
-/* Nav : Onest Bold 12 maj. + n° 10 px turquoise */
+/* ---------- Nav : Onest Bold 12 maj. + n° 10 px turquoise ---------- */
 .menu {
-  display: flex;
-  gap: calc(39 * var(--u));
-  align-items: flex-end;
   margin-left: auto;
   margin-right: calc(100 * var(--u));
 }
-.menu a {
+.top {
+  display: flex;
+  gap: calc(39 * var(--u));
+  align-items: flex-end;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.topLink {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -91,27 +102,217 @@
   opacity: 0.85;
   transition: opacity var(--dur-s), border-color var(--dur-m);
 }
-/* Survol = même état que le lien actif (« Accueil ») */
-.menu a:hover,
-.menu a:focus-visible,
-.menu a[aria-current="page"] {
+/* Survol, sous-menu ouvert = même état que le lien actif (« Accueil ») */
+.topLink:hover,
+.topLink:focus-visible,
+.current,
+.topLink[aria-current="page"] {
   opacity: 1;
   border-left-color: var(--turquoise);
 }
-.menu i {
+.topLink i {
   font-style: normal;
   font-size: max(9px, calc(10 * var(--u)));
   font-weight: 400;
   opacity: 0.7;
   transition: color var(--dur-m), opacity var(--dur-m);
 }
-.menu a:hover i,
-.menu a:focus-visible i,
-.menu a[aria-current="page"] i {
+.topLink:hover i,
+.topLink:focus-visible i,
+.current i,
+.topLink[aria-current="page"] i {
   color: var(--turquoise);
   opacity: 1;
 }
 
+/* ---------- Méga-menu (ordinateur) ----------
+   Panneau sombre qui se déroule depuis le haut ; le contenu monte en cascade (--k) */
+.mega {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  padding: calc(150 * var(--u) + 24px) var(--gut) calc(72 * var(--u));
+  background: rgba(14, 14, 14, 0.94);
+  backdrop-filter: blur(18px);
+  color: var(--blanc);
+  clip-path: inset(0 0 100% 0);
+  visibility: hidden;
+  pointer-events: auto;
+  transition:
+    clip-path 0.65s var(--ease-overlay),
+    visibility 0s linear 0.65s;
+}
+.megaOpen {
+  clip-path: inset(0 0 0 0);
+  visibility: visible;
+  transition:
+    clip-path 0.65s var(--ease-overlay),
+    visibility 0s;
+}
+/* Trait turquoise qui court sous le panneau à l'ouverture */
+.mega::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--turquoise);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.9s var(--ease-reveal) 0.2s;
+}
+.megaOpen::after {
+  transform: none;
+}
+
+.megaInner {
+  display: grid;
+  grid-template-columns: calc(420 * var(--u)) 1fr;
+  gap: calc(110 * var(--u));
+  max-width: calc(1720 * var(--u));
+  margin: 0 auto;
+}
+.megaHead > *,
+.megaInner li,
+.groupTitle {
+  opacity: 0;
+  translate: 0 18px;
+}
+.megaOpen .megaHead > *,
+.megaOpen li,
+.megaOpen .groupTitle {
+  opacity: 1;
+  translate: none;
+  transition:
+    opacity 0.7s var(--ease-reveal),
+    translate 0.7s var(--ease-reveal);
+  transition-delay: calc(180ms + var(--k, 0) * 28ms);
+}
+.megaNum {
+  display: block;
+  font-weight: 700;
+  font-size: max(12px, calc(16 * var(--u)));
+  color: var(--turquoise);
+}
+.megaTitle {
+  margin-top: calc(10 * var(--u));
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: max(36px, calc(72 * var(--u)));
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+.megaPitch {
+  margin-top: calc(24 * var(--u));
+  max-width: calc(360 * var(--u));
+  min-width: 220px;
+  font-weight: 300;
+  font-size: max(13px, calc(16 * var(--u)));
+  line-height: 1.5;
+  color: #bdbdbd;
+}
+.megaAll {
+  display: inline-flex;
+  gap: 10px;
+  margin-top: calc(34 * var(--u));
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--turquoise);
+  font-weight: 900;
+  font-size: max(11px, calc(12 * var(--u)));
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.megaAll span {
+  transition: translate var(--dur-m) var(--ease-reveal);
+}
+.megaAll:hover span {
+  translate: 6px 0;
+}
+
+/* Colonnes de liens */
+.groups {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: calc(48 * var(--u));
+}
+.groups ul,
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.groupTitle {
+  margin-bottom: calc(22 * var(--u));
+  padding-bottom: calc(12 * var(--u));
+  border-bottom: 1px solid #3a3a3a;
+  font-weight: 700;
+  font-size: max(11px, calc(12 * var(--u)));
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8d8d8d;
+}
+.list {
+  display: grid;
+  align-content: start;
+  row-gap: calc(6 * var(--u));
+}
+.listCols {
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: calc(48 * var(--u));
+}
+.subLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: calc(5 * var(--u)) 0;
+  font-family: var(--font-display);
+  font-size: max(17px, calc(26 * var(--u)));
+  line-height: 1.15;
+  transition: color var(--dur-m);
+}
+.list .subLink {
+  font-size: max(20px, calc(34 * var(--u)));
+}
+/* Survol : un tiret turquoise pousse le lien */
+.subLink::before {
+  content: "";
+  width: 0;
+  height: 2px;
+  margin-right: 0;
+  background: var(--turquoise);
+  transition:
+    width var(--dur-l) var(--ease-reveal),
+    margin var(--dur-l) var(--ease-reveal);
+}
+.subLink:hover,
+.subLink:focus-visible {
+  color: var(--turquoise);
+}
+.subLink:hover::before,
+.subLink:focus-visible::before {
+  width: 18px;
+  margin-right: 10px;
+}
+
+/* Voile sur la page sous le méga-menu */
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 19;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.scrimOn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ---------- Bouton « Lancer un projet » ---------- */
 .cta {
   border: 1px solid var(--turquoise);
   color: inherit;
@@ -131,18 +332,223 @@
   color: var(--encre);
 }
 
-.header a:focus-visible {
+.header a:focus-visible,
+.header button:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 3px;
+}
+
+/* ---------- Menu mobile ---------- */
+.burger {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: 900 12px/1 var(--font-ui);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.burgerIcon {
+  position: relative;
+  width: 26px;
+  height: 10px;
+}
+.burgerIcon::before,
+.burgerIcon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: currentColor;
+  transition:
+    top var(--dur-m) var(--ease-overlay),
+    rotate var(--dur-m) var(--ease-overlay) var(--dur-s);
+}
+.burgerIcon::before {
+  top: 0;
+}
+.burgerIcon::after {
+  top: 8px;
+}
+.burger[aria-expanded="true"] .burgerIcon::before {
+  top: 4px;
+  rotate: 45deg;
+}
+.burger[aria-expanded="true"] .burgerIcon::after {
+  top: 4px;
+  rotate: -45deg;
+}
+
+.mobile {
+  position: fixed;
+  inset: 0;
+  z-index: 19;
+  display: flex;
+  flex-direction: column;
+  padding: 104px 20px 40px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--noir);
+  color: var(--blanc);
+  clip-path: inset(0 0 100% 0);
+  visibility: hidden;
+  transition:
+    clip-path 0.7s var(--ease-overlay),
+    visibility 0s linear 0.7s;
+}
+.mobileOpen {
+  clip-path: inset(0 0 0 0);
+  visibility: visible;
+  transition:
+    clip-path 0.7s var(--ease-overlay),
+    visibility 0s;
+}
+.mobileList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mobileList > li {
+  border-bottom: 1px solid #2a2a2a;
+  opacity: 0;
+  translate: 0 24px;
+}
+.mobileOpen .mobileList > li {
+  opacity: 1;
+  translate: none;
+  transition:
+    opacity 0.7s var(--ease-reveal),
+    translate 0.7s var(--ease-reveal);
+  transition-delay: calc(250ms + var(--k) * 50ms);
+}
+.mobileRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mobileLink {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 14px 0;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(26px, 7vw, 40px);
+  line-height: 1;
+}
+.mobileLink i {
+  font-family: var(--font-ui);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--turquoise);
+}
+.mobileToggle {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+.mobileToggle::before,
+.mobileToggle::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 2px;
+  background: currentColor;
+  translate: -50% -50%;
+  transition:
+    rotate var(--dur-l) var(--ease-reveal),
+    scale var(--dur-l) var(--ease-reveal);
+}
+.mobileToggle::after {
+  rotate: 90deg;
+}
+.subOpen .mobileToggle::after {
+  rotate: 180deg;
+  scale: 0 1;
+}
+.mobileSub {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.6s var(--ease-reveal);
+}
+.subOpen .mobileSub {
+  grid-template-rows: 1fr;
+}
+.mobileSub > div {
+  min-height: 0;
+  overflow: hidden;
+}
+.mobileSub .groups,
+.mobileSub .listCols {
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+.mobileSub .groups,
+.mobileSub .list {
+  padding: 4px 0 22px 34px;
+}
+.mobileSub .subLink,
+.mobileSub .list .subLink {
+  font-size: 20px;
+}
+.mobileSub .groupTitle {
+  margin-bottom: 8px;
+  opacity: 1;
+  translate: none;
+}
+.mobileSub li {
+  opacity: 1;
+  translate: none;
+}
+.mobileCta {
+  align-self: flex-start;
+  margin-top: 32px;
 }
 
 @media (max-width: 1080px) {
   .menu {
     display: none;
   }
+  .burger {
+    display: flex;
+  }
+  .cta {
+    margin-left: auto;
+  }
+}
+@media (min-width: 1081px) {
+  .mobile {
+    display: none;
+  }
 }
 @media (max-width: 560px) {
   .cta {
     display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mega,
+  .mobile {
+    transition: visibility 0s;
+  }
+  .megaHead > *,
+  .megaInner li,
+  .groupTitle,
+  .mobileList > li {
+    opacity: 1;
+    translate: none;
+    transition: none !important;
   }
 }

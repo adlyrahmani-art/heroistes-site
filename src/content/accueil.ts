@@ -394,3 +394,40 @@ export const faq = {
     },
   ],
 };
+
+/* ---------- Footer · Bloc 9.10 Contact ---------- */
+export const footer = {
+  // H2 du brief (bloc 9.10), en grand avant le footer
+  lead: ["Votre prochaine étape :", "un premier échange"],
+  title: ["Démarrez", "votre projet"],
+  intro:
+    "Quelques informations suffisent pour démarrer.\n**Remplissez le formulaire ci-dessous** : nous revenons vers vous pour échanger sur votre projet, sans engagement.",
+  // Champs du formulaire de la page Contact (https://heroistes.com/contact/), libellés visibles
+  fields: [
+    { name: "nom", label: "Nom", type: "text", placeholder: "Martin", autoComplete: "family-name" },
+    { name: "prenom", label: "Prénom", type: "text", placeholder: "Olivier", autoComplete: "given-name" },
+    { name: "email", label: "Email", type: "email", placeholder: "olivier_martin@gmail.com", autoComplete: "email" },
+    { name: "telephone", label: "Téléphone", type: "tel", placeholder: "+33 123 456 789", autoComplete: "tel" },
+    { name: "sujet", label: "Sujet", type: "text", placeholder: "Créer mon site web", autoComplete: "off" },
+  ],
+  description: { name: "description", label: "Description du projet", placeholder: "Description ici" },
+  submit: "Envoyer ma demande",
+  // [À valider] Mention RGPD demandée par le brief ; URL de la politique à confirmer
+  privacy: {
+    text: "Vos données servent uniquement à vous recontacter au sujet de votre demande.",
+    link: { label: "Politique de confidentialité", href: "/politique-de-confidentialite/" },
+  },
+  visual: "/images/footer-visuel.jpg",
+  visualAlt: "Personne tenant un skateboard en ville, à côté du symbole Héroïstes",
+  brand: "Héroïstes",
+  baseline: "Héros du R.O.I",
+  newsletter: {
+    title: "Restez informé",
+    text: "Recevez des conseils en design, les mises à jour de nos projets et nos dernières actualités directement dans votre boîte mail.",
+    placeholder: "votre_adresse@email.com",
+    submit: "S’abonner",
+  },
+  linkedin: "https://www.linkedin.com/company/heroistes/",
+  copyright: "© 2026 — Grenoble · Paris — Tous droits réservés.",
+  email: "contact@heroistes.com",
+};
