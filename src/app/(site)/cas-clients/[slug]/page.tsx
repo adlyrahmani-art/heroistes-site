@@ -12,7 +12,9 @@ import type { CASE_STUDY_QUERY_RESULT, CASE_SLUGS_QUERY_RESULT } from "../../../
 
 export async function generateStaticParams() {
   const slugs: CASE_SLUGS_QUERY_RESULT = await client.fetch(CASE_SLUGS_QUERY);
-  return slugs.flatMap((s) => (s.slug ? [{ slug: s.slug }] : []));
+  const params = slugs.flatMap((s) => (s.slug ? [{ slug: s.slug }] : []));
+  // Cache Components refuse un tableau vide ; le repli mène à notFound().
+  return params.length ? params : [{ slug: "_placeholder" }];
 }
 
 async function getCase(slug: string) {
@@ -27,7 +29,7 @@ export async function generateMetadata({ params }: PageProps<"/cas-clients/[slug
   const title = clean(c.seo?.title) || clean(c.title) || clean(c.clientName) || "Cas client";
   const description = clean(c.seo?.description) || clean(c.question) || undefined;
   const image = imageUrl(c.seo?.image ?? c.image, 1200, 630);
-  const images = image ? [{ url: image }] : undefined;
+  const images = image ? [{ url: image, alt: title }] : undefined;
   return {
     title,
     description,

@@ -54,7 +54,8 @@
 }
 
 /* Sur une lame claire, le header passe en encre ; menus ouverts (fond sombre) : toujours blanc */
-:global(body[data-tone="light"]) .header {
+:global(body[data-tone="light"]) .header,
+:global(body:has([data-static-tone="light"])) .header {
   color: var(--encre);
 }
 :global(body) .header[data-open] {
@@ -85,10 +86,12 @@
 .markLight {
   opacity: 0;
 }
-:global(body[data-tone="light"]) .markLight {
+:global(body[data-tone="light"]) .markLight,
+:global(body:has([data-static-tone="light"])) .markLight {
   opacity: 1;
 }
-:global(body[data-tone="light"]) .markDark {
+:global(body[data-tone="light"]) .markDark,
+:global(body:has([data-static-tone="light"])) .markDark {
   opacity: 0;
 }
 :global(body) .header[data-open] .markLight {

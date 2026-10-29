@@ -24,8 +24,11 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Footer({
   lead,
   settings,
+  staticTone,
 }: {
   lead: string[];
+  /** Page à fond clair fixe (pages détail) : aucun changement de ton du header au défilement. */
+  staticTone?: "light";
   settings: Pick<NonNullable<SETTINGS_QUERY_RESULT>, "_id" | "_type" | "footer" | "social"> | null;
 }) {
   const f = settings?.footer;
@@ -80,6 +83,7 @@ export default function Footer({
         },
         "(max-width: 1024px)": () => {
           title.classList.add(styles.in);
+          if (staticTone) return;
           ScrollTrigger.create({
             trigger: zone,
             start: "top 60px",
@@ -90,7 +94,7 @@ export default function Footer({
     }, zone);
 
     return () => ctx.revert();
-  }, []);
+  }, [staticTone]);
 
   return (
     <footer ref={ref} id="contact" className={styles.zone} aria-labelledby="contact-title">

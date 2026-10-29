@@ -15,7 +15,13 @@ const components: PortableTextComponents = {
   marks: {
     link: ({ value, children }) => {
       const href = clean(value?.href) as string | undefined;
-      return href ? <a href={href}>{children}</a> : <>{children}</>;
+      if (!href || !/^(https?:|mailto:|\/|#)/i.test(href)) return <>{children}</>;
+      const external = /^https?:/i.test(href);
+      return (
+        <a href={href} {...(external && { target: "_blank", rel: "noopener noreferrer" })}>
+          {children}
+        </a>
+      );
     },
   },
 };

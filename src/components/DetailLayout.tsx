@@ -1,6 +1,5 @@
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import ToneLight from "@/components/ToneLight";
 import { cachedFetch, getDynamicFetchOptions } from "@/sanity/lib/live";
 import { HOME_QUERY } from "@/sanity/lib/queries";
 import type { HOME_QUERY_RESULT } from "../../sanity.types";
@@ -21,9 +20,8 @@ export default async function DetailLayout({
   const lead = (data as HOME_QUERY_RESULT)?.contactLead?.lead ?? [];
   return (
     <>
-      <ToneLight />
       <SiteHeader />
-      <main className={styles.main}>
+      <main className={styles.main} data-static-tone="light">
         <article className={styles.article}>
           <a className={styles.back} href={backHref}>
             ← {back}
@@ -31,7 +29,7 @@ export default async function DetailLayout({
           {children}
         </article>
       </main>
-      <SiteFooter lead={lead} />
+      <SiteFooter lead={lead} staticTone="light" />
     </>
   );
 }

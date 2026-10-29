@@ -12,7 +12,9 @@ import type { BLOG_POST_QUERY_RESULT, BLOG_SLUGS_QUERY_RESULT } from "../../../.
 
 export async function generateStaticParams() {
   const slugs: BLOG_SLUGS_QUERY_RESULT = await client.fetch(BLOG_SLUGS_QUERY);
-  return slugs.flatMap((s) => (s.slug ? [{ slug: s.slug }] : []));
+  const params = slugs.flatMap((s) => (s.slug ? [{ slug: s.slug }] : []));
+  // Cache Components refuse un tableau vide ; le repli mène à notFound().
+  return params.length ? params : [{ slug: "_placeholder" }];
 }
 
 async function getPost(slug: string) {
@@ -27,11 +29,11 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
   const title = clean(post.seo?.title) || clean(post.title) || "Blog";
   const description = clean(post.seo?.description) || clean(post.excerpt) || undefined;
   const image = imageUrl(post.seo?.image ?? post.cover, 1200, 630);
-  const images = image ? [{ url: image }] : undefined;
+  const images = image ? [{ url: image, alt: title }] : undefined;
   return {
     title,
     description,
-    openGraph: { title, description, type: "article", ...(images && { images }) },
+    openGraph: { title, description, type: "article", ...(post.publishedAt && { publishedTime: clean(post.publishedAt) }), ...(images && { images }) },
     twitter: { card: "summary_large_image", title, description, ...(images && { images }) },
   };
 }
@@ -42,9 +44,11 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
 
   const doc = { _id: clean(post._id), _type: clean(post._type) };
   const cover = imageUrl(post.cover, 1640, 920);
-  const date = post.publishedAt
-    ? new Date(clean(post.publishedAt)).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })
-    : null;
+  const published = post.publishedAt ? new Date(clean(post.publishedAt)) : null;
+  const date =
+    published && !isNaN(published.getTime())
+      ? published.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })
+      : null;
 
   return (
     <DetailLayout back="Retour au blog" backHref="/#blog">
