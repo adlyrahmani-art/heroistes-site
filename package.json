@@ -9,7 +9,8 @@
     "lint": "eslint",
     "test": "vitest run",
     "typegen": "sanity schema extract --force --path=sanity.schema.json && sanity typegen generate",
-    "prebuild": "npm run typegen"
+    "prebuild": "npm run typegen",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@portabletext/react": "^7.0.1",
@@ -28,6 +29,7 @@
     "three": "^0.186.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "@types/node": "^22.20.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",

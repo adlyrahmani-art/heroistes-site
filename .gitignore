@@ -44,3 +44,7 @@ next-env.d.ts
 # ressources de design (lourdes, fournies localement)
 /ressources/
 sanity.schema.json
+
+# playwright
+/test-results/
+/playwright-report/
