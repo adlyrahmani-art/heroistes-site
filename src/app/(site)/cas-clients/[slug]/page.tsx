@@ -1,14 +1,24 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import DetailLayout from "@/components/DetailLayout";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 import PortableBody from "@/components/PortableBody";
-import styles from "@/components/DetailLayout.module.css";
+import CaseEffects from "@/components/case/CaseEffects";
+import CaseHero from "@/components/case/CaseHero";
+import CaseIntro from "@/components/case/CaseIntro";
+import CaseChallenge from "@/components/case/CaseChallenge";
+import CaseChapter from "@/components/case/CaseChapter";
+import styles from "@/components/case/Case.module.css";
 import { client } from "@/sanity/lib/client";
-import { clean, editAttr } from "@/sanity/lib/clean";
+import { clean } from "@/sanity/lib/clean";
 import { imageUrl } from "@/sanity/lib/image";
 import { cachedFetch, getDynamicFetchOptions } from "@/sanity/lib/live";
-import { CASE_STUDY_QUERY, CASE_SLUGS_QUERY } from "@/sanity/lib/queries";
-import type { CASE_STUDY_QUERY_RESULT, CASE_SLUGS_QUERY_RESULT } from "../../../../../sanity.types";
+import { CASE_STUDY_QUERY, CASE_SLUGS_QUERY, CONTACT_LEAD_QUERY } from "@/sanity/lib/queries";
+import type {
+  CASE_STUDY_QUERY_RESULT,
+  CASE_SLUGS_QUERY_RESULT,
+  CONTACT_LEAD_QUERY_RESULT,
+} from "../../../../../sanity.types";
 
 export async function generateStaticParams() {
   const slugs: CASE_SLUGS_QUERY_RESULT = await client.fetch(CASE_SLUGS_QUERY);
@@ -21,6 +31,12 @@ async function getCase(slug: string) {
   const options = await getDynamicFetchOptions();
   const { data } = await cachedFetch({ query: CASE_STUDY_QUERY, params: { slug }, ...options });
   return data as CASE_STUDY_QUERY_RESULT;
+}
+
+async function getLead() {
+  const options = await getDynamicFetchOptions();
+  const { data } = await cachedFetch({ query: CONTACT_LEAD_QUERY, ...options });
+  return (data as CONTACT_LEAD_QUERY_RESULT)?.contactLead?.lead ?? [];
 }
 
 export async function generateMetadata({ params }: PageProps<"/cas-clients/[slug]">): Promise<Metadata> {
@@ -38,37 +54,41 @@ export async function generateMetadata({ params }: PageProps<"/cas-clients/[slug
   };
 }
 
+/**
+ * Page détail cas client (maquette « Pranéo détails ») : en-tête sombre, puis sections claires
+ * traversées par le trait central. Le header passe du blanc à l'encre en quittant l'en-tête (CaseEffects).
+ * Un cas sans contenu « Page détail » affiche son corps de texte historique.
+ */
 export default async function CaseStudyPage({ params }: PageProps<"/cas-clients/[slug]">) {
-  const c = await getCase((await params).slug);
+  const { slug } = await params;
+  const [c, lead] = await Promise.all([getCase(slug), getLead()]);
   if (!c) notFound();
 
   const doc = { _id: clean(c._id), _type: clean(c._type) };
-  const image = imageUrl(c.image, 1640, 920);
+  const chapters = c.chapters ?? [];
+  const hasDetail = !!(c.detailIntro || c.challenge || chapters.length);
 
   return (
-    <DetailLayout back="Retour aux cas clients" backHref="/#cas-clients">
-      {(c.clientName || c.sector) && (
-        <p className={styles.meta}>{[c.clientName, c.sector].filter(Boolean).join(" · ")}</p>
-      )}
-      <h1 className={styles.title} data-sanity={editAttr(doc, "title")}>
-        {c.title}
-      </h1>
-      {c.question && <p className={styles.lead}>{c.question}</p>}
-      {image && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img className={styles.cover} src={clean(image)} alt={clean(c.image?.alt) ?? ""} data-sanity={editAttr(doc, "image")} />
-      )}
-      {!!c.keyFigures?.length && (
-        <ul className={styles.figures}>
-          {c.keyFigures.map((k) => (
-            <li key={clean(k._key)}>
-              <strong>{k.result}</strong>
-              <span>{k.detail}</span>
-            </li>
+    <>
+      <SiteHeader anchorBase="/" />
+      <main>
+        <CaseEffects />
+        <CaseHero c={c} doc={doc} />
+        <div className={styles.light} data-reveal>
+          <span className={styles.axis} aria-hidden="true" />
+          {c.detailIntro && <CaseIntro intro={c.detailIntro} doc={doc} />}
+          {c.challenge && <CaseChallenge challenge={c.challenge} />}
+          {chapters.map((ch) => (
+            <CaseChapter key={clean(ch._key)} chapter={ch} doc={doc} />
           ))}
-        </ul>
-      )}
-      <PortableBody value={c.body} />
-    </DetailLayout>
+          {!hasDetail && !!c.body?.length && (
+            <div className={`${styles.section} ${styles.body}`}>
+              <PortableBody value={c.body} />
+            </div>
+          )}
+        </div>
+      </main>
+      <SiteFooter lead={lead} staticTone="light" />
+    </>
   );
 }
