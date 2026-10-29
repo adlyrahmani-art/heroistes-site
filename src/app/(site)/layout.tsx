@@ -26,10 +26,12 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = clean(seo?.title) || (FALLBACK.title as string);
   const description = clean(seo?.description) || (FALLBACK.description as string);
   const image = imageUrl(seo?.image, 1200, 630);
+  const images = image ? [{ url: image, alt: clean(seo?.image?.alt) || title }] : undefined;
   return {
     title,
     description,
-    ...(image && { openGraph: { title, description, images: [{ url: image, alt: clean(seo?.image?.alt) ?? "" }] } }),
+    openGraph: { title, description, siteName: "Héroïstes", locale: "fr_FR", type: "website", ...(images && { images }) },
+    twitter: { card: "summary_large_image", title, description, ...(images && { images }) },
   };
 }
 

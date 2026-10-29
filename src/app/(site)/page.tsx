@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 import HorizontalScroll from "@/components/home/HorizontalScroll";
 import HeroPanel from "@/components/home/HeroPanel";
 import SectionTitlePanel from "@/components/home/SectionTitlePanel";
@@ -14,26 +14,24 @@ import Blog from "@/components/home/Blog";
 import Faq from "@/components/home/Faq";
 import { clean } from "@/sanity/lib/clean";
 import { cachedFetch, getDynamicFetchOptions } from "@/sanity/lib/live";
-import { HOME_QUERY, LATEST_POSTS_QUERY, SETTINGS_QUERY } from "@/sanity/lib/queries";
-import type { HOME_QUERY_RESULT, LATEST_POSTS_QUERY_RESULT, SETTINGS_QUERY_RESULT } from "../../../sanity.types";
+import { HOME_QUERY, LATEST_POSTS_QUERY } from "@/sanity/lib/queries";
+import type { HOME_QUERY_RESULT, LATEST_POSTS_QUERY_RESULT } from "../../../sanity.types";
 
 export default async function Home() {
   const options = await getDynamicFetchOptions();
-  const [{ data }, { data: postsData }, { data: settingsData }] = await Promise.all([
+  const [{ data }, { data: postsData }] = await Promise.all([
     cachedFetch({ query: HOME_QUERY, ...options }),
     cachedFetch({ query: LATEST_POSTS_QUERY, ...options }),
-    cachedFetch({ query: SETTINGS_QUERY, ...options }),
   ]);
-  const settings = settingsData as SETTINGS_QUERY_RESULT;
   const home = data as HOME_QUERY_RESULT;
-  if (!home || !settings) notFound();
+  if (!home) notFound();
   const posts = (postsData ?? []) as LATEST_POSTS_QUERY_RESULT;
 
   const doc = { _id: clean(home._id), _type: clean(home._type) };
 
   return (
     <>
-      <Header navLabels={settings.navLabels} cta={settings.headerCta} />
+      <SiteHeader />
       <main id="accueil">
         {/* Sections 1 et 2 : défilement horizontal */}
         <HorizontalScroll>
@@ -62,7 +60,7 @@ export default async function Home() {
       </main>
 
       {/* Footer : entre de droite à gauche par-dessus la FAQ (mouvement des Expertises) */}
-      <Footer lead={home.contactLead?.lead ?? []} settings={settings} />
+      <SiteFooter lead={home.contactLead?.lead ?? []} />
     </>
   );
 }

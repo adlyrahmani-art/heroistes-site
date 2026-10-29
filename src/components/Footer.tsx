@@ -26,13 +26,14 @@ export default function Footer({
   settings,
 }: {
   lead: string[];
-  settings: NonNullable<SETTINGS_QUERY_RESULT>;
+  settings: Pick<NonNullable<SETTINGS_QUERY_RESULT>, "_id" | "_type" | "footer" | "social"> | null;
 }) {
-  const f = settings.footer;
+  const f = settings?.footer;
   const visualSrc = imageUrl(f?.visual, 652, 436);
+  const visualAlt = visualSrc ? clean(f?.visual?.alt) || footer.visualAlt : footer.visualAlt;
   const email = f?.email || footer.email;
   const emailHref = clean(email);
-  const linkedin = clean(settings.social?.linkedin) || footer.linkedin;
+  const linkedin = clean(settings?.social?.linkedin) || footer.linkedin;
   const ref = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
@@ -112,28 +113,26 @@ export default function Footer({
 
         {/* Colonne gauche : marque, newsletter, contact */}
         <div className={styles.brandCol}>
-          {visualSrc && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              className={styles.visual}
-              src={visualSrc}
-              alt={clean(f?.visual?.alt) ?? ""}
-              width={652}
-              height={436}
-              loading="lazy"
-              data-sanity={editAttr(settings, "footer.visual")}
-            />
-          )}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className={styles.visual}
+            src={visualSrc ?? footer.visual}
+            alt={visualAlt}
+            width={652}
+            height={436}
+            loading="lazy"
+            data-sanity={visualSrc && settings ? editAttr({ _id: clean(settings._id), _type: clean(settings._type) }, "footer.visual") : undefined}
+          />
 
           <p className={styles.brand}>
             {footer.brand}
-            <span>{f?.baseline ?? footer.baseline}</span>
+            <span>{f?.baseline || footer.baseline}</span>
           </p>
 
           <form className={styles.newsletter} onSubmit={(e) => e.preventDefault()}>
             {/* [À brancher] inscription newsletter (outil d'e-mailing à définir) */}
-            <h3 className={styles.newsTitle}>{f?.newsletterTitle ?? footer.newsletter.title}</h3>
-            <p className={styles.newsText}>{f?.newsletterText ?? footer.newsletter.text}</p>
+            <h3 className={styles.newsTitle}>{f?.newsletterTitle || footer.newsletter.title}</h3>
+            <p className={styles.newsText}>{f?.newsletterText || footer.newsletter.text}</p>
             <label className="visually-hidden" htmlFor="news-email">
               Votre adresse e-mail
             </label>
@@ -160,7 +159,7 @@ export default function Footer({
               />
             </svg>
           </a>
-          <p className={styles.copyright}>{f?.copyright ?? footer.copyright}</p>
+          <p className={styles.copyright}>{f?.copyright || footer.copyright}</p>
           <a className={styles.email} href={`mailto:${emailHref}`}>
             <span>{email.split("@")[0]}</span>
             <span>@{email.split("@")[1]}</span>
