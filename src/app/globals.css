@@ -38,15 +38,18 @@
 
 /* Mobile et tablette portrait (≤ 1024 px) : mises en page empilées ; l'unité maquette est
    calibrée sur 1100 px de large pour garder des textes lisibles (les tailles ont des planchers) */
+/* Règle UX : un seul espacement vertical entre sections (haut et bas identiques) */
 @media (max-width: 1024px) {
   :root {
     --u: calc(100vw / 1100);
     --gut: 20px;
+    --section-y: 64px;
   }
 }
 @media (min-width: 600px) and (max-width: 1024px) {
   :root {
     --gut: 40px;
+    --section-y: 88px;
   }
 }
 

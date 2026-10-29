@@ -295,7 +295,7 @@
     height: auto;
   }
   .titlePanel {
-    padding: 120px var(--gut) 72px;
+    padding: var(--section-y) var(--gut) 32px;
   }
   .title {
     font-size: clamp(44px, 12vw, 110px);
@@ -304,7 +304,7 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
-    padding: 24px var(--gut) 56px;
+    padding: 0 var(--gut) 40px;
   }
   .detailsText,
   .photo {
@@ -330,7 +330,7 @@
     padding: 0 var(--gut) 24px;
   }
   .cardsPanel + .cardsPanel {
-    padding-bottom: 72px;
+    padding-bottom: var(--section-y);
   }
   .cards {
     position: static;

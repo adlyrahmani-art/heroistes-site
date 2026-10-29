@@ -73,6 +73,30 @@
   width: max(22px, calc(34 * var(--u)));
   height: auto;
 }
+/* Symbole : version « fond sombre » (Logo v2) par défaut, version « fond clair » sur les lames
+   claires ; fondu croisé au changement de section. Menus ouverts : toujours la version sombre. */
+.markWrap {
+  display: grid;
+}
+.markWrap > * {
+  grid-area: 1 / 1;
+  transition: opacity var(--dur-m) var(--ease-overlay);
+}
+.markLight {
+  opacity: 0;
+}
+:global(body[data-tone="light"]) .markLight {
+  opacity: 1;
+}
+:global(body[data-tone="light"]) .markDark {
+  opacity: 0;
+}
+:global(body) .header[data-open] .markLight {
+  opacity: 0;
+}
+:global(body) .header[data-open] .markDark {
+  opacity: 1;
+}
 
 /* ---------- Nav : Onest Bold 12 maj. + n° 10 px turquoise ---------- */
 .menu {

@@ -325,7 +325,7 @@
   .intro {
     height: auto;
     min-height: 0;
-    padding: 120px var(--gut) 72px;
+    padding: var(--section-y) var(--gut);
   }
   .axis,
   .bolt {
@@ -360,25 +360,27 @@
     justify-content: center;
   }
 
+  /* Cas : les panneaux restent épinglés et se recouvrent, mais la photo suit son panneau (pas de
+     photo fixe : au doigt, elle vibrait) ; contenu centré verticalement, photo agrandie (4:3) */
   .slide {
-    /* haut, largeur et hauteur de la photo (format de la maquette, pleine largeur) */
-    --top: 88px;
-    --cardW: calc(100vw - 2 * var(--gut));
-    --cardH: calc(var(--cardW) * 476 / 1325);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 22px;
+    padding: 76px var(--gut) 28px;
   }
-  .line {
-    display: none;
-  }
-  /* Pas de « translate » ici : la photo est déplacée par l'animation (transform) ; un décalage
-     CSS séparé peut être écrasé sur mobile, d'où une photo décentrée */
-  .card {
-    top: var(--top);
-    left: var(--gut);
-    width: var(--cardW);
-  }
-  /* Mobile et tablette : pas de nom qui défile (masqué, animation arrêtée) */
+  .line,
   .marquee {
     display: none;
+  }
+  .card {
+    position: relative;
+    top: auto;
+    left: auto;
+    flex: none;
+    width: 100%;
+    aspect-ratio: auto;
+    height: min(calc((100vw - 2 * var(--gut)) * 0.75), 44svh);
   }
   .tag {
     top: 10px;
@@ -387,18 +389,19 @@
     font-size: 11px;
   }
   .logo {
-    width: calc(var(--size) * 0.45px);
+    width: calc(var(--size) * 0.55px);
   }
   .info {
-    top: calc(var(--top) + var(--cardH) + 22px);
-    left: var(--gut);
-    width: var(--cardW);
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
     grid-template-columns: 1fr;
   }
   .caseTitle {
     max-width: none;
     font-size: clamp(21px, 5.6vw, 34px);
-    line-height: 1.08;
+    line-height: 1.1;
   }
   .items {
     margin-top: 12px;
@@ -427,15 +430,24 @@
     min-width: 0;
   }
 }
+/* Petits téléphones (hauteur ≤ 700 px) : photo un peu moins haute pour que tout tienne */
+@media (max-width: 1024px) and (max-height: 700px) {
+  .card {
+    height: min(calc((100vw - 2 * var(--gut)) * 0.62), 36svh);
+  }
+  .slide {
+    gap: 16px;
+  }
+}
 @media (min-width: 600px) and (max-width: 1024px) {
   .slide {
-    --top: 104px;
+    padding-top: 96px;
+  }
+  .card {
+    height: min(calc((100vw - 2 * var(--gut)) * 0.56), 46svh);
   }
   .logo {
-    width: calc(var(--size) * 0.7px);
-  }
-  .info {
-    top: calc(var(--top) + var(--cardH) + 36px);
+    width: calc(var(--size) * 0.8px);
   }
   .items,
   .stat {

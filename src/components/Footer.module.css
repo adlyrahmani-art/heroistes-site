@@ -327,7 +327,7 @@
     right: auto;
     width: auto;
     height: auto;
-    padding: 120px 20px 40px;
+    padding: var(--section-y) var(--gut) 32px;
   }
   .bar {
     width: 100%;
@@ -343,10 +343,10 @@
   }
   .formCol {
     order: -1;
-    padding: 96px 20px 48px;
+    padding: 32px var(--gut) 48px;
   }
   .brandCol {
-    padding: 0 20px 64px;
+    padding: 0 var(--gut) var(--section-y);
   }
   .visual {
     width: 100%;

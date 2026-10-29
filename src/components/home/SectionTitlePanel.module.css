@@ -68,7 +68,7 @@
     width: 100%;
     height: auto;
     justify-content: flex-start;
-    padding: 120px var(--gut) 72px;
+    padding: var(--section-y) var(--gut) 20px;
   }
   .title {
     font-size: clamp(40px, 10.5vw, 120px);

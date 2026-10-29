@@ -59,3 +59,11 @@
     animation: none;
   }
 }
+
+/* Mobile et tablette : espacement commun entre sections (--section-y) */
+@media (max-width: 1024px) {
+  .band {
+    padding-top: var(--section-y);
+    padding-bottom: var(--section-y);
+  }
+}

@@ -142,16 +142,31 @@
     min-height: 100svh;
     height: auto;
   }
+  /* Le texte démarre en haut : le surtitre occupe la bande de la constellation, à sa gauche,
+     et le grand titre commence juste en dessous (aucun vide, aucun chevauchement) */
   .content {
     min-height: 100svh;
-    justify-content: flex-end;
-    padding: 120px var(--gut) 56px;
+    justify-content: flex-start;
+    padding: 88px var(--gut) var(--section-y);
+  }
+  .hero {
+    --cst-h: min(15svh, 150px);
+  }
+  .eyebrow {
+    min-height: var(--cst-h);
+    margin-bottom: 14px;
   }
   .h2 {
     white-space: normal;
   }
   .text {
     max-width: 560px;
+  }
+  /* Constellation réduite, dans l'espace vide en haut à droite : elle ne passe plus sur le texte */
+  .constellation {
+    inset: 80px var(--gut) auto auto;
+    width: min(50vw, 360px);
+    height: var(--cst-h);
   }
 }
 @media (max-width: 767px) {

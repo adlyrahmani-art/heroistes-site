@@ -44,10 +44,10 @@ export default function CasClients() {
       if (reduce) return;
 
       // Photo centrale et nom qui défile fixes pendant que leur panneau monte : ils sont décalés
-      // d'autant que le panneau est encore bas, puis le panneau s'épingle (tous écrans ; la
-      // hauteur du panneau sert de distance, robuste à la barre d'adresse mobile)
+      // d'autant que le panneau est encore bas, puis le panneau s'épingle. Ordinateur seulement :
+      // au doigt, la photo vibrait ; sur mobile et tablette elle suit son panneau.
       ScrollTrigger.matchMedia({
-        all: () => {
+        "(min-width: 1025px)": () => {
           gsap.utils.toArray<HTMLElement>("[data-slide]", stack).forEach((slide) => {
             gsap.fromTo(
               slide.querySelectorAll("[data-fixed]"),

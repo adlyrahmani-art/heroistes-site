@@ -122,7 +122,11 @@ export default function Header() {
           <span />
         </div>
         <a href="#accueil" className={styles.brand} aria-label="Héroïstes, retour à l'accueil" onClick={navigate}>
-          <LogoMark className={styles.mark} />
+          {/* Deux variantes du symbole : la bonne s'affiche selon le fond (voir Header.module.css) */}
+          <span className={styles.markWrap}>
+            <LogoMark className={`${styles.mark} ${styles.markDark}`} variant="dark" />
+            <LogoMark className={`${styles.mark} ${styles.markLight}`} variant="light" />
+          </span>
           <span>Héroïstes</span>
         </a>
 

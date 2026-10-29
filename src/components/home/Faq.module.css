@@ -150,7 +150,7 @@
 
 @media (max-width: 1024px) {
   .section {
-    padding: 96px 20px 72px;
+    padding: var(--section-y) var(--gut);
   }
   .title {
     margin-left: 0;

@@ -208,7 +208,7 @@
 /* ---------- Mobile ---------- */
 @media (max-width: 1024px) {
   .section {
-    padding: 80px 20px 96px;
+    padding: var(--section-y) var(--gut);
   }
   .reasons,
   .steps {

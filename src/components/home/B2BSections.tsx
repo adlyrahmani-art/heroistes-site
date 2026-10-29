@@ -44,6 +44,13 @@ export default function B2BSections() {
 
       if (reduce) return;
 
+      // Transitions en calques : ordinateur seulement (sur mobile, le décalage poussait le bas des
+      // Expertises sous la section suivante et cassait l'espacement entre sections)
+      ScrollTrigger.matchMedia({ "(min-width: 1025px)": () => layers() });
+    }, root);
+
+    function layers() {
+      const root = ref.current!;
       // Expertises → Pourquoi : la lame sombre recule (et s'assombrit) sous la section claire.
       // On anime son contenu (fond fixe + piste), jamais le conteneur épinglé : un transform
       // sur celui-ci casserait l'épinglage quand on remonte.
@@ -93,7 +100,7 @@ export default function B2BSections() {
           0,
         );
       }
-    }, root);
+    }
 
     // Entrées : un bloc monte dès qu'il entre à l'écran. IntersectionObserver plutôt qu'un seuil
     // de défilement, que le bouton tout en bas de page n'atteignait jamais (il restait invisible).

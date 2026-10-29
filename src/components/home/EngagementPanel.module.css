@@ -229,7 +229,11 @@
     flex-direction: column;
     justify-content: center;
     gap: 24px;
-    padding: 96px var(--gut) 64px;
+    padding: 28px var(--gut) 28px;
+  }
+  /* Dernier engagement : fin de section, marge commune */
+  .panel:last-child {
+    padding-bottom: var(--section-y);
   }
   .axis {
     display: none;
