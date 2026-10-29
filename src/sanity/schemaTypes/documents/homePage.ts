@@ -21,7 +21,11 @@ const fixedList = (name: string, title: string, count: number, itemName: string,
         type: "object",
         name: itemName,
         fields,
-        preview: { select: { title: titleField } },
+        // Un titre-signature est un tableau de lignes : on les joint pour l'aperçu.
+        preview: {
+          select: { title: titleField },
+          prepare: ({ title }) => ({ title: Array.isArray(title) ? title.join(" ") : title }),
+        },
       }),
     ],
     validation: (Rule) => Rule.custom(exactCount(count)),
