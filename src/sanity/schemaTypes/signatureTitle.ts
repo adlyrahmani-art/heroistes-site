@@ -10,13 +10,13 @@ export const validateSignatureLines = (
 
   const newlineIndex = lines.findIndex((line) => /[\r\n]/.test(line));
   if (newlineIndex !== -1)
-    return `Ligne ${newlineIndex + 1} : un seul retour à la ligne par ligne saisie, ajoutez une ligne.`;
+    return `Ligne ${newlineIndex + 1} : pas de retour à la ligne, ajoutez une nouvelle ligne.`;
 
   if (lines.length > limits.maxLines)
     return `${limits.maxLines} lignes maximum (${lines.length} saisies).`;
 
   for (let i = 0; i < lines.length; i++) {
-    const visible = [...lines[i].trim()];
+    const visible = [...(lines[i] ?? "").trim()];
     if (visible.length === 0) return `Ligne ${i + 1} vide.`;
     if (visible.length > limits.maxChars)
       return `Ligne ${i + 1} : ${visible.length} caractères, ${limits.maxChars} maximum.`;

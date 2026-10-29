@@ -12,4 +12,6 @@ test("mesure après trim et refuse une ligne vide", () => {
 });
 test("refuse un titre absent", () => expect(validateSignatureLines(undefined, lim)).toBe("Titre obligatoire."));
 test("refuse une ligne contenant un retour à la ligne", () =>
-  expect(validateSignatureLines(["Accès\ndirect"], lim)).toBe("Ligne 1 : un seul retour à la ligne par ligne saisie, ajoutez une ligne."));
+  expect(validateSignatureLines(["Accès\ndirect"], lim)).toBe("Ligne 1 : pas de retour à la ligne, ajoutez une nouvelle ligne."));
+test("traite un élément absent comme une ligne vide", () =>
+  expect(validateSignatureLines(["Accès", undefined as unknown as string], lim)).toBe("Ligne 2 vide."));
