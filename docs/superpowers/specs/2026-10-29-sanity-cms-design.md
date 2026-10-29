@@ -1,55 +1,59 @@
 # Héroïstes — Intégration CMS headless Sanity
 
-- **Date** : 2026-10-29
+- **Date** : 2026-10-29 (corrigée le même jour, voir § 9)
 - **Statut** : design validé
-- **Source** : doc « Héroïstes — Intégration CMS headless Sanity » (https://claude.ai/artifact/QmdNgBWtN4k7qAaNv9FmfK). Cette spec reprend ses décisions sans les modifier ; la section « Écarts constatés avec le code actuel », en fin de document, est un ajout factuel pour préparer le plan d'implémentation.
+- **Source** : doc « Héroïstes — Intégration CMS headless Sanity » (https://claude.ai/artifact/QmdNgBWtN4k7qAaNv9FmfK), rédigé hors du repo. Cette spec en reprend les décisions et corrige, à la demande d'Adly, les points qui ne correspondaient pas au site réel (liste en § 9).
 
 ## 1. Objectif
 
 Le client doit modifier ses contenus en autonomie dans Sanity, sans pouvoir casser les animations, et le site doit rester rapide.
 
-## 2. Exigences exprimées
+## 2. Contexte technique
 
-- **CMS** : Sanity. Le site Next.js est versionné sur Git et hébergé sur Vercel.
+- Site Next.js 16 (App Router), versionné sur Git et hébergé sur Vercel ; préproduction sur `heroistes.uxtreampro.com`, domaine cible `heroistes.fr`.
+- Animations : GSAP / ScrollTrigger, Lenis, et deux scènes three.js écrites directement (photo du hero, symbole en particules). `@react-three/fiber` est installé mais n'est pas utilisé.
+- Les contenus de l'accueil sont aujourd'hui dans `src/content/accueil.ts`, l'arborescence du menu dans `src/content/navigation.ts`. Seule la page d'accueil existe.
+
+## 3. Exigences
+
+- **CMS** : Sanity.
 - **Périmètre** : le client modifie les textes et images de toutes les lames, et il peut créer ou supprimer des articles de blog et des cas clients.
 - **Langues** : français au lancement, avec une structure prête pour l'anglais plus tard.
 - **Édition** : édition visuelle. Le client voit le vrai site avec ses brouillons, clique sur un texte pour l'éditer, puis publie.
 - **Titres-signatures** : modifiables, avec des limites de caractères et un contrôle des retours à la ligne.
 
-## 3. Hypothèses retenues
+Hypothèses retenues :
 
 - La structure des pages et l'ordre des lames restent dans le code.
 - Le client n'a pas besoin de rôles différents ni de circuit de validation.
-- Le formulaire de contact est géré dans Sanity (décision du 29/10, voir § 6.6).
+- Le formulaire de contact est géré dans Sanity (§ 6.6).
 
 ## 4. Le piège spécifique au site
 
-Les textes rendus en WebGL et les titres géants devront être nettoyés avant affichage, puis rendus cliquables autrement. C'est à prévoir dès la spec.
+L'édition visuelle de Sanity cache des caractères invisibles dans les textes (stega). C'est ce qui permet au clic sur le site d'ouvrir le bon champ du Studio. Ces caractères posent problème partout où un texte n'est pas simplement affiché en HTML :
 
-L'édition visuelle de Sanity cache des caractères invisibles dans les textes (stega). C'est ce qui permet au clic sur le site d'ouvrir le bon champ du Studio. Ces caractères posent problème à deux endroits :
+- **Texte dessiné ou mesuré** : les mots géants animés (« GLOBALE », « B2B »… ; composant `WaveWord`, masque SVG), le texte mesuré par le curseur, et tout texte rendu à l'avenir dans un canvas WebGL. Aucun texte n'est aujourd'hui dessiné dans un canvas.
+- **Texte dupliqué ou masqué** : le nom du client qui défile dans les cas clients, répété et masqué aux lecteurs d'écran.
+- **Valeurs techniques** : liens, adresses e-mail, identifiants, textes alternatifs, URL d'images, métadonnées.
 
-- **Textes rendus en WebGL** : le canvas n'est pas du HTML cliquable, et les caractères cachés peuvent fausser le rendu des lettres.
-- **Calculs de découpe des titres géants** : la longueur mesurée du texte devient fausse.
-
-**Parade** : nettoyer ces textes avant de les passer au canvas ou au calcul de découpe. Une zone HTML invisible posée au-dessus du canvas garde le clic vers le bon champ.
+**Parade** : nettoyer ces valeurs avant de les dessiner, de les mesurer ou de les placer dans un attribut. Quand un texte nettoyé est affiché, l'élément HTML qui le porte reçoit l'attribut d'édition de Sanity, ce qui garde le clic vers le bon champ. Un seul utilitaire partagé fait ce travail pour toutes les lames.
 
 ## 5. Architecture retenue
 
-**Approche 1 — Studio intégré au repo Next.js, sur `/studio`** (par exemple `heroistes.fr/studio`).
+**Studio intégré au repo Next.js, sur `/studio`** (par exemple `heroistes.fr/studio`).
 
 - Un seul repo et un seul déploiement Vercel.
 - Le Studio et l'aperçu partagent le domaine, ce qui simplifie l'édition visuelle.
 - Les contenus publiés arrivent quasi instantanément, sans rebuild.
-- C'est l'approche la plus documentée pour Next.js.
-- Inconvénient : le projet s'alourdit un peu, mais le Studio n'est chargé que sur `/studio`.
+- Le Studio n'est chargé que sur `/studio`, sans le défilement Lenis ni le curseur du site.
 - L'approche reste réversible : le Studio pourra être séparé plus tard si le besoin apparaît.
 
 Approches écartées :
 
 | Approche | Principe | Raison de l'écarter |
 |---|---|---|
-| 2. Studio séparé, hébergé par Sanity | Deux projets distincts : le site et le Studio | Édition visuelle plus lourde à configurer entre deux domaines ; deux déploiements à suivre |
-| 3. Monorepo, deux applications | Un seul repo, deux applications (site et Studio) | Surdimensionnée pour un site vitrine avec un seul client éditeur |
+| Studio séparé, hébergé par Sanity | Deux projets distincts : le site et le Studio | Édition visuelle plus lourde à configurer entre deux domaines ; deux déploiements à suivre |
+| Monorepo, deux applications | Un seul repo, deux applications (site et Studio) | Surdimensionnée pour un site vitrine avec un seul client éditeur |
 
 ## 6. Modèle de contenu (validé le 29/10)
 
@@ -61,51 +65,61 @@ Le Studio contient des pages uniques non supprimables, deux collections (blog et
 
 | Document | Contenu |
 |---|---|
-| Réglages du site | Menu (libellés), footer, coordonnées Grenoble et Paris, réseaux sociaux, SEO par défaut |
-| Accueil | Un groupe de champs par lame : hero, intro, aperçu des expertises, chiffres clés, avis, appel à l'action |
-| Conseil, Secteurs, L'agence, Contact | Un groupe de champs par lame |
-| Expertise × 4 | Développement commercial, Branding & contenu, Digital experience, Acquisition & performance (4 documents fixes) |
-| Formulaire de contact | Textes, adresse de réception et choix parmi des champs prévus |
+| Réglages du site | Libellés du menu, bouton du header, footer (visuel, signature, newsletter, copyright, e-mail), coordonnées Grenoble et Paris, réseaux sociaux, SEO par défaut |
+| Accueil | Un groupe de champs par lame, dans l'ordre du site : hero ; Nos engagements (titre + 4 engagements) ; bandeau de logos ; Vos besoins (6 situations) ; Expertises (titre, présentation, 6 cartes) ; Pourquoi choisir (3 raisons) ; Du plan aux résultats (2 étapes) ; Nos cas clients (intro + 3 cas mis en avant) ; Blog (titre, bouton) ; FAQ (5 questions) ; titre « Votre prochaine étape » avant le footer |
+| Formulaire de contact | Titre et texte d'introduction, libellés et textes d'exemple des champs, bouton, messages, mention RGPD, adresse de réception (§ 6.6) |
+| Conseil, Secteurs, L'agence, Contact, Expertise × 4 | Un groupe de champs par lame. **À modéliser quand leurs maquettes existeront** : ces pages n'ont encore ni route ni maquette |
 
 ### 6.2 Collections
 
 Équivalent des CPT : seuls contenus que le client crée et supprime.
 
-- **Article de blog** : titre, slug, date, extrait, image de couverture, texte riche, SEO.
-- **Cas client** : titre, slug, nom du client, secteur (liste), chiffres clés, image, texte riche, SEO.
+- **Article de blog** : titre, slug, date, extrait, image de couverture, texte riche, SEO. Les 4 derniers articles remontent automatiquement sur l'accueil.
+- **Cas client** : titre, slug, nom du client, secteur (liste), chiffres clés, image, texte riche, SEO, et les éléments qu'affiche la carte de l'accueil (étiquette d'expertise, question, fond flouté, logo, puces).
 
 ### 6.3 Briques réutilisables
 
-- **Titre-signature** : saisi ligne par ligne, avec un nombre de lignes et un nombre de caractères par ligne maximum, réglés par lame (exemple : hero limité à 3 lignes de 12 caractères). Le Studio refuse un titre qui dépasse.
+- **Titre-signature** : saisi ligne par ligne, avec un nombre de lignes et un nombre de caractères par ligne maximum, réglés par lame et calés sur les titres actuels (exemple : titre du hero limité à 2 lignes de 14 caractères). Le Studio refuse un titre qui dépasse.
 - **Image** : texte alternatif obligatoire et point focal réglable.
 - **Bouton** : libellé et lien.
 - **SEO** : titre, description, image de partage.
 
 ### 6.4 Listes à nombre fixe
 
-Les chiffres clés, les avis et la FAQ ont un nombre d'éléments imposé dans le code. Le client modifie leur contenu, pas leur nombre.
+Les listes dont la mise en page dépend du nombre d'éléments ont un nombre imposé dans le code : engagements (4), situations de Vos besoins (6), cartes Expertises (6), raisons de Pourquoi choisir (3), étapes de Du plan aux résultats (2), cas clients mis en avant (3), questions de la FAQ (5). Le client modifie leur contenu, pas leur nombre.
 
 ### 6.5 Anglais plus tard
 
 Chaque document porte une langue (`fr` par défaut, masquée). La version EN viendra comme un document lié à chaque document FR, sans restructurer les données.
 
-### 6.6 Formulaire de contact (option B)
+### 6.6 Formulaire de contact (option B, sur les champs actuels du site)
 
-- Le client modifie les libellés, les textes d'aide, le bouton, les messages de confirmation et d'erreur, et l'adresse qui reçoit les demandes.
-- Il affiche ou masque des champs prévus (Téléphone, Entreprise, Budget, Expertise concernée) et les rend obligatoires ou non.
-- Nom, e-mail et message restent toujours affichés et obligatoires. Il ne peut pas créer de nouveau champ.
+Le formulaire garde les six champs du site actuel (brief de contenu et maquette « Footer ») :
+
+| Champ | Règle |
+|---|---|
+| Nom | Toujours affiché et obligatoire |
+| Prénom | Toujours affiché et obligatoire |
+| E-mail | Toujours affiché et obligatoire |
+| Description du projet | Toujours affiché et obligatoire |
+| Téléphone | Champ prévu : le client l'affiche ou le masque, et le rend obligatoire ou non (affiché et obligatoire par défaut, comme aujourd'hui) |
+| Sujet | Champ prévu : même règle (affiché et obligatoire par défaut) |
+
+- Le client modifie les libellés, les textes d'exemple, le bouton, les messages de confirmation et d'erreur, la mention RGPD et l'adresse qui reçoit les demandes.
+- Il ne peut pas créer de nouveau champ.
+- La newsletter du footer n'est pas couverte par cette spec.
 
 ## 7. Édition visuelle et publication (validé le 29/10)
 
 Le client édite sur le vrai site dans un écran partagé, et une publication met le site à jour en quelques secondes sans redéploiement.
 
-- **Accès** : Studio sur `heroistes.fr/studio`, compte Sanity du client invité avec le rôle Éditeur.
+- **Accès** : Studio sur `/studio`, compte Sanity du client invité avec le rôle Éditeur.
 - **Aperçu** : le Studio affiche le site en mode brouillon (Draft Mode de Next.js, outil Presentation de Sanity), réservé aux personnes connectées. Le client clique sur un texte et le bon champ s'ouvre.
 - **Caractères invisibles** : ajoutés uniquement en mode brouillon ; les visiteurs reçoivent des textes propres.
-- **WebGL et titres-signatures** : les textes sont nettoyés avant le canvas et les calculs de découpe. Une zone HTML invisible posée dessus garde le clic. Le tout passe par un seul utilitaire partagé par toutes les lames.
+- **Textes dessinés, mesurés ou en attribut** : nettoyés par l'utilitaire partagé ; l'élément affiché garde le clic vers le bon champ (§ 4).
 - **Publication** : le site public se rafraîchit en quelques secondes, uniquement sur les pages concernées. Les déploiements Vercel restent réservés au code.
 - **Images** : servies par le CDN de Sanity, redimensionnées et recadrées selon le point focal.
-- **Aperçu et performances** : le WebGL reste complet dans l'aperçu. Un mode allégé ne sera ajouté qu'en cas de lenteur constatée.
+- **Aperçu et performances** : les scènes WebGL restent complètes dans l'aperçu. Un mode allégé ne sera ajouté qu'en cas de lenteur constatée.
 
 ## 8. Formulaire, erreurs et tests (validé le 29/10)
 
@@ -117,30 +131,30 @@ Chaque demande de contact part par e-mail et reste enregistrée dans Sanity ; le
 - E-mail via un service d'envoi transactionnel (par exemple Resend), vers l'adresse définie dans Sanity.
 - Copie de chaque demande enregistrée dans Sanity comme document « Demande de contact », en lecture seule pour le client.
 - Anti-spam : champ piège invisible et limite d'envois par adresse IP. Captcha (Cloudflare Turnstile) seulement si le spam devient un problème.
-- Validation côté serveur selon les champs activés et obligatoires.
+- Validation côté serveur selon les champs affichés et obligatoires.
 
 ### 8.2 Gestion des erreurs
 
 - **Contenu incomplet** : champs indispensables obligatoires dans le Studio, donc pas de publication d'une lame à moitié vide.
-- **Sanity indisponible** : le site sert la dernière version en cache.
+- **Sanity indisponible** : le site sert la dernière version en cache ; un envoi de formulaire part quand même par e-mail.
 - **Synchronisation** : types TypeScript générés depuis le modèle Sanity ; un écart entre code et modèle bloque la compilation.
 - **Échec d'envoi** : le visiteur voit le message d'erreur défini par le client, et la demande reste enregistrée dans Sanity.
 
 ### 8.3 Tests
 
-- **Unitaires** : validation des titres-signatures, utilitaire de nettoyage des textes WebGL, validation du formulaire selon les champs activés.
+- **Unitaires** : validation des titres-signatures, utilitaire de nettoyage, validation du formulaire selon les champs affichés.
 - **Bout en bout** (Playwright, sur les déploiements de prévisualisation Vercel) : accueil, article de blog, cas client, formulaire (succès et erreur), chargement du Studio.
-- **Recette manuelle** : le clic sur chaque lame ouvre le bon champ, y compris pour les textes WebGL.
+- **Recette manuelle** : le clic sur chaque lame ouvre le bon champ, y compris pour les mots géants animés et le nom défilant des cas clients.
 
-## 9. Écarts constatés avec le code actuel (ajout, sans changement de décision)
+## 9. Corrections apportées au doc d'origine
 
-Relevés dans le repo `heroistes-site` au 29/10/2026, pour que le plan les traite explicitement. Les décisions ci-dessus s'appliquent ; seule leur traduction dans le code reste à préciser.
-
-1. **Rendu 3D** : `@react-three/fiber` figure dans les dépendances, mais les scènes sont écrites directement en three.js (`src/components/home/HeroImage.tsx`, `src/components/LogoSmoke3D.tsx`).
-2. **Textes en WebGL** : aucune lame ne rend aujourd'hui de texte dans un canvas (pas de lame « intro » ni de « morphing »). Les canvas affichent la photo du hero et le symbole en particules. Les textes sensibles aux caractères invisibles sont les titres découpés ligne par ligne en HTML (masques `.ln`), les mots animés (`WaveWord`, masque SVG), le texte défilant des cas clients et les caractères mesurés par le curseur. L'utilitaire de nettoyage partagé (§ 7) s'applique à ces cas, et à tout texte WebGL futur.
-3. **Lames de l'accueil** : le code comporte, dans l'ordre : hero, Nos engagements (×4), bandeau de logos, Vos besoins (accordéon ×6), Expertises (titre, présentation, 6 cartes), Pourquoi choisir (3 raisons), Du plan aux résultats (2 étapes), Nos cas clients (intro + 3 cas), Blog (4 articles), FAQ (×5), titre et footer « Démarrez votre projet ». La liste du § 6.1 (« hero, intro, aperçu des expertises, chiffres clés, avis, appel à l'action ») est à faire correspondre à ces lames.
-4. **Pages** : seule la page d'accueil existe. Conseil, Secteurs, L'agence, Contact, les 4 pages Expertise, le blog et les cas clients n'ont pas encore de route ni de maquette.
-5. **Contenus** : les textes de l'accueil sont aujourd'hui dans `src/content/accueil.ts` et l'arborescence du menu dans `src/content/navigation.ts`. Ils serviront de contenu initial à importer dans Sanity.
-6. **Formulaire** : le footer contient déjà un formulaire de contact et un formulaire newsletter, non branchés. La newsletter n'est pas couverte par le doc.
-7. **Domaine** : le site est déployé sur `heroistes.uxtreampro.com` (préproduction) ; `heroistes.fr` est le domaine cible.
-8. **Tests** : aucun outil de test n'est installé (ni test unitaire, ni Playwright).
+| Doc d'origine | Correction | Raison |
+|---|---|---|
+| Site « Next.js + React Three Fiber » | three.js écrit directement ; R3F installé mais inutilisé | État du code |
+| Textes rendus en WebGL (« intro, morphing ») | Aucun texte dans un canvas ; le piège concerne les textes dessinés en SVG, mesurés, dupliqués ou en attribut | Ces lames n'existent pas sur le site |
+| Accueil : « hero, intro, aperçu des expertises, chiffres clés, avis, appel à l'action » | Les 11 lames réelles de l'accueil (§ 6.1) | Lames du site construit |
+| Listes à nombre fixe : « chiffres clés, avis, FAQ » | Engagements, Vos besoins, cartes Expertises, raisons, étapes, cas mis en avant, FAQ (§ 6.4) | Pas de chiffres clés ni d'avis sur l'accueil ; le chiffre clé d'Isère Habitat est porté par le cas client |
+| Formulaire : Nom, e-mail, message + Téléphone, Entreprise, Budget, Expertise concernée | Les six champs actuels : Nom, Prénom, E-mail, Description du projet + Téléphone et Sujet activables (§ 6.6) | Demande d'Adly : garder l'existant |
+| Conseil, Secteurs, L'agence, Contact, Expertise × 4 modélisés d'emblée | À modéliser quand leurs maquettes existeront | Ni route ni maquette à ce jour |
+| Exemple de titre « hero limité à 3 lignes de 12 caractères » | Limites calées sur les titres actuels (hero : 2 lignes de 14 caractères) | Le titre actuel du hero compte 13 caractères sur sa 2e ligne |
+| Domaine `heroistes.fr` seul | Préproduction `heroistes.uxtreampro.com`, domaine cible `heroistes.fr` | Déploiement actuel |
