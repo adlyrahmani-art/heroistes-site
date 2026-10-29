@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { CONTACT_DEFAULT_MESSAGES } from "../../../lib/contact/defaults";
 import { languageField } from "../fields";
 import { signatureTitleField } from "../signatureTitle";
 import { BOLD_HINT, btn, str, txt } from "./helpers";
@@ -58,10 +59,7 @@ export const contactForm = defineType({
     intro:
       "Quelques informations suffisent pour démarrer.\n**Remplissez le formulaire ci-dessous** : nous revenons vers vous pour échanger sur votre projet, sans engagement.",
     submitLabel: "Envoyer ma demande",
-    successMessage: "Merci, votre demande est bien envoyée. Nous revenons vers vous rapidement.",
-    errorMessage: "L’envoi n’a pas abouti. Réessayez dans un instant ou écrivez-nous à contact@heroistes.com.",
-    rateLimitMessage:
-      "Vous avez envoyé plusieurs demandes en peu de temps. Réessayez dans une heure ou écrivez-nous à contact@heroistes.com.",
+    ...CONTACT_DEFAULT_MESSAGES,
     privacyText: "Vos données servent uniquement à vous recontacter au sujet de votre demande.",
     privacyLink: { label: "Politique de confidentialité", href: "/politique-de-confidentialite/" },
   },

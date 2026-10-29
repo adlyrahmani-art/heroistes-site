@@ -33,7 +33,9 @@ export function buildDeps(opts: {
     },
     async saveCopy(data) {
       if (e2e) return null;
+      // Id pointé (« contactRequest.<uuid> ») : document privé, jamais lisible sans jeton dans un dataset public.
       const doc = await writeClient.create({
+        _id: `contactRequest.${crypto.randomUUID()}`,
         _type: "contactRequest",
         language: "fr",
         receivedAt: new Date().toISOString(),

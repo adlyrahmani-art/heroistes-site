@@ -29,9 +29,12 @@ export async function handleContact(input: Record<string, unknown>, deps: Contac
   const v = validateContact(input, form);
   if (!v.ok) return { status: 400, message: FALLBACK.invalid, errors: v.errors };
 
-  if ((await deps.countRecent(deps.ipHash)) >= RATE_LIMIT.max) {
-    return { status: 429, message: form.rateLimitMessage || FALLBACK.rate };
-  }
+  // Sanity indisponible : on ne bloque pas l'envoi, la limite est simplement ignorée (spec §8.2).
+  const recent = await deps.countRecent(deps.ipHash).catch((e) => {
+    console.error("[contact] décompte des envois impossible", e);
+    return 0;
+  });
+  if (recent >= RATE_LIMIT.max) return { status: 429, message: form.rateLimitMessage || FALLBACK.rate };
 
   let id: string | null = null;
   try {

@@ -4,6 +4,7 @@ import { apiVersion, dataset, projectId } from "@/sanity/env";
 import { CONTACT_FORM_QUERY } from "@/sanity/lib/queries";
 import { buildDeps } from "@/lib/contact/deps";
 import { getIpSalt, hashIp } from "@/lib/contact/rateLimit";
+import { fallbackContactForm } from "@/lib/contact/defaults";
 import { handleContact } from "@/lib/contact/send";
 import type { CONTACT_FORM_QUERY_RESULT } from "../../../../sanity.types";
 
@@ -22,7 +23,9 @@ export async function POST(request: Request) {
 
   let input: Record<string, unknown>;
   try {
-    const body: unknown = await request.json();
+    const raw = await request.text();
+    if (raw.length > 20000) return json(413, { message: "Requête trop volumineuse." });
+    const body: unknown = JSON.parse(raw);
     if (!body || typeof body !== "object" || Array.isArray(body)) throw new Error("corps invalide");
     input = body as Record<string, unknown>;
   } catch {
@@ -39,8 +42,15 @@ export async function POST(request: Request) {
       perspective: "published",
       token: process.env.SANITY_API_WRITE_TOKEN,
     });
-    const form = await writeClient.fetch<CONTACT_FORM_QUERY_RESULT>(CONTACT_FORM_QUERY);
-    if (!form) return json(500, { message: "Formulaire indisponible." });
+    // Sanity indisponible : l'e-mail part quand même, avec la configuration de repli (spec §8.2).
+    let form: CONTACT_FORM_QUERY_RESULT | null;
+    try {
+      form = await writeClient.fetch<CONTACT_FORM_QUERY_RESULT>(CONTACT_FORM_QUERY);
+    } catch (e) {
+      console.error("[contact] formulaire Sanity indisponible, configuration de repli", e);
+      form = null;
+    }
+    form ??= fallbackContactForm(process.env);
 
     const ip =
       request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip")?.trim() || "inconnue";

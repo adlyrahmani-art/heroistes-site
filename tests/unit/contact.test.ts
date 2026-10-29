@@ -3,6 +3,7 @@ import { validateContact, type ContactFormConfig } from "@/lib/contact/validate"
 import { handleContact } from "@/lib/contact/send";
 import { hashIp, RATE_LIMIT } from "@/lib/contact/rateLimit";
 import { buildDeps } from "@/lib/contact/deps";
+import { fallbackContactForm } from "@/lib/contact/defaults";
 
 type Opt = { enabled?: boolean; required?: boolean };
 const formWith = (o: { phone?: Opt; subject?: Opt }): ContactFormConfig =>
@@ -104,6 +105,24 @@ describe("handleContact", () => {
   });
 });
 
+describe("handleContact : Sanity indisponible (§8.2)", () => {
+  test("countRecent échoue : la limite est ignorée, l'e-mail part, succès", async () => {
+    const deps = fakeDeps();
+    deps.countRecent.mockRejectedValueOnce(new Error("sanity down"));
+    expect(await handleContact(valid(), deps)).toEqual({ status: 200, message: form.successMessage });
+    expect(deps.sendEmail).toHaveBeenCalledOnce();
+  });
+  test("configuration de repli : téléphone et sujet obligatoires, destinataire par défaut ou CONTACT_TO_EMAIL", () => {
+    const f = fallbackContactForm({});
+    expect(f.recipient).toBe("contact@heroistes.com");
+    expect(validateContact({ ...valid(), phone: "", subject: "" }, f)).toMatchObject({
+      ok: false,
+      errors: { phone: expect.any(String), subject: expect.any(String) },
+    });
+    expect(fallbackContactForm({ CONTACT_TO_EMAIL: "x@y.fr" }).recipient).toBe("x@y.fr");
+  });
+});
+
 describe("hashIp", () => {
   test("SHA-256 hex stable, dépend du sel", () => {
     expect(hashIp("1.2.3.4", "s")).toMatch(/^[0-9a-f]{64}$/);
@@ -120,7 +139,7 @@ describe("buildDeps (câblage réel, clients factices)", () => {
     const set = vi.fn(() => ({ commit }));
     return {
       fetch: vi.fn(async () => 3),
-      create: vi.fn(async (doc: Record<string, unknown>) => ({ ...doc, _id: "doc-1" })),
+      create: vi.fn(async (doc: Record<string, unknown>) => ({ _id: "doc-1", ...doc })),
       patch: vi.fn(() => ({ set })),
       set,
     };
@@ -135,13 +154,24 @@ describe("buildDeps (câblage réel, clients factices)", () => {
       expect.stringContaining('_type == "contactRequest"'),
       expect.objectContaining({ h: "h", since: expect.any(String) }),
     );
-    expect(await d.saveCopy(data)).toBe("doc-1");
+    expect(await d.saveCopy(data)).toBe(c.create.mock.calls[0][0]._id);
     expect(c.create).toHaveBeenCalledWith(
-      expect.objectContaining({ _type: "contactRequest", language: "fr", ipHash: "h", receivedAt: expect.any(String), lastName: "Martin", phone: "0612" }),
+      expect.objectContaining({ _id: expect.stringMatching(/^contactRequest\.[0-9a-f-]{36}$/), _type: "contactRequest", language: "fr", ipHash: "h", receivedAt: expect.any(String), lastName: "Martin", phone: "0612" }),
     );
-    await d.markEmail("doc-1", "envoyé");
-    expect(c.patch).toHaveBeenCalledWith("doc-1");
+    const id = c.create.mock.calls[0][0]._id;
+    await d.markEmail(id, "envoyé");
+    expect(c.patch).toHaveBeenCalledWith(id);
     expect(c.set).toHaveBeenCalledWith({ emailStatus: "envoyé" });
+  });
+
+  test("saveCopy : chaque demande a un _id pointé distinct (document privé)", async () => {
+    const c = mkClient();
+    const d = buildDeps({ form, ipHash: "h", env, writeClient: c as never });
+    await d.saveCopy(data);
+    await d.saveCopy(data);
+    const [a, b] = c.create.mock.calls.map((x) => x[0]._id as string);
+    expect(a).toMatch(/^contactRequest\./);
+    expect(a).not.toBe(b);
   });
 
   test("sendEmail : Resend avec expéditeur, destinataire du formulaire, reply-to", async () => {
