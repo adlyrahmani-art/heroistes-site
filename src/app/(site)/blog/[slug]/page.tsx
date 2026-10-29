@@ -38,6 +38,13 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
   };
 }
 
+/**
+ * Navigation « bloquante » assumée (insight dev « instant-shell-url-data ») : tous les articles sont
+ * prérendus (generateStaticParams). Lire les params sous <Suspense> servirait un slug inconnu en
+ * 200 + noindex au lieu d'une vraie 404 ; on garde la 404 et on sort la route de la validation.
+ */
+export const instant = false;
+
 export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">) {
   const post = await getPost((await params).slug);
   if (!post) notFound();

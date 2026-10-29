@@ -29,7 +29,7 @@ export default async function DetailLayout({
           {children}
         </article>
       </main>
-      <SiteFooter lead={lead} staticTone="light" />
+      <SiteFooter lead={lead} staticTone="light" flat />
     </>
   );
 }

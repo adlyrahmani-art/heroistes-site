@@ -337,6 +337,24 @@
   color: var(--encre);
 }
 
+/* ---------- Pages détail : footer vertical dans le flux ----------
+   Mêmes règles que le mobile pour la piste : ni marge négative ni écrans réservés, piste non
+   collée ; le panneau titre (s'il est affiché) précède le footer, en pleine hauteur. */
+.flat {
+  margin-top: 0;
+}
+.flat::after {
+  display: none;
+}
+.flat .track {
+  position: relative;
+}
+.flat .titlePanel {
+  position: relative;
+  right: auto;
+  width: auto;
+}
+
 /* ---------- Mobile : une colonne, sans glissement ---------- */
 @media (max-width: 1024px) {
   .zone {

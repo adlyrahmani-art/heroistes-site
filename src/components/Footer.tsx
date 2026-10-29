@@ -91,10 +91,19 @@ export default function Footer({
   settings,
   contactForm,
   staticTone,
+  flat = false,
+  hideTitle = false,
 }: {
   lead: string[];
   /** Page à fond clair fixe (pages détail) : aucun changement de ton du header au défilement. */
   staticTone?: "light";
+  /**
+   * Pages détail : footer vertical, dans le flux (pas de FAQ, donc pas de glissement horizontal) ;
+   * sans marge négative ni écrans réservés, le défilement ne marque aucun arrêt.
+   */
+  flat?: boolean;
+  /** Masque le panneau « Votre prochaine étape » (une section de la page le remplace). */
+  hideTitle?: boolean;
   settings: Pick<NonNullable<SETTINGS_QUERY_RESULT>, "_id" | "_type" | "footer" | "social"> | null;
   /** Configuration du formulaire de contact (Sanity) ; repli sur les valeurs par défaut si absente. */
   contactForm?: ContactFormConfig | null;
@@ -150,7 +159,8 @@ export default function Footer({
   useEffect(() => {
     const zone = ref.current!;
     const track = trackRef.current!;
-    const title = titleRef.current!;
+    const title = titleRef.current;
+    if (!title) return;
     const faq = document.getElementById("faq");
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const setTone = (v: "light" | "dark") => requestAnimationFrame(() => (document.body.dataset.tone = v));
@@ -158,8 +168,13 @@ export default function Footer({
     const ctx = gsap.context(() => {
       ScrollTrigger.matchMedia({
         "(min-width: 1025px)": () => {
-          if (reduce || !faq) {
+          if (reduce) {
             title.classList.add(styles.in);
+            return;
+          }
+          if (flat || !faq) {
+            // Footer dans le flux : le titre se révèle en entrant à l'écran
+            ScrollTrigger.create({ trigger: title, start: "top 75%", once: true, onEnter: () => title.classList.add(styles.in) });
             return;
           }
           const first = { trigger: zone, start: "top top", end: "+=100%", scrub: true, invalidateOnRefresh: true };
@@ -189,7 +204,7 @@ export default function Footer({
         },
         "(max-width: 1024px)": () => {
           title.classList.add(styles.in);
-          if (staticTone) return;
+          if (staticTone || flat) return;
           ScrollTrigger.create({
             trigger: zone,
             start: "top 60px",
@@ -200,12 +215,13 @@ export default function Footer({
     }, zone);
 
     return () => ctx.revert();
-  }, [staticTone]);
+  }, [staticTone, flat]);
 
   return (
-    <footer ref={ref} id="contact" className={styles.zone} aria-labelledby="contact-title">
+    <footer ref={ref} id="contact" className={`${styles.zone} ${flat ? styles.flat : ""}`} aria-labelledby="contact-title">
       <div ref={trackRef} className={styles.track}>
-        {/* Titre (maquette « Footer titre »), à gauche du footer sur la piste */}
+        {/* Titre (maquette « Footer titre »), à gauche du footer sur la piste (au-dessus en mode vertical) */}
+        {!hideTitle && (
         <div ref={titleRef} className={styles.titlePanel}>
           <p className={styles.bigTitle}>
             {lead.map((l, i) => (
@@ -217,6 +233,7 @@ export default function Footer({
           </p>
           <Bolt className={styles.bolt} />
         </div>
+        )}
 
         <div className={styles.sheet}>
         <span className={styles.axis} aria-hidden="true" />

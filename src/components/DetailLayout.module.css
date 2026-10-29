@@ -2,9 +2,7 @@
   background: var(--fond-clair);
   color: var(--encre);
   min-height: 100svh;
-  /* Le Footer remonte de 100svh (marge négative) pour chevaucher le bas de la page précédente :
-     on réserve cet écran en plus du respiration de 96px, sinon il masquerait le contenu. */
-  padding: 140px var(--gut) calc(96px + 100svh);
+  padding: 140px var(--gut) 96px;
   overflow-x: clip;
 }
 .article {
