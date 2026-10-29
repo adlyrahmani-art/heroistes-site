@@ -72,7 +72,8 @@ export default function Header({
   const [mobileSub, setMobileSub] = useState<number | null>(null);
   const closeTimer = useRef(0);
   const lenisRef = useLenis();
-  const to = (href: string) => (href.startsWith("#") ? `${anchorBase}${href}` : href);
+  // Le formulaire (#contact) est dans le footer de chaque page : ce lien reste sur la page courante.
+  const to = (href: string) => (href.startsWith("#") && href !== "#contact" ? `${anchorBase}${href}` : href);
   const onHome = anchorBase === "";
 
   const openMenu = (i: number) => {
