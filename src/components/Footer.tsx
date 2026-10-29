@@ -91,7 +91,10 @@ export default function Footer({
         formEl.reset();
         setStatus("done");
       } else {
-        setErrors(json.errors ?? {});
+        const errs = json.errors ?? {};
+        setErrors(errs);
+        const first = fields.find((f) => errs[f.key]);
+        if (first) requestAnimationFrame(() => formEl.querySelector<HTMLElement>(`#contact-${first.key}`)?.focus());
         setStatus("error");
       }
       setMessage(json.message || (res.ok ? "" : GENERIC_ERROR));
@@ -243,16 +246,16 @@ export default function Footer({
         {/* Colonne droite : formulaire de contact */}
         <div className={styles.formCol}>
           <h2 id="contact-title" className={styles.title}>
-            {footer.title.map((l) => (
+            {(cf?.title?.length ? cf.title : footer.title).map((l) => (
               <span key={l}>{l}</span>
             ))}
           </h2>
           <p className={styles.intro}>
-            <RichText text={footer.intro} />
+            <RichText text={cf?.intro || footer.intro} />
           </p>
 
           {/* [À brancher] conversion GA4 à l'envoi réussi */}
-          <form className={styles.form} onSubmit={onSubmit} aria-busy={status === "sending"}>
+          <form className={styles.form} noValidate onSubmit={onSubmit} aria-busy={status === "sending"}>
             {fields.map((f) => {
               const id = `contact-${f.key}`;
               const err = errors[f.key];
@@ -291,14 +294,14 @@ export default function Footer({
               {cf?.submitLabel || footer.submit}
             </button>
             <p
-              role={status === "error" ? "alert" : "status"}
+              role="status"
               aria-live="polite"
               className={`${styles.message} ${status === "error" ? styles.error : styles.success}`}
             >
               {message}
             </p>
             <p className={styles.privacy}>
-              {footer.privacy.text} <a href={footer.privacy.link.href}>{footer.privacy.link.label}</a>
+              {cf?.privacyText || footer.privacy.text} <a href={clean(cf?.privacyLink?.href) || footer.privacy.link.href}>{cf?.privacyLink?.label || footer.privacy.link.label}</a>
             </p>
           </form>
         </div>

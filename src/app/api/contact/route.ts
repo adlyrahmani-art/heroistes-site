@@ -18,6 +18,8 @@ function sameToken(a: string | null, b: string | undefined): boolean {
 }
 
 export async function POST(request: Request) {
+  if (Number(request.headers.get("content-length") ?? 0) > 20000) return json(413, { message: "Requête trop volumineuse." });
+
   let input: Record<string, unknown>;
   try {
     const body: unknown = await request.json();
@@ -40,8 +42,10 @@ export async function POST(request: Request) {
     const form = await writeClient.fetch<CONTACT_FORM_QUERY_RESULT>(CONTACT_FORM_QUERY);
     if (!form) return json(500, { message: "Formulaire indisponible." });
 
-    const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "inconnue";
-    const e2e = sameToken(request.headers.get("x-e2e-token"), process.env.E2E_TOKEN)
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip")?.trim() || "inconnue";
+    // E2E_TOKEN est défini sur Preview uniquement ; jamais de contournement en production.
+    const e2e = process.env.VERCEL_ENV !== "production" && sameToken(request.headers.get("x-e2e-token"), process.env.E2E_TOKEN)
       ? { fail: request.headers.get("x-e2e-fail") === "1" }
       : undefined;
 

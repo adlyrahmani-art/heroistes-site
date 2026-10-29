@@ -181,3 +181,19 @@ describe("buildDeps (câblage réel, clients factices)", () => {
     await expect(ko.sendEmail(data, "x@y.fr")).rejects.toThrow();
   });
 });
+
+describe("validateContact : durcissement", () => {
+  test("retours ligne et octet nul refusés dans les champs sur une ligne", () => {
+    for (const k of ["lastName", "firstName", "phone"]) {
+      for (const bad of ["a\nb", "a\rb", "a\0b"]) {
+        expect(validateContact(valid({ [k]: bad }), form)).toMatchObject({ ok: false, errors: { [k]: expect.any(String) } });
+      }
+    }
+    expect(validateContact(valid({ description: "ligne 1\nligne 2" }), form)).toMatchObject({ ok: true });
+  });
+  test("e-mail avec caractères d'injection refusé", () => {
+    for (const bad of ["a@b.fr,c@d.fr", "a@b.fr;c@d.fr", "<a@b.fr>", 'a"b@c.fr', "a@b.fr\nBcc: x@y.fr"]) {
+      expect(validateContact(valid({ email: bad }), form)).toMatchObject({ ok: false, errors: { email: expect.any(String) } });
+    }
+  });
+});

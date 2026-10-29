@@ -21,7 +21,8 @@ const MAX: Record<keyof ContactData, number> = {
   phone: 40,
   subject: 200,
 };
-const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL = /^[^\s@<>,;"]+@[^\s@<>,;"]+\.[^\s@<>,;"]+$/;
+const CTRL = /[\r\n\0]/;
 const REQUIRED = "Ce champ est obligatoire.";
 
 /** Valide selon les champs activés du formulaire Sanity ; ne garde que les champs prévus. */
@@ -54,7 +55,8 @@ export function validateContact(
       if (required) errors[key] = REQUIRED;
       continue;
     }
-    if (value.length > MAX[key]) errors[key] = `Maximum ${MAX[key]} caractères.`;
+    if (key !== "description" && CTRL.test(value)) errors[key] = "Caractères non autorisés.";
+    else if (value.length > MAX[key]) errors[key] = `Maximum ${MAX[key]} caractères.`;
     else if (key === "email" && !EMAIL.test(value)) errors[key] = "Adresse e-mail invalide.";
     else data[key] = value;
   }
