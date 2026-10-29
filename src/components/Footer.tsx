@@ -6,6 +6,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { footer } from "@/content/accueil";
 import RichText from "@/components/RichText";
 import { Bolt } from "@/components/Logo";
+import { clean, editAttr } from "@/sanity/lib/clean";
+import { imageUrl } from "@/sanity/lib/image";
+import type { SETTINGS_QUERY_RESULT } from "../../sanity.types";
 import styles from "./Footer.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -18,7 +21,18 @@ gsap.registerPlugin(ScrollTrigger);
  * Mécanique : la zone chevauche le dernier écran de la FAQ (marge −100svh) et réserve deux écrans
  * de défilement ; la piste (titre à gauche du footer) y reste collée en haut le temps du glissement.
  */
-export default function Footer({ lead }: { lead: string[] }) {
+export default function Footer({
+  lead,
+  settings,
+}: {
+  lead: string[];
+  settings: NonNullable<SETTINGS_QUERY_RESULT>;
+}) {
+  const f = settings.footer;
+  const visualSrc = imageUrl(f?.visual, 652, 436);
+  const email = f?.email || footer.email;
+  const emailHref = clean(email);
+  const linkedin = clean(settings.social?.linkedin) || footer.linkedin;
   const ref = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
@@ -98,18 +112,28 @@ export default function Footer({ lead }: { lead: string[] }) {
 
         {/* Colonne gauche : marque, newsletter, contact */}
         <div className={styles.brandCol}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className={styles.visual} src={footer.visual} alt={footer.visualAlt} width={652} height={436} loading="lazy" />
+          {visualSrc && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              className={styles.visual}
+              src={visualSrc}
+              alt={clean(f?.visual?.alt) ?? ""}
+              width={652}
+              height={436}
+              loading="lazy"
+              data-sanity={editAttr(settings, "footer.visual")}
+            />
+          )}
 
           <p className={styles.brand}>
             {footer.brand}
-            <span>{footer.baseline}</span>
+            <span>{f?.baseline ?? footer.baseline}</span>
           </p>
 
           <form className={styles.newsletter} onSubmit={(e) => e.preventDefault()}>
             {/* [À brancher] inscription newsletter (outil d'e-mailing à définir) */}
-            <h3 className={styles.newsTitle}>{footer.newsletter.title}</h3>
-            <p className={styles.newsText}>{footer.newsletter.text}</p>
+            <h3 className={styles.newsTitle}>{f?.newsletterTitle ?? footer.newsletter.title}</h3>
+            <p className={styles.newsText}>{f?.newsletterText ?? footer.newsletter.text}</p>
             <label className="visually-hidden" htmlFor="news-email">
               Votre adresse e-mail
             </label>
@@ -127,7 +151,7 @@ export default function Footer({ lead }: { lead: string[] }) {
             </button>
           </form>
 
-          <a className={styles.linkedin} href={footer.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Héroïstes sur LinkedIn">
+          <a className={styles.linkedin} href={linkedin} target="_blank" rel="noopener noreferrer" aria-label="Héroïstes sur LinkedIn">
             <svg viewBox="0 0 32 32" aria-hidden="true">
               <rect width="32" height="32" rx="3" fill="currentColor" />
               <path
@@ -136,10 +160,10 @@ export default function Footer({ lead }: { lead: string[] }) {
               />
             </svg>
           </a>
-          <p className={styles.copyright}>{footer.copyright}</p>
-          <a className={styles.email} href={`mailto:${footer.email}`}>
-            <span>{footer.email.split("@")[0]}</span>
-            <span>@{footer.email.split("@")[1]}</span>
+          <p className={styles.copyright}>{f?.copyright ?? footer.copyright}</p>
+          <a className={styles.email} href={`mailto:${emailHref}`}>
+            <span>{email.split("@")[0]}</span>
+            <span>@{email.split("@")[1]}</span>
           </a>
         </div>
 

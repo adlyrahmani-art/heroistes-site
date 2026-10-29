@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { LogoMark } from "./Logo";
 import { useLenis } from "./SmoothScroll";
-import { navigation, type NavItem } from "@/content/navigation";
+import { navigation, type NavItem, type NavLabels } from "@/content/navigation";
+import { clean } from "@/sanity/lib/clean";
 import styles from "./Header.module.css";
 
 const num = (i: number) => `${String(i + 1).padStart(2, "0")}.`;
@@ -52,7 +53,17 @@ function SubLinks({ item, onNavigate }: { item: NavItem; onNavigate: () => void 
  * le haut, liens en cascade ; passer d'une entrée à l'autre change le contenu sans refermer.
  * Mobile : bouton « Menu » → menu plein écran, sous-menus en accordéon.
  */
-export default function Header() {
+export default function Header({
+  navLabels,
+  cta,
+}: {
+  navLabels?: NavLabels | null;
+  cta?: { label?: string | null; href?: string | null } | null;
+}) {
+  // Libellé affiché (brut, stega compris en brouillon) ; repli sur le libellé par défaut
+  const labelOf = (item: NavItem) => navLabels?.[item.key] || item.label;
+  const ctaLabel = cta?.label || "Lancer un projet";
+  const ctaHref = clean(cta?.href) || "#contact";
   const [active, setActive] = useState<number | null>(null); // méga-menu ouvert (ordinateur)
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSub, setMobileSub] = useState<number | null>(null);
@@ -148,7 +159,7 @@ export default function Header() {
                     onClick={navigate}
                   >
                     <i>{num(i)}</i>
-                    {item.label}
+                    {labelOf(item)}
                   </a>
                   {hasSub && (
                     <div
@@ -160,7 +171,7 @@ export default function Header() {
                       <div className={styles.megaInner} key={isOpen ? "on" : "off"}>
                         <div className={styles.megaHead}>
                           <span className={styles.megaNum}>{num(i)}</span>
-                          <p className={styles.megaTitle}>{item.label}</p>
+                          <p className={styles.megaTitle}>{labelOf(item)}</p>
                           {item.pitch && <p className={styles.megaPitch}>{item.pitch}</p>}
                           <a href={item.href} className={styles.megaAll} onClick={navigate}>
                             Tout voir <span aria-hidden="true">→</span>
@@ -176,8 +187,8 @@ export default function Header() {
           </ul>
         </nav>
 
-        <a href="#contact" className={styles.cta} onClick={navigate}>
-          Lancer un projet
+        <a href={ctaHref} className={styles.cta} onClick={navigate}>
+          {ctaLabel}
         </a>
         <button
           type="button"
@@ -205,7 +216,7 @@ export default function Header() {
                 <div className={styles.mobileRow}>
                   <a href={item.href} className={styles.mobileLink} onClick={navigate}>
                     <i>{num(i)}</i>
-                    {item.label}
+                    {labelOf(item)}
                   </a>
                   {hasSub && (
                     <button
@@ -213,7 +224,7 @@ export default function Header() {
                       className={styles.mobileToggle}
                       aria-expanded={subOpen}
                       aria-controls={`m-sub-${i}`}
-                      aria-label={`Sous-menu ${item.label}`}
+                      aria-label={`Sous-menu ${clean(labelOf(item))}`}
                       onClick={() => setMobileSub(subOpen ? null : i)}
                     />
                   )}
@@ -229,8 +240,8 @@ export default function Header() {
             );
           })}
         </ul>
-        <a href="#contact" className={`btn btn-primary ${styles.mobileCta}`} onClick={navigate}>
-          Lancer un projet
+        <a href={ctaHref} className={`btn btn-primary ${styles.mobileCta}`} onClick={navigate}>
+          {ctaLabel}
         </a>
       </div>
     </>

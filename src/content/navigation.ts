@@ -3,7 +3,13 @@
 
 export type NavLink = { label: string; href: string };
 export type NavGroup = { label: string; links: NavLink[] };
+/** Clés des libellés de 1er niveau dans les Réglages (siteSettings.navLabels) */
+export type NavKey = "accueil" | "expertises" | "conseil" | "casClients" | "secteurs" | "agence" | "blog" | "contact";
+export type NavLabels = Partial<Record<NavKey, string | null | undefined>>;
 export type NavItem = {
+  /** Clé du libellé éditable dans les Réglages */
+  key: NavKey;
+  /** Libellé par défaut (remplacé par celui des Réglages quand il existe) */
   label: string;
   href: string;
   /** Sous-menu : groupes titrés (Expertises) ou liste simple */
@@ -31,8 +37,9 @@ const group = (label: string, items: string[]): NavGroup => ({
 });
 
 export const navigation: NavItem[] = [
-  { label: "Accueil", href: "#accueil" },
+  { key: "accueil", label: "Accueil", href: "#accueil" },
   {
+    key: "expertises",
     label: "Expertises",
     href: "#expertises",
     pitch: "Six expertises réunies dans une agence 360, pour des actions qui se renforcent.",
@@ -50,12 +57,14 @@ export const navigation: NavItem[] = [
     ],
   },
   {
+    key: "conseil",
     label: "Conseil",
     href: "/conseil/",
     pitch: "Un regard extérieur sur vos ventes et votre marketing, et un plan d’action concret.",
     links: links("/conseil/", ["Audit commercial", "Audit digital", "Accompagnement dirigeant"]),
   },
   {
+    key: "casClients",
     label: "Cas clients",
     href: "#cas-clients",
     pitch: "Des projets menés pour nos clients, chacun en réponse à un enjeu précis.",
@@ -75,6 +84,7 @@ export const navigation: NavItem[] = [
     ]),
   },
   {
+    key: "secteurs",
     label: "Secteurs",
     href: "/secteurs/",
     pitch: "Des équipes qui connaissent les cycles de vente de votre secteur.",
@@ -85,7 +95,7 @@ export const navigation: NavItem[] = [
       { label: "Distribution & logistique", href: "/secteurs/distribution-logistique/" },
     ],
   },
-  { label: "L’agence", href: "/agence/" },
-  { label: "Blog", href: "#blog" },
-  { label: "Contact", href: "#contact" },
+  { key: "agence", label: "L’agence", href: "/agence/" },
+  { key: "blog", label: "Blog", href: "#blog" },
+  { key: "contact", label: "Contact", href: "#contact" },
 ];
