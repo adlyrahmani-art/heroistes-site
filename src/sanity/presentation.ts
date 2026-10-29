@@ -2,7 +2,7 @@ import { defineLocations, type PresentationPluginOptions } from "sanity/presenta
 
 const home = { title: "Accueil", href: "/" };
 
-export const locations: PresentationPluginOptions["resolve"] = {
+export const resolve: PresentationPluginOptions["resolve"] = {
   locations: {
     homePage: defineLocations({ message: "Cette page est l'accueil du site.", locations: [home] }),
     siteSettings: defineLocations({ message: "Ces réglages sont utilisés sur tout le site.", locations: [home] }),
