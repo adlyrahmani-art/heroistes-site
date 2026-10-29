@@ -8,3 +8,8 @@ export const projectId = required("NEXT_PUBLIC_SANITY_PROJECT_ID", process.env.N
 export const dataset = required("NEXT_PUBLIC_SANITY_DATASET", process.env.NEXT_PUBLIC_SANITY_DATASET);
 export const apiVersion = "2026-10-01";
 export const studioUrl = "/studio";
+
+// Serveur uniquement : ne jamais importer depuis un composant client ni depuis le Studio.
+export function readToken(): string {
+  return required("SANITY_API_READ_TOKEN", process.env.SANITY_API_READ_TOKEN);
+}
