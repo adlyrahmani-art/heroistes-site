@@ -18,7 +18,7 @@
 ## Prérequis (à faire par Adly, hors code)
 
 1. Créer le projet Sanity (sanity.io/manage), dataset `production`, et noter l'ID du projet.
-2. Origines CORS du projet, **avec** « Allow credentials » : `http://localhost:3000`, `https://heroistes.uxtreampro.com`, `https://*.vercel.app`, `https://heroistes.fr`.
+2. Origines CORS du projet, **avec** « Allow credentials » : `http://localhost:3000`, `https://heroistes.uxtreampro.com`, `https://*.vercel.app`, `https://heroistes.com`.
 3. Jetons API : un « Viewer » (lecture des brouillons) et un « Editor » (écriture : formulaire et import).
 4. Inviter le compte du client avec le rôle **Editor**.
 5. Resend : compte, domaine d'envoi vérifié, clé API.

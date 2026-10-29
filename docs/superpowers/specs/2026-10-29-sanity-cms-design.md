@@ -10,7 +10,7 @@ Le client doit modifier ses contenus en autonomie dans Sanity, sans pouvoir cass
 
 ## 2. Contexte technique
 
-- Site Next.js 16 (App Router), versionné sur Git et hébergé sur Vercel ; préproduction sur `heroistes.uxtreampro.com`, domaine cible `heroistes.fr`.
+- Site Next.js 16 (App Router), versionné sur Git et hébergé sur Vercel ; préproduction sur `heroistes.uxtreampro.com`, domaine cible `heroistes.com`.
 - Animations : GSAP / ScrollTrigger, Lenis, et deux scènes three.js écrites directement (photo du hero, symbole en particules). `@react-three/fiber` est installé mais n'est pas utilisé.
 - Les contenus de l'accueil sont aujourd'hui dans `src/content/accueil.ts`, l'arborescence du menu dans `src/content/navigation.ts`. Seule la page d'accueil existe.
 
@@ -40,7 +40,7 @@ L'édition visuelle de Sanity cache des caractères invisibles dans les textes (
 
 ## 5. Architecture retenue
 
-**Studio intégré au repo Next.js, sur `/studio`** (par exemple `heroistes.fr/studio`).
+**Studio intégré au repo Next.js, sur `/studio`** (par exemple `heroistes.com/studio`).
 
 - Un seul repo et un seul déploiement Vercel.
 - Le Studio et l'aperçu partagent le domaine, ce qui simplifie l'édition visuelle.
@@ -157,4 +157,4 @@ Chaque demande de contact part par e-mail et reste enregistrée dans Sanity ; le
 | Formulaire : Nom, e-mail, message + Téléphone, Entreprise, Budget, Expertise concernée | Les six champs actuels : Nom, Prénom, E-mail, Description du projet + Téléphone et Sujet activables (§ 6.6) | Demande d'Adly : garder l'existant |
 | Conseil, Secteurs, L'agence, Contact, Expertise × 4 modélisés d'emblée | À modéliser quand leurs maquettes existeront | Ni route ni maquette à ce jour |
 | Exemple de titre « hero limité à 3 lignes de 12 caractères » | Limites calées sur les titres actuels (hero : 2 lignes de 14 caractères) | Le titre actuel du hero compte 13 caractères sur sa 2e ligne |
-| Domaine `heroistes.fr` seul | Préproduction `heroistes.uxtreampro.com`, domaine cible `heroistes.fr` | Déploiement actuel |
+| Domaine `heroistes.fr` seul | Préproduction `heroistes.uxtreampro.com`, domaine cible `heroistes.com` | Déploiement actuel |
