@@ -55,7 +55,10 @@ export const CASE_STUDY_QUERY = defineQuery(`*[_type == "caseStudy" && language 
   "slug": slug.current,
   image${IMG}, background${IMG}, logo${IMG},
   body[]{ ..., _type == "imageWithAlt" => ${IMG} },
-  seo{ ..., image${IMG} }
+  seo{ ..., image${IMG} },
+  detailHero{ ..., background${IMG} },
+  detailIntro{ ..., image${IMG} },
+  chapters[]{ ..., image${IMG} }
 }`);
 
 export const CASE_SLUGS_QUERY = defineQuery(

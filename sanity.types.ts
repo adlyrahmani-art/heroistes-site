@@ -71,13 +71,34 @@ export type CaseStudy = {
       } & ImageWithAlt)
   >;
   seo?: Seo;
-};
-
-export type Seo = {
-  _type: "seo";
-  title?: string;
-  description?: string;
-  image?: ImageWithAlt;
+  detailHero?: {
+    background?: ImageWithAlt;
+    subtitle?: Array<string>;
+    intro?: string;
+  };
+  detailIntro?: {
+    title?: Array<string>;
+    text?: string;
+    image?: ImageWithAlt;
+  };
+  challenge?: {
+    title?: string;
+    lead?: string;
+    text?: string;
+  };
+  chapters?: Array<{
+    title?: Array<string>;
+    blocks?: Array<{
+      title?: Array<string>;
+      text?: string;
+      _type: "caseBlock";
+      _key: string;
+    }>;
+    image?: ImageWithAlt;
+    imageSide?: "left" | "right";
+    _type: "caseChapter";
+    _key: string;
+  }>;
 };
 
 export type SanityImageAssetReference = {
@@ -94,6 +115,13 @@ export type ImageWithAlt = {
   hotspot?: SanityImageHotspot;
   crop?: SanityImageCrop;
   alt?: string;
+};
+
+export type Seo = {
+  _type: "seo";
+  title?: string;
+  description?: string;
+  image?: ImageWithAlt;
 };
 
 export type Slug = {
@@ -487,9 +515,9 @@ export type Geopoint = {
 
 export type AllSanitySchemaTypes =
   | CaseStudy
-  | Seo
   | SanityImageAssetReference
   | ImageWithAlt
+  | Seo
   | Slug
   | BlogPost
   | ContactRequest
@@ -1040,7 +1068,7 @@ export type LATEST_POSTS_QUERY_RESULT = Array<{
 
 // Source: src/sanity/lib/queries.ts
 // Variable: CASE_STUDY_QUERY
-// Query: *[_type == "caseStudy" && language == "fr" && slug.current == $slug][0]{  ...,  "slug": slug.current,  image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, logo{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }}
+// Query: *[_type == "caseStudy" && language == "fr" && slug.current == $slug][0]{  ...,  "slug": slug.current,  image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, logo{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  detailHero{ ..., background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  detailIntro{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  chapters[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }}
 export type CASE_STUDY_QUERY_RESULT = {
   _id: string;
   _type: "caseStudy";
@@ -1166,6 +1194,73 @@ export type CASE_STUDY_QUERY_RESULT = {
       alt: string | null;
     } | null;
   } | null;
+  detailHero: {
+    background: {
+      _type: "imageWithAlt";
+      asset: {
+        _id: string;
+        url: string | null;
+        metadata: {
+          dimensions: SanityImageDimensions | null;
+        } | null;
+      } | null;
+      media?: unknown;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+    subtitle?: Array<string>;
+    intro?: string;
+  } | null;
+  detailIntro: {
+    title?: Array<string>;
+    text?: string;
+    image: {
+      _type: "imageWithAlt";
+      asset: {
+        _id: string;
+        url: string | null;
+        metadata: {
+          dimensions: SanityImageDimensions | null;
+        } | null;
+      } | null;
+      media?: unknown;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+  } | null;
+  challenge?: {
+    title?: string;
+    lead?: string;
+    text?: string;
+  };
+  chapters: Array<{
+    title?: Array<string>;
+    blocks?: Array<{
+      title?: Array<string>;
+      text?: string;
+      _type: "caseBlock";
+      _key: string;
+    }>;
+    image: {
+      _type: "imageWithAlt";
+      asset: {
+        _id: string;
+        url: string | null;
+        metadata: {
+          dimensions: SanityImageDimensions | null;
+        } | null;
+      } | null;
+      media?: unknown;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+    imageSide?: "left" | "right";
+    _type: "caseChapter";
+    _key: string;
+  }> | null;
 } | null;
 
 // Source: src/sanity/lib/queries.ts
@@ -1185,7 +1280,7 @@ declare global {
     '*[_type == "blogPost" && language == "fr" && slug.current == $slug][0]{\n  ...,\n  "slug": slug.current,\n  cover{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },\n  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }\n}': BLOG_POST_QUERY_RESULT;
     '*[_type == "blogPost" && language == "fr" && defined(slug.current)]{ "slug": slug.current }': BLOG_SLUGS_QUERY_RESULT;
     '*[_type == "blogPost" && language == "fr" && defined(slug.current)] | order(publishedAt desc)[0...4]{\n  _id, title, "slug": slug.current, publishedAt, excerpt, cover{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }\n}': LATEST_POSTS_QUERY_RESULT;
-    '*[_type == "caseStudy" && language == "fr" && slug.current == $slug][0]{\n  ...,\n  "slug": slug.current,\n  image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, logo{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },\n  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }\n}': CASE_STUDY_QUERY_RESULT;
+    '*[_type == "caseStudy" && language == "fr" && slug.current == $slug][0]{\n  ...,\n  "slug": slug.current,\n  image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, logo{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },\n  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  detailHero{ ..., background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  detailIntro{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  chapters[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }\n}': CASE_STUDY_QUERY_RESULT;
     '*[_type == "caseStudy" && language == "fr" && defined(slug.current)]{ "slug": slug.current }': CASE_SLUGS_QUERY_RESULT;
   }
 }

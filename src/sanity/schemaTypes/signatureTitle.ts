@@ -25,19 +25,29 @@ export const validateSignatureLines = (
   return true;
 };
 
+/** Variante facultative : vide accepté, sinon mêmes limites qu'un titre-signature. */
+export const validateOptionalSignatureLines = (
+  lines: string[] | undefined,
+  limits: SignatureLimits,
+): true | string => (!lines || lines.length === 0 ? true : validateSignatureLines(lines, limits));
+
 export const signatureTitleField = (
   name: string,
   title: string,
   limits: SignatureLimits,
+  optional = false,
 ) =>
   defineField({
     name,
     title,
     type: "array",
     of: [{ type: "string" }],
-    description: `${limits.maxLines} ligne(s) maximum, ${limits.maxChars} caractères par ligne`,
+    description: `${optional ? "Facultatif. " : ""}${limits.maxLines} ligne(s) maximum, ${limits.maxChars} caractères par ligne`,
     validation: (Rule) =>
       Rule.custom((lines) =>
-        validateSignatureLines(lines as string[] | undefined, limits),
+        (optional ? validateOptionalSignatureLines : validateSignatureLines)(
+          lines as string[] | undefined,
+          limits,
+        ),
       ),
   });
