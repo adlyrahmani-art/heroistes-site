@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { footer } from "@/content/accueil";
 import RichText from "@/components/RichText";
 import { Bolt } from "@/components/Logo";
 import { clean, editAttr } from "@/sanity/lib/clean";
@@ -11,6 +10,40 @@ import { imageUrl } from "@/sanity/lib/image";
 import type { SETTINGS_QUERY_RESULT } from "../../sanity.types";
 import type { ContactFormConfig } from "@/lib/contact/validate";
 import styles from "./Footer.module.css";
+
+/** Dernier recours : valeurs affichées seulement si Sanity ne renvoie rien (le contenu vient de Sanity). */
+const footer = {
+  title: ["Démarrez", "votre projet"],
+  intro:
+    "Quelques informations suffisent pour démarrer.\n**Remplissez le formulaire ci-dessous** : nous revenons vers vous pour échanger sur votre projet, sans engagement.",
+  fields: [
+    { name: "nom", label: "Nom", type: "text", placeholder: "Martin", autoComplete: "family-name" },
+    { name: "prenom", label: "Prénom", type: "text", placeholder: "Olivier", autoComplete: "given-name" },
+    { name: "email", label: "Email", type: "email", placeholder: "olivier_martin@gmail.com", autoComplete: "email" },
+    { name: "telephone", label: "Téléphone", type: "tel", placeholder: "+33 123 456 789", autoComplete: "tel" },
+    { name: "sujet", label: "Sujet", type: "text", placeholder: "Créer mon site web", autoComplete: "off" },
+  ],
+  description: { name: "description", label: "Description du projet", placeholder: "Description ici" },
+  submit: "Envoyer ma demande",
+  privacy: {
+    text: "Vos données servent uniquement à vous recontacter au sujet de votre demande.",
+    link: { label: "Politique de confidentialité", href: "/politique-de-confidentialite/" },
+  },
+  visual: "/images/footer-visuel.jpg",
+  visualAlt: "Personne tenant un skateboard en ville, à côté du symbole Héroïstes",
+  brand: "Héroïstes",
+  baseline: "Héros du R.O.I",
+  newsletter: {
+    title: "Restez informé",
+    text: "Recevez des conseils en design, les mises à jour de nos projets et nos dernières actualités directement dans votre boîte mail.",
+    placeholder: "votre_adresse@email.com",
+    submit: "S’abonner",
+  },
+  linkedin: "https://www.linkedin.com/company/heroistes/",
+  copyright: "© 2026 — Grenoble · Paris — Tous droits réservés.",
+  email: "contact@heroistes.com",
+};
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,7 +58,7 @@ type FormField = {
   required: boolean;
 };
 
-/** Champs affichés : libellés et exemples bruts (Sanity), repli sur accueil.ts ; Téléphone / Sujet selon leur réglage. */
+/** Champs affichés : libellés et exemples bruts (Sanity), repli sur les valeurs de dernier recours ; Téléphone / Sujet selon leur réglage. */
 function formFields(cf: ContactFormConfig | null): FormField[] {
   const d = Object.fromEntries(footer.fields.map((f) => [f.name, f]));
   const pick = (cfg: { label?: string; placeholder?: string } | undefined, fb: { label: string; placeholder: string }) => ({

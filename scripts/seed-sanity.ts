@@ -10,7 +10,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { getCliClient } from "sanity/cli";
-import { blog, besoins, casClients, engagements, expertises, faq, footer, hero, logos, plan, pourquoi } from "../src/content/accueil";
+import { blog, besoins, casClients, engagements, expertises, faq, footer, hero, logos, plan, pourquoi } from "./seed-data/accueil";
 import { navigation } from "../src/content/navigation";
 
 try {
