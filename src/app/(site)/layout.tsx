@@ -20,7 +20,13 @@ export const viewport: Viewport = {
 
 // draftMode() est dynamique : isolé dans Suspense pour garder la coquille statique.
 async function DraftTools() {
-  return (await draftMode()).isEnabled ? <VisualEditing /> : null;
+  const { isEnabled } = await draftMode();
+  return (
+    <>
+      <SanityLive includeDrafts={isEnabled} />
+      {isEnabled && <VisualEditing />}
+    </>
+  );
 }
 
 export default function SiteLayout({ children }: LayoutProps<"/">) {
@@ -28,7 +34,6 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
     <>
       <SmoothScroll>{children}</SmoothScroll>
       <Cursor />
-      <SanityLive />
       <Suspense>
         <DraftTools />
       </Suspense>
