@@ -8,6 +8,9 @@ import CaseHero from "@/components/case/CaseHero";
 import CaseIntro from "@/components/case/CaseIntro";
 import CaseChallenge from "@/components/case/CaseChallenge";
 import CaseChapter from "@/components/case/CaseChapter";
+import CaseResults from "@/components/case/CaseResults";
+import CaseCta from "@/components/case/CaseCta";
+import { getCaseExtras } from "@/content/cases";
 import styles from "@/components/case/Case.module.css";
 import { client } from "@/sanity/lib/client";
 import { clean } from "@/sanity/lib/clean";
@@ -55,8 +58,17 @@ export async function generateMetadata({ params }: PageProps<"/cas-clients/[slug
 }
 
 /**
+ * Navigation « bloquante » assumée (insight dev « instant-shell-url-data ») : tous les slugs sont
+ * prérendus (generateStaticParams), la page n'a donc rien à diffuser en différé. Lire les params
+ * sous <Suspense> ferait servir un slug inconnu en 200 + noindex (notFound() après l'envoi de la
+ * coquille) au lieu d'une vraie 404 ; on garde la 404 et on sort la route de la validation.
+ */
+export const instant = false;
+
+/**
  * Page détail cas client (maquette « Pranéo détails ») : en-tête sombre, puis sections claires
- * traversées par le trait central. Le header passe du blanc à l'encre en quittant l'en-tête (CaseEffects).
+ * traversées par le trait central. Le header passe du blanc à l'encre en quittant l'en-tête et
+ * redevient blanc sur les sections sombres de fin (CaseEffects).
  * Un cas sans contenu « Page détail » affiche son corps de texte historique.
  */
 export default async function CaseStudyPage({ params }: PageProps<"/cas-clients/[slug]">) {
@@ -67,6 +79,9 @@ export default async function CaseStudyPage({ params }: PageProps<"/cas-clients/
   const doc = { _id: clean(c._id), _type: clean(c._type) };
   const chapters = c.chapters ?? [];
   const hasDetail = !!(c.detailIntro || c.challenge || chapters.length);
+  // Sections de fin (contenu statique provisoire, futur Sanity) : rendues seulement si le slug en a
+  const extras = getCaseExtras(clean(c.slug) || slug);
+  const logo = imageUrl(c.logo, 200, 200);
 
   return (
     <>
@@ -74,7 +89,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/cas-clients/
       <main>
         <CaseEffects />
         <CaseHero c={c} doc={doc} />
-        <div className={styles.light} data-reveal>
+        <div className={styles.light} data-reveal data-case-light>
           <span className={styles.axis} aria-hidden="true" />
           {c.detailIntro && <CaseIntro intro={c.detailIntro} doc={doc} />}
           {c.challenge && <CaseChallenge challenge={c.challenge} />}
@@ -87,8 +102,15 @@ export default async function CaseStudyPage({ params }: PageProps<"/cas-clients/
             </div>
           )}
         </div>
+        {extras.results && (
+          <CaseResults
+            results={extras.results}
+            logo={logo ? { src: logo, alt: clean(c.logo?.alt) ?? "" } : null}
+          />
+        )}
+        {(extras.cta || extras.nav) && <CaseCta cta={extras.cta} nav={extras.nav} />}
       </main>
-      <SiteFooter lead={lead} staticTone="light" />
+      <SiteFooter lead={lead} staticTone="light" flat hideTitle={!!extras.cta} />
     </>
   );
 }

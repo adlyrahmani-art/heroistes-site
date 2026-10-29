@@ -1,0 +1,420 @@
+/* Sections de fin de la page détail cas client.
+   Cotes : maquettes « Praneo resultats » (1920 × 1080) et « Praneo CTA FInal » (1920 × 1275).
+   Sections verticales : l'échelle suit la largeur seule. */
+.results,
+.cta {
+  --u: calc(100vw / 1920);
+  --text: max(14px, calc(16 * var(--u)));
+  position: relative;
+  /* au-dessus du dernier chapitre clair, qu'elles recouvrent en montant */
+  z-index: 1;
+  overflow: clip;
+  color: var(--blanc);
+  background:
+    radial-gradient(ellipse 70% 55% at 30% 18%, rgba(255, 255, 255, 0.05), transparent 70%),
+    #0f0f10;
+}
+/* Grain léger, comme les panneaux des cas de l'accueil */
+.results::before,
+.ctaTop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Les premiers résultats ---------- */
+.results {
+  display: grid;
+  align-items: center;
+  min-height: max(100svh, calc(1080 * var(--u)));
+}
+.resultsInner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  padding: calc(120 * var(--u)) 0;
+}
+.resultsHead {
+  margin-top: calc(-5 * var(--u));
+  padding-left: calc(161 * var(--u));
+}
+.resultsTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: max(56px, calc(128 * var(--u)));
+  line-height: calc(151 / 128);
+  white-space: nowrap;
+}
+.resultsBar {
+  display: block;
+  width: calc(673 * var(--u));
+  height: max(6px, calc(16 * var(--u)));
+  margin-top: calc(40 * var(--u));
+  background: var(--turquoise);
+}
+.resultsSide {
+  padding-right: calc(120 * var(--u));
+}
+.resultsLogo {
+  display: block;
+  width: calc(100 * var(--u));
+  min-width: 56px;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: calc(8 * var(--u));
+}
+.stats {
+  display: grid;
+  grid-template-columns: calc(322 * var(--u)) calc(291 * var(--u)) auto;
+  margin: calc(43 * var(--u)) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.num {
+  font-family: var(--font-display);
+  font-size: max(56px, calc(128 * var(--u)));
+  line-height: 1;
+  color: var(--turquoise);
+  white-space: nowrap;
+}
+/* « + » plus fin (deux traits), centré sur les chiffres */
+.plus {
+  display: inline-block;
+  width: 0.33em;
+  height: 0.37em;
+  margin-left: 0.05em;
+  vertical-align: 0.18em;
+  background:
+    linear-gradient(currentColor, currentColor) center / 100% max(1.5px, 0.016em) no-repeat,
+    linear-gradient(currentColor, currentColor) center / max(1.5px, 0.016em) 100% no-repeat;
+}
+.suffix {
+  font-family: var(--font-ui);
+  font-weight: 200;
+  font-size: 0.5em;
+}
+.statText {
+  max-width: max(200px, calc(240 * var(--u)));
+  margin-top: calc(15 * var(--u));
+  font-size: var(--text);
+  line-height: 1.5;
+}
+.statText strong,
+.summary {
+  font-weight: 900;
+}
+.summary {
+  max-width: calc(830 * var(--u));
+  margin-top: calc(100 * var(--u));
+  font-size: var(--text);
+  line-height: 1.5;
+}
+
+/* ---------- Appel final ---------- */
+.ctaTop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: calc(183.5 * var(--u)) var(--gut) calc(93 * var(--u));
+  text-align: center;
+}
+.ctaTitle {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: max(36px, calc(63 * var(--u)));
+  line-height: calc(77 / 63);
+}
+.ctaTitle em {
+  font-style: normal;
+  color: var(--turquoise);
+}
+/* Lignes masquées : elles montent à l'entrée (comme les lames de l'accueil) */
+/* Le masque déborde de 0,12em en haut (accents) et 0,06em en bas (jambages) ; la marge basse
+   négative (seule : deux marges négatives voisines fusionneraient) rend l'interligne exact */
+.ln {
+  display: block;
+  overflow: hidden;
+  padding: 0.12em 0 0.06em;
+  margin-bottom: -0.18em;
+}
+.ln > span {
+  display: inline-block;
+  vertical-align: top;
+}
+.ctaSubtitle {
+  position: relative;
+  margin-top: calc(31.5 * var(--u));
+  font-size: var(--text);
+  font-weight: 900;
+  line-height: 1.5;
+}
+.ctaSubtitle > span {
+  display: block;
+}
+.ctaBar {
+  position: relative;
+  display: block;
+  width: calc(673 * var(--u));
+  height: max(6px, calc(16 * var(--u)));
+  margin-top: calc(53 * var(--u));
+  background: var(--turquoise);
+}
+.ctaText {
+  position: relative;
+  margin-top: calc(53 * var(--u));
+  font-size: var(--text);
+  line-height: 1.5;
+}
+.ctaButton {
+  margin-top: calc(43 * var(--u));
+  min-width: calc(240 * var(--u));
+  padding: max(12px, calc(14 * var(--u))) max(16px, calc(18 * var(--u)));
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+
+/* Entrée : masquée seulement une fois le script prêt */
+.ctaTop[data-ready] .ln > span {
+  transform: translateY(110%);
+  transition: transform var(--dur-xl) var(--ease-reveal);
+  transition-delay: calc(var(--i, 0) * 120ms);
+}
+.ctaTop[data-ready] .ctaBar {
+  transform: scaleX(0);
+  transition: transform var(--dur-xl) var(--ease-overlay) 350ms;
+}
+.ctaTop[data-ready] .ctaSubtitle,
+.ctaTop[data-ready] .ctaText,
+.ctaTop[data-ready] .ctaButton {
+  opacity: 0;
+  translate: 0 18px;
+  transition:
+    opacity var(--dur-l) var(--ease-reveal) 300ms,
+    translate var(--dur-l) var(--ease-reveal) 300ms,
+    color var(--dur-m) var(--ease-overlay);
+}
+.ctaTop[data-ready] .ctaText {
+  transition-delay: 550ms, 550ms, 0ms;
+}
+.ctaTop[data-ready] .ctaButton {
+  transition-delay: 700ms, 700ms, 0ms;
+}
+.ctaTop[data-shown] .ln > span,
+.ctaTop[data-shown] .ctaBar {
+  transform: none;
+}
+.ctaTop[data-shown] .ctaSubtitle,
+.ctaTop[data-shown] .ctaText,
+.ctaTop[data-shown] .ctaButton {
+  opacity: 1;
+  translate: none;
+}
+
+/* ---------- Projets précédent / suivant ----------
+   Survol (réf. m-n.fr, projets liés) : portrait centré derrière le texte qui apparaît, fond qui fonce. */
+.nav {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #0b0b0b;
+}
+.navItem {
+  --ease-mn: cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(530 * var(--u));
+  padding: calc(40 * var(--u)) var(--gut);
+  background: #0b0b0b;
+  transition: background-color 1s var(--ease-mn);
+}
+.navItem + .navItem {
+  border-left: 1px solid #323232;
+}
+.navGroup {
+  position: relative;
+  margin-top: calc(-6 * var(--u));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.navImg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(280 * var(--u));
+  height: calc(386 * var(--u));
+  object-fit: cover;
+  translate: -50% -50%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s var(--ease-mn);
+}
+.navLabel,
+.navName {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+}
+.navLabel {
+  font-size: max(16px, calc(27 * var(--u)));
+  line-height: 1;
+  letter-spacing: 0.37em;
+  /* l'interlettrage s'ajoute après la dernière lettre : on le compense pour centrer */
+  margin-right: -0.37em;
+}
+.navName {
+  width: calc(436 * var(--u));
+  margin-top: calc(35 * var(--u));
+  padding-bottom: calc(18 * var(--u));
+  border-bottom: 1px solid var(--turquoise);
+  font-size: max(36px, calc(66 * var(--u)));
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-align: center;
+  white-space: nowrap;
+}
+.navItem:hover,
+.navItem:focus-visible {
+  background-color: #050505;
+}
+.navItem:hover .navImg,
+.navItem:focus-visible .navImg {
+  opacity: 1;
+}
+.navItem:focus-visible {
+  outline: 2px solid var(--turquoise);
+  outline-offset: -6px;
+}
+
+/* ---------- Mobile et tablette portrait ---------- */
+@media (max-width: 1024px) {
+  .results,
+  .cta {
+    --text: 16px;
+  }
+  .results {
+    min-height: 0;
+  }
+  .resultsInner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: var(--section-y) var(--gut);
+  }
+  .resultsHead,
+  .resultsSide {
+    padding: 0;
+  }
+  .resultsTitle {
+    font-size: clamp(48px, 13vw, 96px);
+  }
+  .resultsBar {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .resultsLogo {
+    margin-top: 0;
+  }
+  .stats {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-top: 32px;
+  }
+  .num {
+    font-size: clamp(56px, 15vw, 96px);
+  }
+  .statText {
+    max-width: 420px;
+    margin-top: 12px;
+  }
+  .summary {
+    max-width: 640px;
+    margin-top: 40px;
+  }
+
+  .ctaTop {
+    padding: var(--section-y) var(--gut);
+  }
+  .ctaTitle {
+    font-size: clamp(32px, 8vw, 56px);
+    line-height: 1.1;
+  }
+  .ctaSubtitle {
+    margin-top: 20px;
+  }
+  .ctaSubtitle > span {
+    display: inline;
+  }
+  .ctaBar {
+    width: 100%;
+    max-width: 480px;
+    margin-top: 32px;
+  }
+  .ctaText {
+    margin-top: 32px;
+  }
+  .ctaButton {
+    margin-top: 28px;
+  }
+
+  /* Projets voisins : empilés, sans portrait ; liens bien lisibles */
+  .nav {
+    grid-template-columns: 1fr;
+  }
+  .navItem {
+    min-height: 200px;
+    padding: 48px var(--gut);
+  }
+  .navItem + .navItem {
+    border-left: 0;
+    border-top: 1px solid #323232;
+  }
+  .navImg {
+    display: none;
+  }
+  .navLabel {
+    font-size: 15px;
+    letter-spacing: 0.4em;
+    margin-right: -0.4em;
+  }
+  .navName {
+    width: min(100%, 320px);
+    margin-top: 20px;
+    padding-bottom: 12px;
+    white-space: normal;
+  }
+}
+@media (hover: none) {
+  .navImg {
+    display: none;
+  }
+}
+
+/* Mouvement réduit : contenu visible, aucune transition */
+@media (prefers-reduced-motion: reduce) {
+  .ctaTop[data-ready] .ln > span,
+  .ctaTop[data-ready] .ctaBar,
+  .ctaTop[data-ready] .ctaSubtitle,
+  .ctaTop[data-ready] .ctaText,
+  .ctaTop[data-ready] .ctaButton {
+    opacity: 1;
+    translate: none;
+    transform: none;
+    transition: none;
+  }
+  .navItem,
+  .navImg {
+    transition: none;
+  }
+}
