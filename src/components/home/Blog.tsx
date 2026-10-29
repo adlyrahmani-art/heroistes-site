@@ -91,7 +91,7 @@ export default function Blog({ blog, posts }: { blog: BlogData; posts: LatestPos
                     {rest && ` ${rest}`}
                   </span>
                 </span>
-                <time className={styles.date}>{formatDate(p.publishedAt)}</time>
+                {p.publishedAt && <time className={styles.date} dateTime={clean(p.publishedAt)}>{formatDate(p.publishedAt)}</time>}
               </a>
             </li>
           );

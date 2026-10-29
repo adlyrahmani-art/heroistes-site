@@ -97,7 +97,8 @@ async function main() {
   }
 
   /* ---------- Articles de blog ---------- */
-  for (const a of blog.articles) {
+  // Heures décalées : l'ordre « plus récent d'abord » reproduit l'ordre actuel des cartes.
+  for (const [i, a] of blog.articles.entries()) {
     const slug = a.href.split("/").filter(Boolean).pop()!;
     const title = `${a.lead} ${a.rest}`.trim();
     docs.push({
@@ -106,7 +107,7 @@ async function main() {
       ...LANG,
       title,
       slug: { _type: "slug", current: slug },
-      publishedAt: "2026-10-27T08:00:00.000Z",
+      publishedAt: new Date(Date.UTC(2026, 9, 27, 8, 0) - i * 60_000).toISOString(),
       excerpt: title,
       cover: await image(a.image, a.imageAlt),
       body: [block("extrait", title)],
