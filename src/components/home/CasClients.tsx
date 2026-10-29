@@ -131,6 +131,20 @@ export default function CasClients({ casClients, doc }: { casClients: CasClients
           const photo = imageUrl(c.image, 1325, 476);
           const logo = imageUrl(c.logo, 400);
           const stat = c.keyFigures?.[0];
+          // Page détail du cas : lien sur « Le cas … » (lien principal) et sur la photo (doublon masqué)
+          const href = c.slug ? `/cas-clients/${clean(c.slug)}` : null;
+          const photoImg = photo && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              className={styles.cardImg}
+              src={photo}
+              alt={href ? "" : (clean(c.image?.alt) ?? "")}
+              width={1325}
+              height={476}
+              loading="lazy"
+              data-sanity={editAttr(cdoc, "image")}
+            />
+          );
           return (
             <div key={clean(c._id)} className={styles.item}>
               <article id={`cas-${slug}`} className={styles.slide} data-slide aria-labelledby={`cas-${slug}-title`}>
@@ -156,17 +170,12 @@ export default function CasClients({ casClients, doc }: { casClients: CasClients
                 </div>
 
                 <figure className={styles.card} data-fixed>
-                  {photo && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      className={styles.cardImg}
-                      src={photo}
-                      alt={clean(c.image?.alt) ?? ""}
-                      width={1325}
-                      height={476}
-                      loading="lazy"
-                      data-sanity={editAttr(cdoc, "image")}
-                    />
+                  {photo && href ? (
+                    <a href={href} className={styles.cardLink} aria-hidden="true" tabIndex={-1}>
+                      {photoImg}
+                    </a>
+                  ) : (
+                    photoImg
                   )}
                   <figcaption className={styles.tag}>{c.tag}</figcaption>
                   {logo && (
@@ -199,10 +208,17 @@ export default function CasClients({ casClients, doc }: { casClients: CasClients
                     )}
                   </div>
                   <div className={styles.actions}>
-                    <p className={styles.discover}>
-                      <small>Découvrez</small>
-                      Le cas {c.clientName}
-                    </p>
+                    {href ? (
+                      <a href={href} className={`${styles.discover} ${styles.discoverLink}`}>
+                        <small>Découvrez</small>
+                        Le cas {c.clientName}
+                      </a>
+                    ) : (
+                      <p className={styles.discover}>
+                        <small>Découvrez</small>
+                        Le cas {c.clientName}
+                      </p>
+                    )}
                     {casClients.cta?.href && (
                       <a href={clean(casClients.cta.href)} className={`btn ${styles.cta}`}>
                         {casClients.cta.label}

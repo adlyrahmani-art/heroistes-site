@@ -213,6 +213,35 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition:
+    transform 1.1s var(--ease-reveal),
+    filter 0.6s ease;
+}
+/* Photo cliquable vers la page détail (doublon du lien « Le cas … », masqué aux lecteurs d'écran) */
+.cardLink {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* Survol, comme les cartes du blog : la photo se resserre dans son cadre et zoome lentement.
+   Aussi au survol / focus du lien « Le cas … ». */
+.card {
+  clip-path: inset(0);
+  transition: clip-path 0.9s var(--ease-reveal);
+}
+.card:has(.cardLink:hover),
+.slide:has(.discoverLink:hover, .discoverLink:focus-visible) .card {
+  clip-path: inset(calc(10 * var(--u)));
+}
+.card:has(.cardLink:hover) .cardImg,
+.slide:has(.discoverLink:hover, .discoverLink:focus-visible) .cardImg {
+  transform: scale(1.08);
+  filter: contrast(1.08);
+}
+/* Étiquette et logo laissent passer le clic vers la photo */
+.card:has(.cardLink) .tag,
+.card:has(.cardLink) .logo {
+  pointer-events: none;
 }
 .tag {
   position: absolute;
@@ -301,6 +330,17 @@
   font-size: max(12px, calc(13 * var(--u)));
   text-transform: uppercase;
   line-height: 1.2;
+}
+.discoverLink {
+  transition: color var(--dur-m) var(--ease-overlay);
+}
+.discoverLink:hover,
+.discoverLink:focus-visible {
+  color: var(--turquoise);
+}
+.discoverLink:focus-visible {
+  outline: 2px solid var(--turquoise);
+  outline-offset: 6px;
 }
 .discover small {
   font-weight: 400;
@@ -426,6 +466,10 @@
   .discover small {
     font-size: 11px;
   }
+  .discoverLink {
+    min-height: 44px;
+    justify-content: center;
+  }
   .cta {
     min-width: 0;
   }
@@ -458,6 +502,10 @@
 @media (prefers-reduced-motion: reduce) {
   .track {
     animation: none;
+  }
+  .card,
+  .cardImg {
+    transition: none;
   }
   .intro [data-in] {
     opacity: 1;
