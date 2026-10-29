@@ -289,6 +289,32 @@
   resize: vertical;
 }
 
+/* Champ piège anti-spam : hors écran, invisible (jamais display:none, que certains robots détectent) */
+.trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.message {
+  margin: 0;
+  padding-left: calc(33 * var(--u));
+}
+.error {
+  margin: 0;
+  color: #b3261e;
+  font-size: max(12px, calc(14 * var(--u)));
+}
+.success {
+  color: var(--encre);
+  font-size: max(13px, calc(16 * var(--u)));
+}
+.send:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
 /* Bouton aligné sur les champs (maquette « Footer ») */
 .send {
   align-self: flex-start;
@@ -363,6 +389,7 @@
     min-width: 0;
   }
   .field,
+  .message,
   .intro,
   .privacy {
     padding-left: 0;

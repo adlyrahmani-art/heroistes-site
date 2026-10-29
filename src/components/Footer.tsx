@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { footer } from "@/content/accueil";
@@ -9,9 +9,41 @@ import { Bolt } from "@/components/Logo";
 import { clean, editAttr } from "@/sanity/lib/clean";
 import { imageUrl } from "@/sanity/lib/image";
 import type { SETTINGS_QUERY_RESULT } from "../../sanity.types";
+import type { ContactFormConfig } from "@/lib/contact/validate";
 import styles from "./Footer.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const GENERIC_ERROR = "L’envoi n’a pas abouti. Réessayez dans un instant.";
+
+type FormField = {
+  key: "lastName" | "firstName" | "email" | "phone" | "subject" | "description";
+  label: string;
+  placeholder: string;
+  type: string;
+  autoComplete: string;
+  required: boolean;
+};
+
+/** Champs affichés : libellés et exemples bruts (Sanity), repli sur accueil.ts ; Téléphone / Sujet selon leur réglage. */
+function formFields(cf: ContactFormConfig | null): FormField[] {
+  const d = Object.fromEntries(footer.fields.map((f) => [f.name, f]));
+  const pick = (cfg: { label?: string; placeholder?: string } | undefined, fb: { label: string; placeholder: string }) => ({
+    label: cfg?.label || fb.label,
+    placeholder: cfg?.placeholder || fb.placeholder,
+  });
+  const list: FormField[] = [
+    { key: "lastName", type: "text", autoComplete: "family-name", required: true, ...pick(cf?.lastName, d.nom) },
+    { key: "firstName", type: "text", autoComplete: "given-name", required: true, ...pick(cf?.firstName, d.prenom) },
+    { key: "email", type: "email", autoComplete: "email", required: true, ...pick(cf?.email, d.email) },
+  ];
+  if (cf?.phone?.enabled !== false)
+    list.push({ key: "phone", type: "tel", autoComplete: "tel", required: cf?.phone?.required !== false, ...pick(cf?.phone, d.telephone) });
+  if (cf?.subject?.enabled !== false)
+    list.push({ key: "subject", type: "text", autoComplete: "off", required: cf?.subject?.required !== false, ...pick(cf?.subject, d.sujet) });
+  list.push({ key: "description", type: "text", autoComplete: "off", required: true, ...pick(cf?.description, footer.description) });
+  return list;
+}
 
 /**
  * Footer · Bloc 9.10 Contact (maquette « Footer »).
@@ -24,13 +56,51 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Footer({
   lead,
   settings,
+  contactForm,
   staticTone,
 }: {
   lead: string[];
   /** Page à fond clair fixe (pages détail) : aucun changement de ton du header au défilement. */
   staticTone?: "light";
   settings: Pick<NonNullable<SETTINGS_QUERY_RESULT>, "_id" | "_type" | "footer" | "social"> | null;
+  /** Configuration du formulaire de contact (Sanity) ; repli sur les valeurs par défaut si absente. */
+  contactForm?: ContactFormConfig | null;
 }) {
+  const cf = contactForm ?? null;
+  const fields = formFields(cf);
+  const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [message, setMessage] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (status === "sending") return;
+    const formEl = e.currentTarget;
+    const body = Object.fromEntries(new FormData(formEl).entries());
+    setStatus("sending");
+    setMessage("");
+    setErrors({});
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const json = (await res.json().catch(() => ({}))) as { message?: string; errors?: Record<string, string> };
+      if (res.ok) {
+        formEl.reset();
+        setStatus("done");
+      } else {
+        setErrors(json.errors ?? {});
+        setStatus("error");
+      }
+      setMessage(json.message || (res.ok ? "" : GENERIC_ERROR));
+    } catch {
+      setMessage(GENERIC_ERROR);
+      setStatus("error");
+    }
+  }
+
   const f = settings?.footer;
   const visualSrc = imageUrl(f?.visual, 652, 436);
   const visualAlt = visualSrc ? clean(f?.visual?.alt) || footer.visualAlt : footer.visualAlt;
@@ -181,39 +251,52 @@ export default function Footer({
             <RichText text={footer.intro} />
           </p>
 
-          {/* [À brancher] envoi du formulaire, message de confirmation et conversion GA4 */}
-          <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
-            {footer.fields.map((f) => (
-              <div key={f.name} className={styles.field}>
-                <label htmlFor={`contact-${f.name}`} className={styles.label}>
-                  {f.label} *
-                </label>
-                <input
-                  id={`contact-${f.name}`}
-                  className={styles.input}
-                  name={f.name}
-                  type={f.type}
-                  required
-                  autoComplete={f.autoComplete}
-                  placeholder={f.placeholder}
-                />
-              </div>
-            ))}
-            <div className={styles.field}>
-              <label htmlFor="contact-description" className={styles.label}>
-                {footer.description.label} *
-              </label>
-              <textarea
-                id="contact-description"
-                className={`${styles.input} ${styles.textarea}`}
-                name={footer.description.name}
-                required
-                placeholder={footer.description.placeholder}
-              />
+          {/* [À brancher] conversion GA4 à l'envoi réussi */}
+          <form className={styles.form} onSubmit={onSubmit} aria-busy={status === "sending"}>
+            {fields.map((f) => {
+              const id = `contact-${f.key}`;
+              const err = errors[f.key];
+              const common = {
+                id,
+                name: f.key,
+                required: f.required,
+                placeholder: f.placeholder,
+                "aria-invalid": err ? true : undefined,
+                "aria-describedby": err ? `${id}-error` : undefined,
+              };
+              return (
+                <div key={f.key} className={styles.field}>
+                  <label htmlFor={id} className={styles.label}>
+                    {f.label}
+                    {f.required ? " *" : ""}
+                  </label>
+                  {f.key === "description" ? (
+                    <textarea className={`${styles.input} ${styles.textarea}`} {...common} />
+                  ) : (
+                    <input className={styles.input} type={f.type} autoComplete={f.autoComplete} {...common} />
+                  )}
+                  {err && (
+                    <p id={`${id}-error`} className={styles.error}>
+                      {err}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+            {/* Champ piège : invisible pour les visiteurs, rempli par les robots. */}
+            <div className={styles.trap} aria-hidden="true">
+              <input type="text" name="website" tabIndex={-1} autoComplete="off" />
             </div>
-            <button type="submit" className={`btn btn-primary ${styles.send}`}>
-              {footer.submit}
+            <button type="submit" className={`btn btn-primary ${styles.send}`} disabled={status === "sending"}>
+              {cf?.submitLabel || footer.submit}
             </button>
+            <p
+              role={status === "error" ? "alert" : "status"}
+              aria-live="polite"
+              className={`${styles.message} ${status === "error" ? styles.error : styles.success}`}
+            >
+              {message}
+            </p>
             <p className={styles.privacy}>
               {footer.privacy.text} <a href={footer.privacy.link.href}>{footer.privacy.link.label}</a>
             </p>
