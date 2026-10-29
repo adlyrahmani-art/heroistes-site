@@ -1,27 +1,41 @@
-import type { Engagement } from "@/content/accueil";
 import RichText from "@/components/RichText";
 import { Bolt } from "@/components/Logo";
+import { clean, editAttr } from "@/sanity/lib/clean";
+import { imageUrl } from "@/sanity/lib/image";
 import WaveWord from "./WaveWord";
+import type { EngagementData, HomeDoc } from "./homeTypes";
 import styles from "./EngagementPanel.module.css";
 
 /** Lame d'un engagement (maquettes Section2-1*) : titre d'un côté de la ligne centrale, texte et photo de l'autre. */
-export default function EngagementPanel({ item }: { item: Engagement }) {
+export default function EngagementPanel({ item, index, doc }: { item: EngagementData; index: number; doc: HomeDoc }) {
+  const key = clean(item._key);
+  const path = (field: string) => `engagements[_key=="${key}"].${field}`;
+  const num = `${String(index + 1).padStart(2, "0")}.`;
+  const id = `eng-${index + 1}`;
+  // Ratio de la photo : 536 / 321 (×2 pour la netteté), le point focal s'applique.
+  const photo = imageUrl(item.image, 1072, 642);
+
   return (
     <article
-      className={`${styles.panel} ${item.side === "left" ? styles.titleLeft : styles.titleRight}`}
+      className={`${styles.panel} ${clean(item.side) === "left" ? styles.titleLeft : styles.titleRight}`}
       data-panel
       data-reveal
       data-tone="light"
-      aria-labelledby={`eng-${item.num}`}
+      aria-labelledby={id}
     >
       <span className={styles.axis} aria-hidden="true" />
-      <WaveWord text={item.ghost} className={styles.ghost} speed="0.18" />
+      <WaveWord
+        text={clean(item.ghost ?? "")}
+        className={styles.ghost}
+        speed="0.18"
+        dataSanity={editAttr(doc, path("ghost"))}
+      />
 
       <div className={styles.head}>
-        <p className={styles.num}>{item.num}</p>
-        <h3 id={`eng-${item.num}`} className={styles.title}>
-          {item.title.map((l) => (
-            <span key={l} className={styles.ln}>
+        <p className={styles.num}>{num}</p>
+        <h3 id={id} className={styles.title}>
+          {item.title?.map((l, i) => (
+            <span key={i} className={styles.ln}>
               <span>{l}</span>
             </span>
           ))}
@@ -30,11 +44,13 @@ export default function EngagementPanel({ item }: { item: Engagement }) {
 
       <div className={styles.body}>
         <p className={styles.text}>
-          <RichText text={item.text} />
+          <RichText text={item.text ?? ""} />
         </p>
-        <figure className={styles.photo}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={item.image} alt={item.imageAlt} loading="lazy" />
+        <figure className={styles.photo} data-sanity={editAttr(doc, path("image"))}>
+          {photo && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={photo} alt={clean(item.image?.alt ?? "")} loading="lazy" />
+          )}
         </figure>
       </div>
 

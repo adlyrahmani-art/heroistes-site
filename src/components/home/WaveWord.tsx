@@ -46,10 +46,10 @@ function waveMask(p: number, ar: number) {
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }
 
-type Props = { text: string; className?: string; speed?: string };
+type Props = { text: string; className?: string; speed?: string; dataSanity?: string };
 
 /** Mot fantôme géant révélé par des vagues à chaque entrée dans l'écran (décoratif, aria-hidden). */
-export default function WaveWord({ text, className, speed }: Props) {
+export default function WaveWord({ text, className, speed, dataSanity }: Props) {
   const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -101,7 +101,7 @@ export default function WaveWord({ text, className, speed }: Props) {
   }, []);
 
   return (
-    <span ref={ref} className={`${styles.word} ${className ?? ""}`} data-speed={speed} aria-hidden="true">
+    <span ref={ref} className={`${styles.word} ${className ?? ""}`} data-speed={speed} data-sanity={dataSanity} aria-hidden="true">
       <span className={styles.inner}>{text}</span>
     </span>
   );
