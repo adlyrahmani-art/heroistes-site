@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "vitest run",
     "typegen": "sanity schema extract --path=sanity.schema.json && sanity typegen generate",
     "prebuild": "npm run typegen"
   },
@@ -25,12 +26,13 @@
     "three": "^0.186.1"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^22.20.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/three": "^0.186.0",
     "eslint": "^9",
     "eslint-config-next": "16.4.3",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^5.0.5"
   }
 }
