@@ -9,6 +9,7 @@ export default defineConfig({
   },
   test: {
     environment: "node",
+    env: { NEXT_PUBLIC_SANITY_PROJECT_ID: "pending0", NEXT_PUBLIC_SANITY_DATASET: "production" },
     include: ["tests/unit/**/*.test.ts"],
   },
 });
