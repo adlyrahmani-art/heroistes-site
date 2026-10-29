@@ -15,6 +15,386 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: sanity.schema.json
+export type CaseStudy = {
+  _id: string;
+  _type: "caseStudy";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  language?: string;
+  title?: string;
+  slug?: Slug;
+  clientName?: string;
+  sector?:
+    | "Industrie"
+    | "Tech & SaaS"
+    | "Services B2B"
+    | "Distribution & logistique"
+    | "Bien-\xEAtre"
+    | "Promotion immobili\xE8re"
+    | "Associatif";
+  keyFigures?: Array<{
+    result?: string;
+    detail?: string;
+    _type: "keyFigure";
+    _key: string;
+  }>;
+  image?: ImageWithAlt;
+  tag?: string;
+  question?: string;
+  background?: ImageWithAlt;
+  logo?: ImageWithAlt;
+  logoSize?: number;
+  highlights?: Array<string>;
+  body?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?:
+          "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | ({
+        _key: string;
+      } & ImageWithAlt)
+  >;
+  seo?: Seo;
+};
+
+export type Seo = {
+  _type: "seo";
+  title?: string;
+  description?: string;
+  image?: ImageWithAlt;
+};
+
+export type SanityImageAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+};
+
+export type ImageWithAlt = {
+  _type: "imageWithAlt";
+  asset?: SanityImageAssetReference;
+  media?: unknown;
+  hotspot?: SanityImageHotspot;
+  crop?: SanityImageCrop;
+  alt?: string;
+};
+
+export type Slug = {
+  _type: "slug";
+  current?: string;
+  source?: string;
+};
+
+export type BlogPost = {
+  _id: string;
+  _type: "blogPost";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  language?: string;
+  title?: string;
+  slug?: Slug;
+  publishedAt?: string;
+  excerpt?: string;
+  cover?: ImageWithAlt;
+  body?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?:
+          "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | ({
+        _key: string;
+      } & ImageWithAlt)
+  >;
+  seo?: Seo;
+};
+
+export type ContactRequest = {
+  _id: string;
+  _type: "contactRequest";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  language?: string;
+  receivedAt?: string;
+  lastName?: string;
+  firstName?: string;
+  email?: string;
+  description?: string;
+  phone?: string;
+  subject?: string;
+  ipHash?: string;
+  emailStatus?: "envoy\xE9" | "\xE9chec";
+};
+
+export type ContactForm = {
+  _id: string;
+  _type: "contactForm";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  language?: string;
+  title?: Array<string>;
+  intro?: string;
+  recipient?: string;
+  submitLabel?: string;
+  successMessage?: string;
+  errorMessage?: string;
+  rateLimitMessage?: string;
+  privacyText?: string;
+  privacyLink?: Button;
+  lastName?: {
+    label?: string;
+    placeholder?: string;
+  };
+  firstName?: {
+    label?: string;
+    placeholder?: string;
+  };
+  email?: {
+    label?: string;
+    placeholder?: string;
+  };
+  description?: {
+    label?: string;
+    placeholder?: string;
+  };
+  phone?: {
+    enabled?: boolean;
+    required?: boolean;
+    label?: string;
+    placeholder?: string;
+  };
+  subject?: {
+    enabled?: boolean;
+    required?: boolean;
+    label?: string;
+    placeholder?: string;
+  };
+};
+
+export type Button = {
+  _type: "button";
+  label?: string;
+  href?: string;
+};
+
+export type CaseStudyReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "caseStudy";
+};
+
+export type HomePage = {
+  _id: string;
+  _type: "homePage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  language?: string;
+  hero?: {
+    eyebrow?: Array<string>;
+    titleLines?: Array<string>;
+    subtitle?: string;
+    highlight?: string;
+    text?: string;
+    ctaPrimary?: Button;
+    ctaSecondary?: Button;
+    image?: ImageWithAlt;
+  };
+  engagementsTitle?: string;
+  engagements?: Array<{
+    title?: Array<string>;
+    ghost?: string;
+    text?: string;
+    image?: ImageWithAlt;
+    side?: "left" | "right";
+    _type: "engagement";
+    _key: string;
+  }>;
+  logosBand?: {
+    text?: string;
+    clients?: Array<
+      {
+        _key: string;
+      } & ImageWithAlt
+    >;
+  };
+  besoins?: {
+    title?: string;
+    intro?: string;
+    items?: Array<{
+      title?: string;
+      offer?: string;
+      href?: string;
+      text?: string;
+      image?: ImageWithAlt;
+      _type: "besoin";
+      _key: string;
+    }>;
+  };
+  expertises?: {
+    title?: Array<string>;
+    heading?: string;
+    intro?: string;
+    image?: ImageWithAlt;
+    cards?: Array<{
+      title?: Array<string>;
+      lead?: string;
+      text?: string;
+      link?: {
+        before?: string;
+        label?: string;
+        href?: string;
+      };
+      _type: "expertiseCard";
+      _key: string;
+    }>;
+  };
+  pourquoi?: {
+    title?: Array<string>;
+    intro?: string;
+    items?: Array<{
+      title?: Array<string>;
+      text?: string;
+      image?: ImageWithAlt;
+      _type: "pourquoiItem";
+      _key: string;
+    }>;
+    outro?: string;
+    cta?: Button;
+  };
+  plan?: {
+    title?: string;
+    subtitle?: string;
+    intro?: string;
+    steps?: Array<{
+      title?: Array<string>;
+      text?: string;
+      image?: ImageWithAlt;
+      _type: "planStep";
+      _key: string;
+    }>;
+    outro?: Array<string>;
+    cta?: Button;
+  };
+  casClients?: {
+    title?: Array<string>;
+    intro?: string;
+    image?: ImageWithAlt;
+    cases?: Array<
+      {
+        _key: string;
+      } & CaseStudyReference
+    >;
+    cta?: Button;
+  };
+  blog?: {
+    title?: Array<string>;
+    cta?: Button;
+  };
+  faq?: {
+    title?: Array<string>;
+    items?: Array<{
+      question?: string;
+      answer?: string;
+      _type: "faqItem";
+      _key: string;
+    }>;
+  };
+  contactLead?: {
+    lead?: Array<string>;
+  };
+};
+
+export type SiteSettings = {
+  _id: string;
+  _type: "siteSettings";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  language?: string;
+  navLabels?: {
+    accueil?: string;
+    expertises?: string;
+    conseil?: string;
+    casClients?: string;
+    secteurs?: string;
+    agence?: string;
+    blog?: string;
+    contact?: string;
+  };
+  headerCta?: Button;
+  footer?: {
+    visual?: ImageWithAlt;
+    baseline?: string;
+    newsletterTitle?: string;
+    newsletterText?: string;
+    copyright?: string;
+    email?: string;
+  };
+  offices?: Array<{
+    city?: string;
+    address?: string;
+    phone?: string;
+    _type: "office";
+    _key: string;
+  }>;
+  social?: {
+    linkedin?: string;
+  };
+  seo?: Seo;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
 export type SanityImagePaletteSwatch = {
   _type: "sanity.imagePaletteSwatch";
   background?: string;
@@ -51,22 +431,6 @@ export type SanityImageMetadata = {
   thumbHash?: string;
   hasAlpha?: boolean;
   isOpaque?: boolean;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
 };
 
 export type SanityFileAsset = {
@@ -128,21 +492,1038 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
-};
-
 export type AllSanitySchemaTypes =
+  | CaseStudy
+  | Seo
+  | SanityImageAssetReference
+  | ImageWithAlt
+  | Slug
+  | BlogPost
+  | ContactRequest
+  | ContactForm
+  | Button
+  | CaseStudyReference
+  | HomePage
+  | SiteSettings
+  | SanityImageCrop
+  | SanityImageHotspot
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
   | SanityImageMetadata
-  | SanityImageHotspot
-  | SanityImageCrop
   | SanityFileAsset
   | SanityAssetSourceData
   | SanityImageAsset
-  | Geopoint
-  | Slug;
+  | Geopoint;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: SETTINGS_QUERY
+// Query: *[_type == "siteSettings" && language == "fr"][0]{  ...,  footer{ ..., visual{ ..., alt, hotspot, crop, asset-> } },  seo{ ..., image{ ..., alt, hotspot, crop, asset-> } }}
+export type SETTINGS_QUERY_RESULT = {
+  _id: string;
+  _type: "siteSettings";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  language: "fr";
+  navLabels?: {
+    accueil?: string;
+    expertises?: string;
+    conseil?: string;
+    casClients?: string;
+    secteurs?: string;
+    agence?: string;
+    blog?: string;
+    contact?: string;
+  };
+  headerCta?: Button;
+  footer: {
+    visual: {
+      _type: "imageWithAlt";
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+      media?: unknown;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+    baseline?: string;
+    newsletterTitle?: string;
+    newsletterText?: string;
+    copyright?: string;
+    email?: string;
+  } | null;
+  offices?: Array<{
+    city?: string;
+    address?: string;
+    phone?: string;
+    _type: "office";
+    _key: string;
+  }>;
+  social?: {
+    linkedin?: string;
+  };
+  seo: {
+    _type: "seo";
+    title?: string;
+    description?: string;
+    image: {
+      _type: "imageWithAlt";
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+      media?: unknown;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: HOME_QUERY
+// Query: *[_type == "homePage" && language == "fr"][0]{  ...,  hero{ ..., image{ ..., alt, hotspot, crop, asset-> } },  engagements[]{ ..., image{ ..., alt, hotspot, crop, asset-> } },  logosBand{ ..., clients[]{ ..., alt, hotspot, crop, asset-> } },  besoins{ ..., items[]{ ..., image{ ..., alt, hotspot, crop, asset-> } } },  expertises{ ..., image{ ..., alt, hotspot, crop, asset-> } },  pourquoi{ ..., items[]{ ..., image{ ..., alt, hotspot, crop, asset-> } } },  plan{ ..., steps[]{ ..., image{ ..., alt, hotspot, crop, asset-> } } },  casClients{    ...,    image{ ..., alt, hotspot, crop, asset-> },    cases[]->{      _id, title, "slug": slug.current, clientName, sector, tag, question, logoSize, highlights, keyFigures,      image{ ..., alt, hotspot, crop, asset-> }, background{ ..., alt, hotspot, crop, asset-> }, logo{ ..., alt, hotspot, crop, asset-> }    }  }}
+export type HOME_QUERY_RESULT = {
+  _id: string;
+  _type: "homePage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  language: "fr";
+  hero: {
+    eyebrow?: Array<string>;
+    titleLines?: Array<string>;
+    subtitle?: string;
+    highlight?: string;
+    text?: string;
+    ctaPrimary?: Button;
+    ctaSecondary?: Button;
+    image: {
+      _type: "imageWithAlt";
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+      media?: unknown;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+  } | null;
+  engagementsTitle?: string;
+  engagements: Array<{
+    title?: Array<string>;
+    ghost?: string;
+    text?: string;
+    image: {
+      _type: "imageWithAlt";
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+      media?: unknown;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+    side?: "left" | "right";
+    _type: "engagement";
+    _key: string;
+  }> | null;
+  logosBand: {
+    text?: string;
+    clients: Array<{
+      _key: string;
+      _type: "imageWithAlt";
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+      media?: unknown;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    }> | null;
+  } | null;
+  besoins: {
+    title?: string;
+    intro?: string;
+    items: Array<{
+      title?: string;
+      offer?: string;
+      href?: string;
+      text?: string;
+      image: {
+        _type: "imageWithAlt";
+        asset: {
+          _id: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          url?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+        media?: unknown;
+        hotspot: SanityImageHotspot | null;
+        crop: SanityImageCrop | null;
+        alt: string | null;
+      } | null;
+      _type: "besoin";
+      _key: string;
+    }> | null;
+  } | null;
+  expertises: {
+    title?: Array<string>;
+    heading?: string;
+    intro?: string;
+    image: {
+      _type: "imageWithAlt";
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+      media?: unknown;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+    cards?: Array<{
+      title?: Array<string>;
+      lead?: string;
+      text?: string;
+      link?: {
+        before?: string;
+        label?: string;
+        href?: string;
+      };
+      _type: "expertiseCard";
+      _key: string;
+    }>;
+  } | null;
+  pourquoi: {
+    title?: Array<string>;
+    intro?: string;
+    items: Array<{
+      title?: Array<string>;
+      text?: string;
+      image: {
+        _type: "imageWithAlt";
+        asset: {
+          _id: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          url?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+        media?: unknown;
+        hotspot: SanityImageHotspot | null;
+        crop: SanityImageCrop | null;
+        alt: string | null;
+      } | null;
+      _type: "pourquoiItem";
+      _key: string;
+    }> | null;
+    outro?: string;
+    cta?: Button;
+  } | null;
+  plan: {
+    title?: string;
+    subtitle?: string;
+    intro?: string;
+    steps: Array<{
+      title?: Array<string>;
+      text?: string;
+      image: {
+        _type: "imageWithAlt";
+        asset: {
+          _id: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          url?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+        media?: unknown;
+        hotspot: SanityImageHotspot | null;
+        crop: SanityImageCrop | null;
+        alt: string | null;
+      } | null;
+      _type: "planStep";
+      _key: string;
+    }> | null;
+    outro?: Array<string>;
+    cta?: Button;
+  } | null;
+  casClients: {
+    title?: Array<string>;
+    intro?: string;
+    image: {
+      _type: "imageWithAlt";
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+      media?: unknown;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+    cases: Array<{
+      _id: string;
+      title: string | null;
+      slug: string | null;
+      clientName: string | null;
+      sector:
+        | "Associatif"
+        | "Bien-\xEAtre"
+        | "Distribution & logistique"
+        | "Industrie"
+        | "Promotion immobili\xE8re"
+        | "Services B2B"
+        | "Tech & SaaS"
+        | null;
+      tag: string | null;
+      question: string | null;
+      logoSize: number | null;
+      highlights: Array<string> | null;
+      keyFigures: Array<{
+        result?: string;
+        detail?: string;
+        _type: "keyFigure";
+        _key: string;
+      }> | null;
+      image: {
+        _type: "imageWithAlt";
+        asset: {
+          _id: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          url?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+        media?: unknown;
+        hotspot: SanityImageHotspot | null;
+        crop: SanityImageCrop | null;
+        alt: string | null;
+      } | null;
+      background: {
+        _type: "imageWithAlt";
+        asset: {
+          _id: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          url?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+        media?: unknown;
+        hotspot: SanityImageHotspot | null;
+        crop: SanityImageCrop | null;
+        alt: string | null;
+      } | null;
+      logo: {
+        _type: "imageWithAlt";
+        asset: {
+          _id: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          url?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+        media?: unknown;
+        hotspot: SanityImageHotspot | null;
+        crop: SanityImageCrop | null;
+        alt: string | null;
+      } | null;
+    }> | null;
+    cta?: Button;
+  } | null;
+  blog?: {
+    title?: Array<string>;
+    cta?: Button;
+  };
+  faq?: {
+    title?: Array<string>;
+    items?: Array<{
+      question?: string;
+      answer?: string;
+      _type: "faqItem";
+      _key: string;
+    }>;
+  };
+  contactLead?: {
+    lead?: Array<string>;
+  };
+} | null;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: CONTACT_FORM_QUERY
+// Query: *[_type == "contactForm" && language == "fr"][0]
+export type CONTACT_FORM_QUERY_RESULT = {
+  _id: string;
+  _type: "contactForm";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  language: "fr";
+  title?: Array<string>;
+  intro?: string;
+  recipient?: string;
+  submitLabel?: string;
+  successMessage?: string;
+  errorMessage?: string;
+  rateLimitMessage?: string;
+  privacyText?: string;
+  privacyLink?: Button;
+  lastName?: {
+    label?: string;
+    placeholder?: string;
+  };
+  firstName?: {
+    label?: string;
+    placeholder?: string;
+  };
+  email?: {
+    label?: string;
+    placeholder?: string;
+  };
+  description?: {
+    label?: string;
+    placeholder?: string;
+  };
+  phone?: {
+    enabled?: boolean;
+    required?: boolean;
+    label?: string;
+    placeholder?: string;
+  };
+  subject?: {
+    enabled?: boolean;
+    required?: boolean;
+    label?: string;
+    placeholder?: string;
+  };
+} | null;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: BLOG_POST_QUERY
+// Query: *[_type == "blogPost" && language == "fr" && slug.current == $slug][0]{  ...,  "slug": slug.current,  cover{ ..., alt, hotspot, crop, asset-> },  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset-> } },  seo{ ..., image{ ..., alt, hotspot, crop, asset-> } }}
+export type BLOG_POST_QUERY_RESULT = {
+  _id: string;
+  _type: "blogPost";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  language?: string;
+  title?: string;
+  slug: string | null;
+  publishedAt?: string;
+  excerpt?: string;
+  cover: {
+    _type: "imageWithAlt";
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    media?: unknown;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    alt: string | null;
+  } | null;
+  body: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?:
+          "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        _key: string;
+        _type: "imageWithAlt";
+        asset: {
+          _id: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          url?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+        media?: unknown;
+        hotspot: SanityImageHotspot | null;
+        crop: SanityImageCrop | null;
+        alt: string | null;
+      }
+  > | null;
+  seo: {
+    _type: "seo";
+    title?: string;
+    description?: string;
+    image: {
+      _type: "imageWithAlt";
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+      media?: unknown;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: BLOG_SLUGS_QUERY
+// Query: *[_type == "blogPost" && language == "fr" && defined(slug.current)]{ "slug": slug.current }
+export type BLOG_SLUGS_QUERY_RESULT = Array<{
+  slug: string | null;
+}>;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: LATEST_POSTS_QUERY
+// Query: *[_type == "blogPost" && language == "fr"] | order(publishedAt desc)[0...4]{  _id, title, "slug": slug.current, publishedAt, excerpt, cover{ ..., alt, hotspot, crop, asset-> }}
+export type LATEST_POSTS_QUERY_RESULT = Array<{
+  _id: string;
+  title: string | null;
+  slug: string | null;
+  publishedAt: string | null;
+  excerpt: string | null;
+  cover: {
+    _type: "imageWithAlt";
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    media?: unknown;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    alt: string | null;
+  } | null;
+}>;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: CASE_STUDY_QUERY
+// Query: *[_type == "caseStudy" && language == "fr" && slug.current == $slug][0]{  ...,  "slug": slug.current,  image{ ..., alt, hotspot, crop, asset-> }, background{ ..., alt, hotspot, crop, asset-> }, logo{ ..., alt, hotspot, crop, asset-> },  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset-> } },  seo{ ..., image{ ..., alt, hotspot, crop, asset-> } }}
+export type CASE_STUDY_QUERY_RESULT = {
+  _id: string;
+  _type: "caseStudy";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  language?: string;
+  title?: string;
+  slug: string | null;
+  clientName?: string;
+  sector?:
+    | "Associatif"
+    | "Bien-\xEAtre"
+    | "Distribution & logistique"
+    | "Industrie"
+    | "Promotion immobili\xE8re"
+    | "Services B2B"
+    | "Tech & SaaS";
+  keyFigures?: Array<{
+    result?: string;
+    detail?: string;
+    _type: "keyFigure";
+    _key: string;
+  }>;
+  image: {
+    _type: "imageWithAlt";
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    media?: unknown;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    alt: string | null;
+  } | null;
+  tag?: string;
+  question?: string;
+  background: {
+    _type: "imageWithAlt";
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    media?: unknown;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    alt: string | null;
+  } | null;
+  logo: {
+    _type: "imageWithAlt";
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    media?: unknown;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    alt: string | null;
+  } | null;
+  logoSize?: number;
+  highlights?: Array<string>;
+  body: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?:
+          "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        _key: string;
+        _type: "imageWithAlt";
+        asset: {
+          _id: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          url?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+        media?: unknown;
+        hotspot: SanityImageHotspot | null;
+        crop: SanityImageCrop | null;
+        alt: string | null;
+      }
+  > | null;
+  seo: {
+    _type: "seo";
+    title?: string;
+    description?: string;
+    image: {
+      _type: "imageWithAlt";
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+      media?: unknown;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: CASE_SLUGS_QUERY
+// Query: *[_type == "caseStudy" && language == "fr" && defined(slug.current)]{ "slug": slug.current }
+export type CASE_SLUGS_QUERY_RESULT = Array<{
+  slug: string | null;
+}>;
+
+// Query TypeMap
+declare global {
+  interface SanityQueries {
+    '*[_type == "siteSettings" && language == "fr"][0]{\n  ...,\n  footer{ ..., visual{ ..., alt, hotspot, crop, asset-> } },\n  seo{ ..., image{ ..., alt, hotspot, crop, asset-> } }\n}': SETTINGS_QUERY_RESULT;
+    '*[_type == "homePage" && language == "fr"][0]{\n  ...,\n  hero{ ..., image{ ..., alt, hotspot, crop, asset-> } },\n  engagements[]{ ..., image{ ..., alt, hotspot, crop, asset-> } },\n  logosBand{ ..., clients[]{ ..., alt, hotspot, crop, asset-> } },\n  besoins{ ..., items[]{ ..., image{ ..., alt, hotspot, crop, asset-> } } },\n  expertises{ ..., image{ ..., alt, hotspot, crop, asset-> } },\n  pourquoi{ ..., items[]{ ..., image{ ..., alt, hotspot, crop, asset-> } } },\n  plan{ ..., steps[]{ ..., image{ ..., alt, hotspot, crop, asset-> } } },\n  casClients{\n    ...,\n    image{ ..., alt, hotspot, crop, asset-> },\n    cases[]->{\n      _id, title, "slug": slug.current, clientName, sector, tag, question, logoSize, highlights, keyFigures,\n      image{ ..., alt, hotspot, crop, asset-> }, background{ ..., alt, hotspot, crop, asset-> }, logo{ ..., alt, hotspot, crop, asset-> }\n    }\n  }\n}': HOME_QUERY_RESULT;
+    '*[_type == "contactForm" && language == "fr"][0]': CONTACT_FORM_QUERY_RESULT;
+    '*[_type == "blogPost" && language == "fr" && slug.current == $slug][0]{\n  ...,\n  "slug": slug.current,\n  cover{ ..., alt, hotspot, crop, asset-> },\n  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset-> } },\n  seo{ ..., image{ ..., alt, hotspot, crop, asset-> } }\n}': BLOG_POST_QUERY_RESULT;
+    '*[_type == "blogPost" && language == "fr" && defined(slug.current)]{ "slug": slug.current }': BLOG_SLUGS_QUERY_RESULT;
+    '*[_type == "blogPost" && language == "fr"] | order(publishedAt desc)[0...4]{\n  _id, title, "slug": slug.current, publishedAt, excerpt, cover{ ..., alt, hotspot, crop, asset-> }\n}': LATEST_POSTS_QUERY_RESULT;
+    '*[_type == "caseStudy" && language == "fr" && slug.current == $slug][0]{\n  ...,\n  "slug": slug.current,\n  image{ ..., alt, hotspot, crop, asset-> }, background{ ..., alt, hotspot, crop, asset-> }, logo{ ..., alt, hotspot, crop, asset-> },\n  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset-> } },\n  seo{ ..., image{ ..., alt, hotspot, crop, asset-> } }\n}': CASE_STUDY_QUERY_RESULT;
+    '*[_type == "caseStudy" && language == "fr" && defined(slug.current)]{ "slug": slug.current }': CASE_SLUGS_QUERY_RESULT;
+  }
+}
+// Lets @sanity/client releases that predate the global registry read it too
+declare module "@sanity/client" {
+  interface SanityQueries extends globalThis.SanityQueries {}
+}

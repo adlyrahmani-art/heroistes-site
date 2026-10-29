@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "typegen": "sanity schema extract --path=sanity.schema.json && sanity typegen generate",
+    "typegen": "sanity schema extract --force --path=sanity.schema.json && sanity typegen generate",
     "prebuild": "npm run typegen"
   },
   "dependencies": {
