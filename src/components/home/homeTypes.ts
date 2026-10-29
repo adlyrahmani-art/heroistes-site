@@ -1,4 +1,4 @@
-import type { HOME_QUERY_RESULT } from "../../../sanity.types";
+import type { HOME_QUERY_RESULT, LATEST_POSTS_QUERY_RESULT } from "../../../sanity.types";
 
 type Home = NonNullable<HOME_QUERY_RESULT>;
 
@@ -17,3 +17,8 @@ export type ExpertisesData = NonNullable<Home["expertises"]>;
 export type ExpertiseCardData = NonNullable<ExpertisesData["cards"]>[number];
 export type PourquoiData = NonNullable<Home["pourquoi"]>;
 export type PlanData = NonNullable<Home["plan"]>;
+export type CasClientsData = NonNullable<Home["casClients"]>;
+export type CaseData = NonNullable<CasClientsData["cases"]>[number];
+export type BlogData = NonNullable<Home["blog"]>;
+export type FaqData = NonNullable<Home["faq"]>;
+export type LatestPost = LATEST_POSTS_QUERY_RESULT[number];

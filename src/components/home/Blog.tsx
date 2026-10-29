@@ -3,7 +3,10 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { blog } from "@/content/accueil";
+import { clean, editAttr } from "@/sanity/lib/clean";
+import { imageUrl } from "@/sanity/lib/image";
+import { splitCardTitle } from "./splitCardTitle";
+import type { BlogData, LatestPost } from "./homeTypes";
 import styles from "./Blog.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -13,7 +16,10 @@ gsap.registerPlugin(ScrollTrigger);
  * Survol : le cadre de la photo se resserre pendant que l'image zoome, une étiquette
  * « Lire l'article » monte dans le coin, et le titre se souligne en turquoise.
  */
-export default function Blog() {
+const formatDate = (iso: string | null) =>
+  iso ? new Date(iso).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Paris" }) : "";
+
+export default function Blog({ blog, posts }: { blog: BlogData; posts: LatestPost[] }) {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -50,37 +56,53 @@ export default function Blog() {
     <section ref={ref} id="blog" className={styles.section} aria-labelledby="blog-title">
       <span className={styles.axis} aria-hidden="true" />
       <h2 id="blog-title" className={styles.title} data-in>
-        {blog.title.map((l) => (
-          <span key={l}>{l}</span>
+        {blog.title?.map((l, i) => (
+          <span key={i}>{l}</span>
         ))}
       </h2>
 
       <ul className={styles.grid}>
-        {blog.articles.map((a, i) => (
-          <li key={a.href} className={styles.item} style={{ "--i": i } as React.CSSProperties} data-in>
-            <a href={a.href} className={styles.card}>
-              <span className={`${styles.media} ${a.tall ? styles.tall : ""}`}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={a.image} alt={a.imageAlt} width={438} height={a.tall ? 454 : 321} loading="lazy" />
-                <span className={styles.read} aria-hidden="true">
-                  Lire l’article <span>→</span>
+        {posts.map((p, i) => {
+          const tall = i % 2 === 0;
+          const src = imageUrl(p.cover, 876, tall ? 908 : 642);
+          const { lead, rest } = splitCardTitle(p.title ?? "");
+          return (
+            <li key={clean(p._id)} className={styles.item} style={{ "--i": i } as React.CSSProperties} data-in>
+              <a href={`/blog/${clean(p.slug)}`} className={styles.card}>
+                <span className={`${styles.media} ${tall ? styles.tall : ""}`}>
+                  {src && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={src}
+                      alt={clean(p.cover?.alt) ?? ""}
+                      width={438}
+                      height={tall ? 454 : 321}
+                      loading="lazy"
+                      data-sanity={editAttr({ _id: clean(p._id), _type: "blogPost" }, "cover")}
+                    />
+                  )}
+                  <span className={styles.read} aria-hidden="true">
+                    Lire l’article <span>→</span>
+                  </span>
                 </span>
-              </span>
-              <span className={styles.heading}>
-                <span className={styles.line}>
-                  <strong>{a.lead}</strong>
-                  {a.rest && ` ${a.rest}`}
+                <span className={styles.heading}>
+                  <span className={styles.line}>
+                    <strong>{lead}</strong>
+                    {rest && ` ${rest}`}
+                  </span>
                 </span>
-              </span>
-              <time className={styles.date}>{a.date}</time>
-            </a>
-          </li>
-        ))}
+                <time className={styles.date}>{formatDate(p.publishedAt)}</time>
+              </a>
+            </li>
+          );
+        })}
       </ul>
 
-      <a href={blog.cta.href} className={`btn btn-primary ${styles.cta}`}>
-        {blog.cta.label}
-      </a>
+      {blog.cta?.href && (
+        <a href={clean(blog.cta.href)} className={`btn btn-primary ${styles.cta}`}>
+          {blog.cta.label}
+        </a>
+      )}
     </section>
   );
 }

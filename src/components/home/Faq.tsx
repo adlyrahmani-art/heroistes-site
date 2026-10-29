@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { faq } from "@/content/accueil";
+import { clean } from "@/sanity/lib/clean";
+import type { FaqData } from "./homeTypes";
 import styles from "./Faq.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
  * Bloc 9.9 · FAQ (maquette « FAQ ») : accordéon, première question ouverte, une seule ouverte
  * à la fois ; les réponses sont dans le HTML dès le chargement (référencement).
  */
-export default function Faq() {
+export default function Faq({ faq }: { faq: FaqData }) {
   const [open, setOpen] = useState<number | null>(0);
   const ref = useRef<HTMLElement>(null);
 
@@ -48,17 +49,17 @@ export default function Faq() {
     <section ref={ref} id="faq" className={styles.section} aria-labelledby="faq-title">
       <div className="fx-grain" aria-hidden="true" />
       <h2 id="faq-title" className={styles.title}>
-        {faq.title.map((l) => (
-          <span key={l}>{l}</span>
+        {faq.title?.map((l, i) => (
+          <span key={i}>{l}</span>
         ))}
       </h2>
 
       <ul className={styles.list}>
-        {faq.items.map((item, i) => {
+        {(faq.items ?? []).map((item, i) => {
           const isOpen = open === i;
           const id = `faq-${i + 1}`;
           return (
-            <li key={item.q} className={`${styles.item} ${isOpen ? styles.open : ""}`} style={{ "--i": i } as React.CSSProperties}>
+            <li key={clean(item._key)} className={`${styles.item} ${isOpen ? styles.open : ""}`} style={{ "--i": i } as React.CSSProperties}>
               <h3>
                 <button
                   type="button"
@@ -68,13 +69,13 @@ export default function Faq() {
                   onClick={() => setOpen(isOpen ? null : i)}
                 >
                   <span className={styles.num}>{String(i + 1).padStart(2, "0")}.</span>
-                  <span className={styles.q}>{item.q}</span>
+                  <span className={styles.q}>{item.question}</span>
                   <span className={styles.icon} aria-hidden="true" />
                 </button>
               </h3>
-              <div id={id} className={styles.panel} role="region" aria-label={item.q}>
+              <div id={id} className={styles.panel} role="region" aria-label={clean(item.question)}>
                 <div className={styles.inner}>
-                  <p className={styles.a}>{item.a}</p>
+                  <p className={styles.a}>{item.answer}</p>
                 </div>
               </div>
             </li>

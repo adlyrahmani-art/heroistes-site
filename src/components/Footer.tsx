@@ -18,7 +18,7 @@ gsap.registerPlugin(ScrollTrigger);
  * Mécanique : la zone chevauche le dernier écran de la FAQ (marge −100svh) et réserve deux écrans
  * de défilement ; la piste (titre à gauche du footer) y reste collée en haut le temps du glissement.
  */
-export default function Footer() {
+export default function Footer({ lead }: { lead: string[] }) {
   const ref = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
@@ -83,8 +83,8 @@ export default function Footer() {
         {/* Titre (maquette « Footer titre »), à gauche du footer sur la piste */}
         <div ref={titleRef} className={styles.titlePanel}>
           <p className={styles.bigTitle}>
-            {footer.lead.map((l) => (
-              <span key={l} className={styles.ln}>
+            {lead.map((l, i) => (
+              <span key={i} className={styles.ln}>
                 <span>{l}</span>
               </span>
             ))}
