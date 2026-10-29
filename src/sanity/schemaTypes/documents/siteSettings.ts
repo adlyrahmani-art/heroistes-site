@@ -36,7 +36,13 @@ export const siteSettings = defineType({
         str("newsletterTitle", "Titre newsletter"),
         str("newsletterText", "Texte newsletter"),
         str("copyright", "Copyright"),
-        str("email", "E-mail"),
+        defineField({
+          name: "email",
+          title: "E-mail",
+          type: "string",
+          validation: (Rule) =>
+            Rule.required().error("E-mail : champ obligatoire.").email().error("E-mail : adresse invalide (exemple : contact@heroistes.com)."),
+        }),
       ],
     }),
     defineField({

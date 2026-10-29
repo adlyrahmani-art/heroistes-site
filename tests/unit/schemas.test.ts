@@ -32,3 +32,10 @@ test("caseStudy propose les 7 secteurs", () => {
     "Bien-être", "Promotion immobilière", "Associatif",
   ]);
 });
+
+test("contactForm a des messages de succès, d'erreur et de limite par défaut", () => {
+  const cf = documents.find((d) => d.name === "contactForm") as { initialValue?: Record<string, string> };
+  for (const key of ["successMessage", "errorMessage", "rateLimitMessage"]) {
+    expect(cf.initialValue?.[key], key).toMatch(/\S/);
+  }
+});
