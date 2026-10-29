@@ -158,7 +158,7 @@ describe("buildDeps (câblage réel, clients factices)", () => {
     expect(c.create).toHaveBeenCalledWith(
       expect.objectContaining({ _id: expect.stringMatching(/^contactRequest\.[0-9a-f-]{36}$/), _type: "contactRequest", language: "fr", ipHash: "h", receivedAt: expect.any(String), lastName: "Martin", phone: "0612" }),
     );
-    const id = c.create.mock.calls[0][0]._id;
+    const id = c.create.mock.calls[0][0]._id as string;
     await d.markEmail(id, "envoyé");
     expect(c.patch).toHaveBeenCalledWith(id);
     expect(c.set).toHaveBeenCalledWith({ emailStatus: "envoyé" });

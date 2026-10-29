@@ -279,8 +279,8 @@ export default function Footer({
         {/* Colonne droite : formulaire de contact */}
         <div className={styles.formCol}>
           <h2 id="contact-title" className={styles.title}>
-            {(cf?.title?.length ? cf.title : footer.title).map((l) => (
-              <span key={l}>{l}</span>
+            {(cf?.title?.length ? cf.title : footer.title).map((l, i) => (
+              <span key={i}>{l}</span>
             ))}
           </h2>
           <p className={styles.intro}>
@@ -296,7 +296,7 @@ export default function Footer({
                 id,
                 name: f.key,
                 required: f.required,
-                placeholder: f.placeholder,
+                placeholder: clean(f.placeholder),
                 "aria-invalid": err ? true : undefined,
                 "aria-describedby": err ? `${id}-error` : undefined,
               };

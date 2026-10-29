@@ -39,3 +39,11 @@ test("contactForm a des messages de succès, d'erreur et de limite par défaut",
     expect(cf.initialValue?.[key], key).toMatch(/\S/);
   }
 });
+
+test("lien de bouton : relatif, ancre, http(s), mailto, tel acceptés ; le reste refusé", async () => {
+  const { validateHref } = await import("@/sanity/schemaTypes/objects/button");
+  for (const ok of ["/blog/", "#contact", "https://exemple.fr/x", "http://a.fr", "mailto:a@b.fr", "tel:+33123456789", undefined])
+    expect(validateHref(ok), String(ok)).toBe(true);
+  for (const ko of ["javascript:alert(1)", "exemple.fr", "ftp://a.fr", "/a b"])
+    expect(validateHref(ko), ko).toEqual(expect.stringContaining("Lien invalide"));
+});

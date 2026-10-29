@@ -6,6 +6,14 @@
  * Exécution : npx sanity exec scripts/seed-sanity.ts
  * Écrasement volontaire : npx sanity exec scripts/seed-sanity.ts -- --force
  * Nécessite SANITY_API_WRITE_TOKEN dans .env.local.
+ *
+ * Remarque : sur certains postes (Windows), `sanity exec` reste bloqué sans rien afficher.
+ * Aucun exécuteur TypeScript (tsx) n'est installé dans le projet. Alternative : Node 22.18+
+ * lit le TypeScript directement, avec les variables du fichier d'environnement :
+ *   node --env-file=.env.local scripts/seed-sanity.ts
+ * mais le script importe `sanity/cli` (getCliClient, valable seulement sous `sanity exec`) et des
+ * modules sans extension ; il faut alors le remplacer par `createClient` de `@sanity/client`
+ * (projectId, dataset, token) et ajouter les extensions `.ts` aux imports relatifs.
  */
 import { readFileSync } from "node:fs";
 import path from "node:path";

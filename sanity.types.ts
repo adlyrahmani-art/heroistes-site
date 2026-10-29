@@ -511,7 +511,7 @@ export type AllSanitySchemaTypes =
 
 // Source: src/sanity/lib/queries.ts
 // Variable: SETTINGS_QUERY
-// Query: *[_type == "siteSettings" && language == "fr"][0]{  ...,  footer{ ..., visual{ ..., alt, hotspot, crop, asset-> } },  seo{ ..., image{ ..., alt, hotspot, crop, asset-> } }}
+// Query: *[_type == "siteSettings" && language == "fr"][0]{  ...,  footer{ ..., visual{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }}
 export type SETTINGS_QUERY_RESULT = {
   _id: string;
   _type: "siteSettings";
@@ -535,25 +535,10 @@ export type SETTINGS_QUERY_RESULT = {
       _type: "imageWithAlt";
       asset: {
         _id: string;
-        _type: "sanity.imageAsset";
-        _createdAt: string;
-        _updatedAt: string;
-        _rev: string;
-        originalFilename?: string;
-        label?: string;
-        title?: string;
-        description?: string;
-        altText?: string;
-        sha1hash?: string;
-        extension?: string;
-        mimeType?: string;
-        size?: number;
-        assetId?: string;
-        uploadId?: string;
-        path?: string;
-        url?: string;
-        metadata?: SanityImageMetadata;
-        source?: SanityAssetSourceData;
+        url: string | null;
+        metadata: {
+          dimensions: SanityImageDimensions | null;
+        } | null;
       } | null;
       media?: unknown;
       hotspot: SanityImageHotspot | null;
@@ -577,25 +562,10 @@ export type SETTINGS_QUERY_RESULT = {
       _type: "imageWithAlt";
       asset: {
         _id: string;
-        _type: "sanity.imageAsset";
-        _createdAt: string;
-        _updatedAt: string;
-        _rev: string;
-        originalFilename?: string;
-        label?: string;
-        title?: string;
-        description?: string;
-        altText?: string;
-        sha1hash?: string;
-        extension?: string;
-        mimeType?: string;
-        size?: number;
-        assetId?: string;
-        uploadId?: string;
-        path?: string;
-        url?: string;
-        metadata?: SanityImageMetadata;
-        source?: SanityAssetSourceData;
+        url: string | null;
+        metadata: {
+          dimensions: SanityImageDimensions | null;
+        } | null;
       } | null;
       media?: unknown;
       hotspot: SanityImageHotspot | null;
@@ -607,7 +577,7 @@ export type SETTINGS_QUERY_RESULT = {
 
 // Source: src/sanity/lib/queries.ts
 // Variable: HOME_QUERY
-// Query: *[_type == "homePage" && language == "fr"][0]{  ...,  hero{ ..., image{ ..., alt, hotspot, crop, asset-> } },  engagements[]{ ..., image{ ..., alt, hotspot, crop, asset-> } },  logosBand{ ..., clients[]{ ..., alt, hotspot, crop, asset-> } },  besoins{ ..., items[]{ ..., image{ ..., alt, hotspot, crop, asset-> } } },  expertises{ ..., image{ ..., alt, hotspot, crop, asset-> } },  pourquoi{ ..., items[]{ ..., image{ ..., alt, hotspot, crop, asset-> } } },  plan{ ..., steps[]{ ..., image{ ..., alt, hotspot, crop, asset-> } } },  casClients{    ...,    image{ ..., alt, hotspot, crop, asset-> },    cases[]->{      _id, title, "slug": slug.current, clientName, sector, tag, question, logoSize, highlights, keyFigures,      image{ ..., alt, hotspot, crop, asset-> }, background{ ..., alt, hotspot, crop, asset-> }, logo{ ..., alt, hotspot, crop, asset-> }    }  }}
+// Query: *[_type == "homePage" && language == "fr"][0]{  ...,  hero{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  engagements[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  logosBand{ ..., clients[]{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  besoins{ ..., items[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } } },  expertises{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  pourquoi{ ..., items[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } } },  plan{ ..., steps[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } } },  casClients{    ...,    image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },    cases[]->{      _id, title, "slug": slug.current, clientName, sector, tag, question, logoSize, highlights, keyFigures,      image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, logo{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }    }  }}
 export type HOME_QUERY_RESULT = {
   _id: string;
   _type: "homePage";
@@ -627,25 +597,10 @@ export type HOME_QUERY_RESULT = {
       _type: "imageWithAlt";
       asset: {
         _id: string;
-        _type: "sanity.imageAsset";
-        _createdAt: string;
-        _updatedAt: string;
-        _rev: string;
-        originalFilename?: string;
-        label?: string;
-        title?: string;
-        description?: string;
-        altText?: string;
-        sha1hash?: string;
-        extension?: string;
-        mimeType?: string;
-        size?: number;
-        assetId?: string;
-        uploadId?: string;
-        path?: string;
-        url?: string;
-        metadata?: SanityImageMetadata;
-        source?: SanityAssetSourceData;
+        url: string | null;
+        metadata: {
+          dimensions: SanityImageDimensions | null;
+        } | null;
       } | null;
       media?: unknown;
       hotspot: SanityImageHotspot | null;
@@ -662,25 +617,10 @@ export type HOME_QUERY_RESULT = {
       _type: "imageWithAlt";
       asset: {
         _id: string;
-        _type: "sanity.imageAsset";
-        _createdAt: string;
-        _updatedAt: string;
-        _rev: string;
-        originalFilename?: string;
-        label?: string;
-        title?: string;
-        description?: string;
-        altText?: string;
-        sha1hash?: string;
-        extension?: string;
-        mimeType?: string;
-        size?: number;
-        assetId?: string;
-        uploadId?: string;
-        path?: string;
-        url?: string;
-        metadata?: SanityImageMetadata;
-        source?: SanityAssetSourceData;
+        url: string | null;
+        metadata: {
+          dimensions: SanityImageDimensions | null;
+        } | null;
       } | null;
       media?: unknown;
       hotspot: SanityImageHotspot | null;
@@ -698,25 +638,10 @@ export type HOME_QUERY_RESULT = {
       _type: "imageWithAlt";
       asset: {
         _id: string;
-        _type: "sanity.imageAsset";
-        _createdAt: string;
-        _updatedAt: string;
-        _rev: string;
-        originalFilename?: string;
-        label?: string;
-        title?: string;
-        description?: string;
-        altText?: string;
-        sha1hash?: string;
-        extension?: string;
-        mimeType?: string;
-        size?: number;
-        assetId?: string;
-        uploadId?: string;
-        path?: string;
-        url?: string;
-        metadata?: SanityImageMetadata;
-        source?: SanityAssetSourceData;
+        url: string | null;
+        metadata: {
+          dimensions: SanityImageDimensions | null;
+        } | null;
       } | null;
       media?: unknown;
       hotspot: SanityImageHotspot | null;
@@ -736,25 +661,10 @@ export type HOME_QUERY_RESULT = {
         _type: "imageWithAlt";
         asset: {
           _id: string;
-          _type: "sanity.imageAsset";
-          _createdAt: string;
-          _updatedAt: string;
-          _rev: string;
-          originalFilename?: string;
-          label?: string;
-          title?: string;
-          description?: string;
-          altText?: string;
-          sha1hash?: string;
-          extension?: string;
-          mimeType?: string;
-          size?: number;
-          assetId?: string;
-          uploadId?: string;
-          path?: string;
-          url?: string;
-          metadata?: SanityImageMetadata;
-          source?: SanityAssetSourceData;
+          url: string | null;
+          metadata: {
+            dimensions: SanityImageDimensions | null;
+          } | null;
         } | null;
         media?: unknown;
         hotspot: SanityImageHotspot | null;
@@ -773,25 +683,10 @@ export type HOME_QUERY_RESULT = {
       _type: "imageWithAlt";
       asset: {
         _id: string;
-        _type: "sanity.imageAsset";
-        _createdAt: string;
-        _updatedAt: string;
-        _rev: string;
-        originalFilename?: string;
-        label?: string;
-        title?: string;
-        description?: string;
-        altText?: string;
-        sha1hash?: string;
-        extension?: string;
-        mimeType?: string;
-        size?: number;
-        assetId?: string;
-        uploadId?: string;
-        path?: string;
-        url?: string;
-        metadata?: SanityImageMetadata;
-        source?: SanityAssetSourceData;
+        url: string | null;
+        metadata: {
+          dimensions: SanityImageDimensions | null;
+        } | null;
       } | null;
       media?: unknown;
       hotspot: SanityImageHotspot | null;
@@ -821,25 +716,10 @@ export type HOME_QUERY_RESULT = {
         _type: "imageWithAlt";
         asset: {
           _id: string;
-          _type: "sanity.imageAsset";
-          _createdAt: string;
-          _updatedAt: string;
-          _rev: string;
-          originalFilename?: string;
-          label?: string;
-          title?: string;
-          description?: string;
-          altText?: string;
-          sha1hash?: string;
-          extension?: string;
-          mimeType?: string;
-          size?: number;
-          assetId?: string;
-          uploadId?: string;
-          path?: string;
-          url?: string;
-          metadata?: SanityImageMetadata;
-          source?: SanityAssetSourceData;
+          url: string | null;
+          metadata: {
+            dimensions: SanityImageDimensions | null;
+          } | null;
         } | null;
         media?: unknown;
         hotspot: SanityImageHotspot | null;
@@ -863,25 +743,10 @@ export type HOME_QUERY_RESULT = {
         _type: "imageWithAlt";
         asset: {
           _id: string;
-          _type: "sanity.imageAsset";
-          _createdAt: string;
-          _updatedAt: string;
-          _rev: string;
-          originalFilename?: string;
-          label?: string;
-          title?: string;
-          description?: string;
-          altText?: string;
-          sha1hash?: string;
-          extension?: string;
-          mimeType?: string;
-          size?: number;
-          assetId?: string;
-          uploadId?: string;
-          path?: string;
-          url?: string;
-          metadata?: SanityImageMetadata;
-          source?: SanityAssetSourceData;
+          url: string | null;
+          metadata: {
+            dimensions: SanityImageDimensions | null;
+          } | null;
         } | null;
         media?: unknown;
         hotspot: SanityImageHotspot | null;
@@ -901,25 +766,10 @@ export type HOME_QUERY_RESULT = {
       _type: "imageWithAlt";
       asset: {
         _id: string;
-        _type: "sanity.imageAsset";
-        _createdAt: string;
-        _updatedAt: string;
-        _rev: string;
-        originalFilename?: string;
-        label?: string;
-        title?: string;
-        description?: string;
-        altText?: string;
-        sha1hash?: string;
-        extension?: string;
-        mimeType?: string;
-        size?: number;
-        assetId?: string;
-        uploadId?: string;
-        path?: string;
-        url?: string;
-        metadata?: SanityImageMetadata;
-        source?: SanityAssetSourceData;
+        url: string | null;
+        metadata: {
+          dimensions: SanityImageDimensions | null;
+        } | null;
       } | null;
       media?: unknown;
       hotspot: SanityImageHotspot | null;
@@ -954,25 +804,10 @@ export type HOME_QUERY_RESULT = {
         _type: "imageWithAlt";
         asset: {
           _id: string;
-          _type: "sanity.imageAsset";
-          _createdAt: string;
-          _updatedAt: string;
-          _rev: string;
-          originalFilename?: string;
-          label?: string;
-          title?: string;
-          description?: string;
-          altText?: string;
-          sha1hash?: string;
-          extension?: string;
-          mimeType?: string;
-          size?: number;
-          assetId?: string;
-          uploadId?: string;
-          path?: string;
-          url?: string;
-          metadata?: SanityImageMetadata;
-          source?: SanityAssetSourceData;
+          url: string | null;
+          metadata: {
+            dimensions: SanityImageDimensions | null;
+          } | null;
         } | null;
         media?: unknown;
         hotspot: SanityImageHotspot | null;
@@ -983,25 +818,10 @@ export type HOME_QUERY_RESULT = {
         _type: "imageWithAlt";
         asset: {
           _id: string;
-          _type: "sanity.imageAsset";
-          _createdAt: string;
-          _updatedAt: string;
-          _rev: string;
-          originalFilename?: string;
-          label?: string;
-          title?: string;
-          description?: string;
-          altText?: string;
-          sha1hash?: string;
-          extension?: string;
-          mimeType?: string;
-          size?: number;
-          assetId?: string;
-          uploadId?: string;
-          path?: string;
-          url?: string;
-          metadata?: SanityImageMetadata;
-          source?: SanityAssetSourceData;
+          url: string | null;
+          metadata: {
+            dimensions: SanityImageDimensions | null;
+          } | null;
         } | null;
         media?: unknown;
         hotspot: SanityImageHotspot | null;
@@ -1012,25 +832,10 @@ export type HOME_QUERY_RESULT = {
         _type: "imageWithAlt";
         asset: {
           _id: string;
-          _type: "sanity.imageAsset";
-          _createdAt: string;
-          _updatedAt: string;
-          _rev: string;
-          originalFilename?: string;
-          label?: string;
-          title?: string;
-          description?: string;
-          altText?: string;
-          sha1hash?: string;
-          extension?: string;
-          mimeType?: string;
-          size?: number;
-          assetId?: string;
-          uploadId?: string;
-          path?: string;
-          url?: string;
-          metadata?: SanityImageMetadata;
-          source?: SanityAssetSourceData;
+          url: string | null;
+          metadata: {
+            dimensions: SanityImageDimensions | null;
+          } | null;
         } | null;
         media?: unknown;
         hotspot: SanityImageHotspot | null;
@@ -1108,8 +913,17 @@ export type CONTACT_FORM_QUERY_RESULT = {
 } | null;
 
 // Source: src/sanity/lib/queries.ts
+// Variable: CONTACT_LEAD_QUERY
+// Query: *[_type == "homePage" && language == "fr"][0]{ contactLead }
+export type CONTACT_LEAD_QUERY_RESULT = {
+  contactLead: {
+    lead?: Array<string>;
+  } | null;
+} | null;
+
+// Source: src/sanity/lib/queries.ts
 // Variable: BLOG_POST_QUERY
-// Query: *[_type == "blogPost" && language == "fr" && slug.current == $slug][0]{  ...,  "slug": slug.current,  cover{ ..., alt, hotspot, crop, asset-> },  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset-> } },  seo{ ..., image{ ..., alt, hotspot, crop, asset-> } }}
+// Query: *[_type == "blogPost" && language == "fr" && slug.current == $slug][0]{  ...,  "slug": slug.current,  cover{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }}
 export type BLOG_POST_QUERY_RESULT = {
   _id: string;
   _type: "blogPost";
@@ -1125,25 +939,10 @@ export type BLOG_POST_QUERY_RESULT = {
     _type: "imageWithAlt";
     asset: {
       _id: string;
-      _type: "sanity.imageAsset";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      originalFilename?: string;
-      label?: string;
-      title?: string;
-      description?: string;
-      altText?: string;
-      sha1hash?: string;
-      extension?: string;
-      mimeType?: string;
-      size?: number;
-      assetId?: string;
-      uploadId?: string;
-      path?: string;
-      url?: string;
-      metadata?: SanityImageMetadata;
-      source?: SanityAssetSourceData;
+      url: string | null;
+      metadata: {
+        dimensions: SanityImageDimensions | null;
+      } | null;
     } | null;
     media?: unknown;
     hotspot: SanityImageHotspot | null;
@@ -1175,25 +974,10 @@ export type BLOG_POST_QUERY_RESULT = {
         _type: "imageWithAlt";
         asset: {
           _id: string;
-          _type: "sanity.imageAsset";
-          _createdAt: string;
-          _updatedAt: string;
-          _rev: string;
-          originalFilename?: string;
-          label?: string;
-          title?: string;
-          description?: string;
-          altText?: string;
-          sha1hash?: string;
-          extension?: string;
-          mimeType?: string;
-          size?: number;
-          assetId?: string;
-          uploadId?: string;
-          path?: string;
-          url?: string;
-          metadata?: SanityImageMetadata;
-          source?: SanityAssetSourceData;
+          url: string | null;
+          metadata: {
+            dimensions: SanityImageDimensions | null;
+          } | null;
         } | null;
         media?: unknown;
         hotspot: SanityImageHotspot | null;
@@ -1209,25 +993,10 @@ export type BLOG_POST_QUERY_RESULT = {
       _type: "imageWithAlt";
       asset: {
         _id: string;
-        _type: "sanity.imageAsset";
-        _createdAt: string;
-        _updatedAt: string;
-        _rev: string;
-        originalFilename?: string;
-        label?: string;
-        title?: string;
-        description?: string;
-        altText?: string;
-        sha1hash?: string;
-        extension?: string;
-        mimeType?: string;
-        size?: number;
-        assetId?: string;
-        uploadId?: string;
-        path?: string;
-        url?: string;
-        metadata?: SanityImageMetadata;
-        source?: SanityAssetSourceData;
+        url: string | null;
+        metadata: {
+          dimensions: SanityImageDimensions | null;
+        } | null;
       } | null;
       media?: unknown;
       hotspot: SanityImageHotspot | null;
@@ -1246,7 +1015,7 @@ export type BLOG_SLUGS_QUERY_RESULT = Array<{
 
 // Source: src/sanity/lib/queries.ts
 // Variable: LATEST_POSTS_QUERY
-// Query: *[_type == "blogPost" && language == "fr"] | order(publishedAt desc)[0...4]{  _id, title, "slug": slug.current, publishedAt, excerpt, cover{ ..., alt, hotspot, crop, asset-> }}
+// Query: *[_type == "blogPost" && language == "fr" && defined(slug.current)] | order(publishedAt desc)[0...4]{  _id, title, "slug": slug.current, publishedAt, excerpt, cover{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }}
 export type LATEST_POSTS_QUERY_RESULT = Array<{
   _id: string;
   title: string | null;
@@ -1257,25 +1026,10 @@ export type LATEST_POSTS_QUERY_RESULT = Array<{
     _type: "imageWithAlt";
     asset: {
       _id: string;
-      _type: "sanity.imageAsset";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      originalFilename?: string;
-      label?: string;
-      title?: string;
-      description?: string;
-      altText?: string;
-      sha1hash?: string;
-      extension?: string;
-      mimeType?: string;
-      size?: number;
-      assetId?: string;
-      uploadId?: string;
-      path?: string;
-      url?: string;
-      metadata?: SanityImageMetadata;
-      source?: SanityAssetSourceData;
+      url: string | null;
+      metadata: {
+        dimensions: SanityImageDimensions | null;
+      } | null;
     } | null;
     media?: unknown;
     hotspot: SanityImageHotspot | null;
@@ -1286,7 +1040,7 @@ export type LATEST_POSTS_QUERY_RESULT = Array<{
 
 // Source: src/sanity/lib/queries.ts
 // Variable: CASE_STUDY_QUERY
-// Query: *[_type == "caseStudy" && language == "fr" && slug.current == $slug][0]{  ...,  "slug": slug.current,  image{ ..., alt, hotspot, crop, asset-> }, background{ ..., alt, hotspot, crop, asset-> }, logo{ ..., alt, hotspot, crop, asset-> },  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset-> } },  seo{ ..., image{ ..., alt, hotspot, crop, asset-> } }}
+// Query: *[_type == "caseStudy" && language == "fr" && slug.current == $slug][0]{  ...,  "slug": slug.current,  image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, logo{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }}
 export type CASE_STUDY_QUERY_RESULT = {
   _id: string;
   _type: "caseStudy";
@@ -1315,25 +1069,10 @@ export type CASE_STUDY_QUERY_RESULT = {
     _type: "imageWithAlt";
     asset: {
       _id: string;
-      _type: "sanity.imageAsset";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      originalFilename?: string;
-      label?: string;
-      title?: string;
-      description?: string;
-      altText?: string;
-      sha1hash?: string;
-      extension?: string;
-      mimeType?: string;
-      size?: number;
-      assetId?: string;
-      uploadId?: string;
-      path?: string;
-      url?: string;
-      metadata?: SanityImageMetadata;
-      source?: SanityAssetSourceData;
+      url: string | null;
+      metadata: {
+        dimensions: SanityImageDimensions | null;
+      } | null;
     } | null;
     media?: unknown;
     hotspot: SanityImageHotspot | null;
@@ -1346,25 +1085,10 @@ export type CASE_STUDY_QUERY_RESULT = {
     _type: "imageWithAlt";
     asset: {
       _id: string;
-      _type: "sanity.imageAsset";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      originalFilename?: string;
-      label?: string;
-      title?: string;
-      description?: string;
-      altText?: string;
-      sha1hash?: string;
-      extension?: string;
-      mimeType?: string;
-      size?: number;
-      assetId?: string;
-      uploadId?: string;
-      path?: string;
-      url?: string;
-      metadata?: SanityImageMetadata;
-      source?: SanityAssetSourceData;
+      url: string | null;
+      metadata: {
+        dimensions: SanityImageDimensions | null;
+      } | null;
     } | null;
     media?: unknown;
     hotspot: SanityImageHotspot | null;
@@ -1375,25 +1099,10 @@ export type CASE_STUDY_QUERY_RESULT = {
     _type: "imageWithAlt";
     asset: {
       _id: string;
-      _type: "sanity.imageAsset";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      originalFilename?: string;
-      label?: string;
-      title?: string;
-      description?: string;
-      altText?: string;
-      sha1hash?: string;
-      extension?: string;
-      mimeType?: string;
-      size?: number;
-      assetId?: string;
-      uploadId?: string;
-      path?: string;
-      url?: string;
-      metadata?: SanityImageMetadata;
-      source?: SanityAssetSourceData;
+      url: string | null;
+      metadata: {
+        dimensions: SanityImageDimensions | null;
+      } | null;
     } | null;
     media?: unknown;
     hotspot: SanityImageHotspot | null;
@@ -1427,25 +1136,10 @@ export type CASE_STUDY_QUERY_RESULT = {
         _type: "imageWithAlt";
         asset: {
           _id: string;
-          _type: "sanity.imageAsset";
-          _createdAt: string;
-          _updatedAt: string;
-          _rev: string;
-          originalFilename?: string;
-          label?: string;
-          title?: string;
-          description?: string;
-          altText?: string;
-          sha1hash?: string;
-          extension?: string;
-          mimeType?: string;
-          size?: number;
-          assetId?: string;
-          uploadId?: string;
-          path?: string;
-          url?: string;
-          metadata?: SanityImageMetadata;
-          source?: SanityAssetSourceData;
+          url: string | null;
+          metadata: {
+            dimensions: SanityImageDimensions | null;
+          } | null;
         } | null;
         media?: unknown;
         hotspot: SanityImageHotspot | null;
@@ -1461,25 +1155,10 @@ export type CASE_STUDY_QUERY_RESULT = {
       _type: "imageWithAlt";
       asset: {
         _id: string;
-        _type: "sanity.imageAsset";
-        _createdAt: string;
-        _updatedAt: string;
-        _rev: string;
-        originalFilename?: string;
-        label?: string;
-        title?: string;
-        description?: string;
-        altText?: string;
-        sha1hash?: string;
-        extension?: string;
-        mimeType?: string;
-        size?: number;
-        assetId?: string;
-        uploadId?: string;
-        path?: string;
-        url?: string;
-        metadata?: SanityImageMetadata;
-        source?: SanityAssetSourceData;
+        url: string | null;
+        metadata: {
+          dimensions: SanityImageDimensions | null;
+        } | null;
       } | null;
       media?: unknown;
       hotspot: SanityImageHotspot | null;
@@ -1499,13 +1178,14 @@ export type CASE_SLUGS_QUERY_RESULT = Array<{
 // Query TypeMap
 declare global {
   interface SanityQueries {
-    '*[_type == "siteSettings" && language == "fr"][0]{\n  ...,\n  footer{ ..., visual{ ..., alt, hotspot, crop, asset-> } },\n  seo{ ..., image{ ..., alt, hotspot, crop, asset-> } }\n}': SETTINGS_QUERY_RESULT;
-    '*[_type == "homePage" && language == "fr"][0]{\n  ...,\n  hero{ ..., image{ ..., alt, hotspot, crop, asset-> } },\n  engagements[]{ ..., image{ ..., alt, hotspot, crop, asset-> } },\n  logosBand{ ..., clients[]{ ..., alt, hotspot, crop, asset-> } },\n  besoins{ ..., items[]{ ..., image{ ..., alt, hotspot, crop, asset-> } } },\n  expertises{ ..., image{ ..., alt, hotspot, crop, asset-> } },\n  pourquoi{ ..., items[]{ ..., image{ ..., alt, hotspot, crop, asset-> } } },\n  plan{ ..., steps[]{ ..., image{ ..., alt, hotspot, crop, asset-> } } },\n  casClients{\n    ...,\n    image{ ..., alt, hotspot, crop, asset-> },\n    cases[]->{\n      _id, title, "slug": slug.current, clientName, sector, tag, question, logoSize, highlights, keyFigures,\n      image{ ..., alt, hotspot, crop, asset-> }, background{ ..., alt, hotspot, crop, asset-> }, logo{ ..., alt, hotspot, crop, asset-> }\n    }\n  }\n}': HOME_QUERY_RESULT;
+    '*[_type == "siteSettings" && language == "fr"][0]{\n  ...,\n  footer{ ..., visual{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }\n}': SETTINGS_QUERY_RESULT;
+    '*[_type == "homePage" && language == "fr"][0]{\n  ...,\n  hero{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  engagements[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  logosBand{ ..., clients[]{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  besoins{ ..., items[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } } },\n  expertises{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  pourquoi{ ..., items[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } } },\n  plan{ ..., steps[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } } },\n  casClients{\n    ...,\n    image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },\n    cases[]->{\n      _id, title, "slug": slug.current, clientName, sector, tag, question, logoSize, highlights, keyFigures,\n      image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, logo{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }\n    }\n  }\n}': HOME_QUERY_RESULT;
     '*[_type == "contactForm" && language == "fr"][0]': CONTACT_FORM_QUERY_RESULT;
-    '*[_type == "blogPost" && language == "fr" && slug.current == $slug][0]{\n  ...,\n  "slug": slug.current,\n  cover{ ..., alt, hotspot, crop, asset-> },\n  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset-> } },\n  seo{ ..., image{ ..., alt, hotspot, crop, asset-> } }\n}': BLOG_POST_QUERY_RESULT;
+    '*[_type == "homePage" && language == "fr"][0]{ contactLead }': CONTACT_LEAD_QUERY_RESULT;
+    '*[_type == "blogPost" && language == "fr" && slug.current == $slug][0]{\n  ...,\n  "slug": slug.current,\n  cover{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },\n  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }\n}': BLOG_POST_QUERY_RESULT;
     '*[_type == "blogPost" && language == "fr" && defined(slug.current)]{ "slug": slug.current }': BLOG_SLUGS_QUERY_RESULT;
-    '*[_type == "blogPost" && language == "fr"] | order(publishedAt desc)[0...4]{\n  _id, title, "slug": slug.current, publishedAt, excerpt, cover{ ..., alt, hotspot, crop, asset-> }\n}': LATEST_POSTS_QUERY_RESULT;
-    '*[_type == "caseStudy" && language == "fr" && slug.current == $slug][0]{\n  ...,\n  "slug": slug.current,\n  image{ ..., alt, hotspot, crop, asset-> }, background{ ..., alt, hotspot, crop, asset-> }, logo{ ..., alt, hotspot, crop, asset-> },\n  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset-> } },\n  seo{ ..., image{ ..., alt, hotspot, crop, asset-> } }\n}': CASE_STUDY_QUERY_RESULT;
+    '*[_type == "blogPost" && language == "fr" && defined(slug.current)] | order(publishedAt desc)[0...4]{\n  _id, title, "slug": slug.current, publishedAt, excerpt, cover{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }\n}': LATEST_POSTS_QUERY_RESULT;
+    '*[_type == "caseStudy" && language == "fr" && slug.current == $slug][0]{\n  ...,\n  "slug": slug.current,\n  image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, logo{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },\n  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }\n}': CASE_STUDY_QUERY_RESULT;
     '*[_type == "caseStudy" && language == "fr" && defined(slug.current)]{ "slug": slug.current }': CASE_SLUGS_QUERY_RESULT;
   }
 }

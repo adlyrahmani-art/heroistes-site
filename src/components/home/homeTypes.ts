@@ -9,7 +9,7 @@ export type LogosData = NonNullable<Home["logosBand"]>;
 export type BesoinsData = NonNullable<Home["besoins"]>;
 
 /** Dimensions natives d'un asset image (pour les attributs width/height), si connues. */
-export function nativeSize(asset: { metadata?: { dimensions?: { width?: number; height?: number } } } | null | undefined) {
+export function nativeSize(asset: { metadata?: { dimensions?: { width?: number | null; height?: number | null } | null } | null } | null | undefined) {
   const d = asset?.metadata?.dimensions;
   return d?.width && d?.height ? { w: d.width, h: d.height } : null;
 }

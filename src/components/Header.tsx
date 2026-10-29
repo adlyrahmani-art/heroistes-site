@@ -10,7 +10,7 @@ import styles from "./Header.module.css";
 const num = (i: number) => `${String(i + 1).padStart(2, "0")}.`;
 
 /** Contenu d'un sous-menu : groupes titrés (Expertises) ou liste simple, en colonnes */
-function SubLinks({ item, onNavigate }: { item: NavItem; onNavigate: () => void }) {
+function SubLinks({ item, onNavigate, to }: { item: NavItem; onNavigate: () => void; to: (href: string) => string }) {
   let k = 0; // rang d'apparition, pour la cascade
   if (item.groups) {
     return (
@@ -23,7 +23,7 @@ function SubLinks({ item, onNavigate }: { item: NavItem; onNavigate: () => void 
             <ul>
               {g.links.map((l) => (
                 <li key={l.href} style={{ "--k": k++ } as React.CSSProperties}>
-                  <a href={l.href} className={styles.subLink} onClick={onNavigate}>
+                  <a href={to(l.href)} className={styles.subLink} onClick={onNavigate}>
                     {l.label}
                   </a>
                 </li>
@@ -38,7 +38,7 @@ function SubLinks({ item, onNavigate }: { item: NavItem; onNavigate: () => void 
     <ul className={`${styles.list} ${(item.links?.length ?? 0) > 6 ? styles.listCols : ""}`}>
       {item.links?.map((l) => (
         <li key={l.href} style={{ "--k": k++ } as React.CSSProperties}>
-          <a href={l.href} className={styles.subLink} onClick={onNavigate}>
+          <a href={to(l.href)} className={styles.subLink} onClick={onNavigate}>
             {l.label}
           </a>
         </li>
@@ -56,7 +56,10 @@ function SubLinks({ item, onNavigate }: { item: NavItem; onNavigate: () => void 
 export default function Header({
   navLabels,
   cta,
+  anchorBase = "",
 }: {
+  /** Préfixe des liens `#ancre` : « / » hors de l'accueil, pour y revenir. */
+  anchorBase?: string;
   navLabels?: NavLabels | null;
   cta?: { label?: string | null; href?: string | null } | null;
 }) {
@@ -69,6 +72,8 @@ export default function Header({
   const [mobileSub, setMobileSub] = useState<number | null>(null);
   const closeTimer = useRef(0);
   const lenisRef = useLenis();
+  const to = (href: string) => (href.startsWith("#") ? `${anchorBase}${href}` : href);
+  const onHome = anchorBase === "";
 
   const openMenu = (i: number) => {
     clearTimeout(closeTimer.current);
@@ -88,7 +93,8 @@ export default function Header({
   const navigate = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const href = e.currentTarget.getAttribute("href") ?? "";
     closeAll();
-    if (!href.startsWith("#")) return;
+    // Seules les ancres de la page courante sont interceptées ; ailleurs, navigation normale vers « /#… ».
+    if (!onHome || !href.startsWith("#")) return;
     const target = document.querySelector(href);
     if (!target) return;
     e.preventDefault();
@@ -132,7 +138,7 @@ export default function Header({
           <span />
           <span />
         </div>
-        <a href="#accueil" className={styles.brand} aria-label="Héroïstes, retour à l'accueil" onClick={navigate}>
+        <a href={to("#accueil")} className={styles.brand} aria-label="Héroïstes, retour à l'accueil" onClick={navigate}>
           {/* Deux variantes du symbole : la bonne s'affiche selon le fond (voir Header.module.css) */}
           <span className={styles.markWrap}>
             <LogoMark className={`${styles.mark} ${styles.markDark}`} variant="dark" />
@@ -153,9 +159,9 @@ export default function Header({
                   onFocus={() => (hasSub ? openMenu(i) : setActive(null))}
                 >
                   <a
-                    href={item.href}
+                    href={to(item.href)}
                     className={`${styles.topLink} ${isOpen ? styles.current : ""}`}
-                    aria-current={i === 0 ? "page" : undefined}
+                    aria-current={i === 0 && onHome ? "page" : undefined}
                     onClick={navigate}
                   >
                     <i>{num(i)}</i>
@@ -173,11 +179,11 @@ export default function Header({
                           <span className={styles.megaNum}>{num(i)}</span>
                           <p className={styles.megaTitle}>{labelOf(item)}</p>
                           {item.pitch && <p className={styles.megaPitch}>{item.pitch}</p>}
-                          <a href={item.href} className={styles.megaAll} onClick={navigate}>
+                          <a href={to(item.href)} className={styles.megaAll} onClick={navigate}>
                             Tout voir <span aria-hidden="true">→</span>
                           </a>
                         </div>
-                        <SubLinks item={item} onNavigate={closeAll} />
+                        <SubLinks item={item} onNavigate={closeAll} to={to} />
                       </div>
                     </div>
                   )}
@@ -187,7 +193,7 @@ export default function Header({
           </ul>
         </nav>
 
-        <a href={ctaHref} className={styles.cta} onClick={navigate}>
+        <a href={to(ctaHref)} className={styles.cta} onClick={navigate}>
           {ctaLabel}
         </a>
         <button
@@ -214,7 +220,7 @@ export default function Header({
             return (
               <li key={item.label} style={{ "--k": i } as React.CSSProperties} className={subOpen ? styles.subOpen : ""}>
                 <div className={styles.mobileRow}>
-                  <a href={item.href} className={styles.mobileLink} onClick={navigate}>
+                  <a href={to(item.href)} className={styles.mobileLink} onClick={navigate}>
                     <i>{num(i)}</i>
                     {labelOf(item)}
                   </a>
@@ -232,7 +238,7 @@ export default function Header({
                 {hasSub && (
                   <div id={`m-sub-${i}`} className={styles.mobileSub} inert={!subOpen}>
                     <div>
-                      <SubLinks item={item} onNavigate={closeAll} />
+                      <SubLinks item={item} onNavigate={closeAll} to={to} />
                     </div>
                   </div>
                 )}
@@ -240,7 +246,7 @@ export default function Header({
             );
           })}
         </ul>
-        <a href={ctaHref} className={`btn btn-primary ${styles.mobileCta}`} onClick={navigate}>
+        <a href={to(ctaHref)} className={`btn btn-primary ${styles.mobileCta}`} onClick={navigate}>
           {ctaLabel}
         </a>
       </div>
