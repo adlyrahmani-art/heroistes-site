@@ -366,13 +366,6 @@ export type SiteSettings = {
     copyright?: string;
     email?: string;
   };
-  offices?: Array<{
-    city?: string;
-    address?: string;
-    phone?: string;
-    _type: "office";
-    _key: string;
-  }>;
   social?: {
     linkedin?: string;
   };
@@ -573,13 +566,6 @@ export type SETTINGS_QUERY_RESULT = {
     copyright?: string;
     email?: string;
   } | null;
-  offices?: Array<{
-    city?: string;
-    address?: string;
-    phone?: string;
-    _type: "office";
-    _key: string;
-  }>;
   social?: {
     linkedin?: string;
   };

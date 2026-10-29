@@ -35,7 +35,7 @@ export const siteSettings = defineType({
         str("baseline", "Signature"),
         str("newsletterTitle", "Titre newsletter"),
         str("newsletterText", "Texte newsletter"),
-        str("copyright", "Copyright"),
+        { ...str("copyright", "Copyright"), description: "Ligne en bas du pied de page, villes comprises." },
         defineField({
           name: "email",
           title: "E-mail",
@@ -44,21 +44,6 @@ export const siteSettings = defineType({
             Rule.required().error("E-mail : champ obligatoire.").email().error("E-mail : adresse invalide (exemple : contact@heroistes.com)."),
         }),
       ],
-    }),
-    defineField({
-      name: "offices",
-      title: "Bureaux",
-      description: "Non affichés tant qu’aucune maquette ne les place.",
-      type: "array",
-      of: [
-        {
-          type: "object",
-          name: "office",
-          fields: [str("city", "Ville"), str("address", "Adresse"), str("phone", "Téléphone", undefined, true)],
-          preview: { select: { title: "city", subtitle: "address" } },
-        },
-      ],
-      validation: (Rule) => Rule.max(2),
     }),
     defineField({
       name: "social",

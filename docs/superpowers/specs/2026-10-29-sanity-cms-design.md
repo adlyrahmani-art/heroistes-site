@@ -65,7 +65,7 @@ Le Studio contient des pages uniques non supprimables, deux collections (blog et
 
 | Document | Contenu |
 |---|---|
-| Réglages du site | Libellés du menu, bouton du header, footer (visuel, signature, newsletter, copyright, e-mail), coordonnées Grenoble et Paris, réseaux sociaux, SEO par défaut |
+| Réglages du site | Libellés du menu, bouton du header, footer (visuel, signature, newsletter, copyright, e-mail), réseaux sociaux, SEO par défaut |
 | Accueil | Un groupe de champs par lame, dans l'ordre du site : hero ; Nos engagements (titre + 4 engagements) ; bandeau de logos ; Vos besoins (6 situations) ; Expertises (titre, présentation, 6 cartes) ; Pourquoi choisir (3 raisons) ; Du plan aux résultats (2 étapes) ; Nos cas clients (intro + 3 cas mis en avant) ; Blog (titre, bouton) ; FAQ (5 questions) ; titre « Votre prochaine étape » avant le footer |
 | Formulaire de contact | Titre et texte d'introduction, libellés et textes d'exemple des champs, bouton, messages, mention RGPD, adresse de réception (§ 6.6) |
 | Conseil, Secteurs, L'agence, Contact, Expertise × 4 | Un groupe de champs par lame. **À modéliser quand leurs maquettes existeront** : ces pages n'ont encore ni route ni maquette |

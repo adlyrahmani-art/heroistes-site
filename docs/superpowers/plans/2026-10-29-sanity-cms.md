@@ -225,7 +225,7 @@ Tous les documents incluent `languageField`. Chaque champ texte affiché est `re
 | `faq` | `title` (signature), `items[]` `{ question, answer }` | title 2 l × 15 c ; `exactCount(5)` |
 | `contactLead` | `lead` (signature, titre avant le footer) | 2 l × 24 c |
 
-**`siteSettings`** : `navLabels` (8 strings : accueil, expertises, conseil, casClients, secteurs, agence, blog, contact — l'arborescence reste dans `src/content/navigation.ts`), `headerCta` (button), `footer` { `visual` (imageWithAlt), `baseline`, `newsletterTitle`, `newsletterText`, `copyright`, `email` }, `offices` (2 objets Grenoble, Paris : `city`, `address`, `phone` optionnel — non affichés tant qu'aucune maquette ne les place), `social` { `linkedin` (url) }, `seo` (seo, SEO par défaut).
+**`siteSettings`** : `navLabels` (8 strings : accueil, expertises, conseil, casClients, secteurs, agence, blog, contact — l'arborescence reste dans `src/content/navigation.ts`), `headerCta` (button), `footer` { `visual` (imageWithAlt), `baseline`, `newsletterTitle`, `newsletterText`, `copyright`, `email` }, `social` { `linkedin` (url) }, `seo` (seo, SEO par défaut).
 
 **`contactForm`** : `title` (signature 2 l × 13 c), `intro`, `recipient` (email requis), `submitLabel`, `successMessage`, `errorMessage`, `rateLimitMessage`, `privacyText`, `privacyLink` (button) ; champs fixes `lastName` (Nom), `firstName` (Prénom), `email` (E-mail), `description` (Description du projet) : `{ label, placeholder }` ; champs prévus `phone` (Téléphone), `subject` (Sujet) : `{ enabled (bool, défaut true), required (bool, défaut true), label, placeholder }`. Valeurs initiales = libellés et textes d'exemple actuels du footer (`src/content/accueil.ts`, objet `footer`).
 
