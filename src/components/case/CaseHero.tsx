@@ -7,6 +7,7 @@ import styles from "./CaseHero.module.css";
 /** En-tête sombre : fond en niveaux de gris, trait central, colonne de droite (logo, nom, sous-titre, intro, points forts). */
 export default function CaseHero({ c, doc }: { c: CaseData; doc: CaseDoc }) {
   const hero = c.detailHero;
+  const highlights = hero?.highlights?.length ? hero.highlights : c.highlights;
   // Fond : celui de la page détail, sinon le fond flouté de la carte
   const bgField = hero?.background?.asset ? "detailHero.background" : "background";
   const bg = hero?.background?.asset ? hero.background : c.background;
@@ -53,9 +54,9 @@ export default function CaseHero({ c, doc }: { c: CaseData; doc: CaseDoc }) {
             <RichText text={hero.intro} />
           </p>
         )}
-        {!!c.highlights?.length && (
+        {!!highlights?.length && (
           <ul className={styles.highlights}>
-            {c.highlights.map((h, i) => (
+            {highlights.map((h, i) => (
               <li key={i}>{h}</li>
             ))}
           </ul>

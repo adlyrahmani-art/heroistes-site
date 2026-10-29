@@ -24,13 +24,21 @@ const detailFields: Field[] = [
   defineField({
     name: "detailHero",
     title: "En-tête",
-    description: "Le logo, le nom du client et les points forts sont repris de l'onglet Carte.",
+    description: "Le logo et le nom du client sont repris de l'onglet Carte. Sans points forts ici, ceux de la carte sont affichés.",
     type: "object",
     options: { collapsible: true, collapsed: false },
     fields: [
       img("background", "Image de fond", OPTIONAL),
       sig("subtitle", "Sous-titre", { maxLines: 2, maxChars: 40 }, OPTIONAL),
       txt("intro", "Introduction", BOLD_HINT, OPTIONAL),
+      defineField({
+        name: "highlights",
+        title: "Points forts (page détail)",
+        description: "Chiffres en turquoise sous l’introduction, 5 lignes maximum. Indépendants des points forts de la carte de l’accueil.",
+        type: "array",
+        of: [defineArrayMember({ type: "string" })],
+        validation: (Rule) => Rule.max(5).error("Points forts : 5 lignes maximum."),
+      }),
     ],
   }),
   defineField({

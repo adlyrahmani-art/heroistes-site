@@ -75,6 +75,7 @@ export type CaseStudy = {
     background?: ImageWithAlt;
     subtitle?: Array<string>;
     intro?: string;
+    highlights?: Array<string>;
   };
   detailIntro?: {
     title?: Array<string>;
@@ -1211,6 +1212,7 @@ export type CASE_STUDY_QUERY_RESULT = {
     } | null;
     subtitle?: Array<string>;
     intro?: string;
+    highlights?: Array<string>;
   } | null;
   detailIntro: {
     title?: Array<string>;

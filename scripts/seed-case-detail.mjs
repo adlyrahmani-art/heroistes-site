@@ -76,9 +76,11 @@ const [background, introImage, image2, image3] = await Promise.all([
 ]);
 
 const fields = {
-  highlights: ["30+ contenus publiés au lancement", "Plus de 10 leads par jour", "100 inscriptions par mois"],
+  // Points forts de la carte de l'accueil (maquette « Cas 1 _ Pranéo ») : distincts de ceux de la page détail.
+  highlights: ["Stratégie de lancement", "Landing pages et SEO", "Campagnes Google et Meta", "Tracking et séquences e-mail"],
   detailHero: {
     background,
+    highlights: ["30+ contenus publiés au lancement", "Plus de 10 leads par jour", "100 inscriptions par mois"],
     subtitle: ["Orchestrer un lancement à double", "enjeu, professionnels et particuliers"],
     intro: fr(
       "Comment installer une nouvelle plateforme du bien-être sur son marché, recruter ses premiers praticiens et préparer l’acquisition de particuliers ? Pranéo a confié à Heroïstes une mission transverse : structurer sa visibilité, déployer son acquisition et donner à ses équipes les moyens de piloter leur croissance.",
