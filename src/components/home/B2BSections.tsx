@@ -3,10 +3,12 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { pourquoi, plan } from "@/content/accueil";
 import RichText from "@/components/RichText";
 import { Bolt } from "@/components/Logo";
 import LogoSmoke3D from "@/components/LogoSmoke3D";
+import { clean, editAttr } from "@/sanity/lib/clean";
+import { imageUrl } from "@/sanity/lib/image";
+import type { HomeDoc, PlanData, PourquoiData } from "./homeTypes";
 import styles from "./B2BSections.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -19,7 +21,7 @@ gsap.registerPlugin(ScrollTrigger);
  * - Pourquoi → Plan : le contenu qui sort ralentit et s'estompe pendant que le suivant arrive.
  * Les espacements internes restent ceux des maquettes (aucun décalage à l'intérieur des sections).
  */
-export default function B2BSections() {
+export default function B2BSections({ pourquoi, plan, doc }: { pourquoi: PourquoiData; plan: PlanData; doc: HomeDoc }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -136,54 +138,64 @@ export default function B2BSections() {
         <div data-exit>
           <header data-in>
             <h2 id="pourquoi-title" className={styles.title}>
-              {pourquoi.title.map((l) => (
-                <span key={l}>{l}</span>
+              {pourquoi.title?.map((l, k) => (
+                <span key={k}>{l}</span>
               ))}
             </h2>
             <p className={styles.intro}>
-              <RichText text={pourquoi.intro} />
+              <RichText text={pourquoi.intro ?? ""} />
             </p>
           </header>
 
           <ul className={styles.reasons}>
-            {pourquoi.items.map((it, i) => (
-              <li
-                key={it.image}
-                className={`${styles.reason} ${i === 1 ? styles.reasonMid : ""}`}
-              >
-                <figure className={styles.portrait} data-in>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={it.image}
-                    alt={it.imageAlt}
-                    width={317}
-                    height={542}
-                    loading="lazy"
-                  />
-                </figure>
-                <div className={styles.reasonText} data-in>
-                  <h3 className={styles.h3}>
-                    {it.title.map((l) => (
-                      <span key={l}>{l}</span>
-                    ))}
-                  </h3>
-                  <p className={styles.text}>
-                    <RichText text={it.text} />
-                  </p>
-                </div>
-              </li>
-            ))}
+            {pourquoi.items?.map((it, i) => {
+              const key = clean(it._key);
+              const src = imageUrl(it.image, 634, 1084); // ratio 317 / 542, le point focal s'applique
+              return (
+                <li
+                  key={key}
+                  className={`${styles.reason} ${i === 1 ? styles.reasonMid : ""}`}
+                >
+                  <figure
+                    className={styles.portrait}
+                    data-in
+                    data-sanity={editAttr(doc, `pourquoi.items[_key=="${key}"].image`)}
+                  >
+                    {src && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={src}
+                        alt={clean(it.image?.alt ?? "")}
+                        width={317}
+                        height={542}
+                        loading="lazy"
+                      />
+                    )}
+                  </figure>
+                  <div className={styles.reasonText} data-in>
+                    <h3 className={styles.h3}>
+                      {it.title?.map((l, k) => (
+                        <span key={k}>{l}</span>
+                      ))}
+                    </h3>
+                    <p className={styles.text}>
+                      <RichText text={it.text ?? ""} />
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
 
           <p className={styles.outro} data-in>
             <strong>{pourquoi.outro}</strong>
           </p>
           <a
-            href={pourquoi.cta.href}
+            href={clean(pourquoi.cta?.href ?? "")}
             className={`btn btn-ghost ${styles.cta}`}
             data-in
           >
-            {pourquoi.cta.label}
+            {pourquoi.cta?.label}
           </a>
         </div>
         <Bolt className={styles.bolt} />
@@ -202,51 +214,61 @@ export default function B2BSections() {
               <span className={styles.subtitle}>{plan.subtitle}</span>
             </h2>
             <p className={styles.intro}>
-              <RichText text={plan.intro} />
+              <RichText text={plan.intro ?? ""} />
             </p>
           </header>
 
           <ol className={styles.steps}>
-            {plan.steps.map((s, i) => (
-              <li key={s.image} className={styles.step}>
-                <figure className={styles.landscape} data-in>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={s.image}
-                    alt={s.imageAlt}
-                    width={625}
-                    height={543}
-                    loading="lazy"
-                  />
-                </figure>
-                <div className={styles.stepText} data-in>
-                  <h3 className={styles.h3}>
-                    <span className="visually-hidden">{i + 1}. </span>
-                    {s.title.map((l) => (
-                      <span key={l}>{l}</span>
-                    ))}
-                  </h3>
-                  <p className={styles.text}>
-                    <RichText text={s.text} />
-                  </p>
-                </div>
-              </li>
-            ))}
+            {plan.steps?.map((s, i) => {
+              const key = clean(s._key);
+              const src = imageUrl(s.image, 1250, 1086); // ratio 625 / 543, le point focal s'applique
+              return (
+                <li key={key} className={styles.step}>
+                  <figure
+                    className={styles.landscape}
+                    data-in
+                    data-sanity={editAttr(doc, `plan.steps[_key=="${key}"].image`)}
+                  >
+                    {src && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={src}
+                        alt={clean(s.image?.alt ?? "")}
+                        width={625}
+                        height={543}
+                        loading="lazy"
+                      />
+                    )}
+                  </figure>
+                  <div className={styles.stepText} data-in>
+                    <h3 className={styles.h3}>
+                      <span className="visually-hidden">{i + 1}. </span>
+                      {s.title?.map((l, k) => (
+                        <span key={k}>{l}</span>
+                      ))}
+                    </h3>
+                    <p className={styles.text}>
+                      <RichText text={s.text ?? ""} />
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
           </ol>
 
           <div className={styles.outro} data-in>
-            {plan.outro.map((p) => (
-              <p key={p}>
+            {plan.outro?.map((p, k) => (
+              <p key={k}>
                 <strong>{p}</strong>
               </p>
             ))}
           </div>
           <a
-            href={plan.cta.href}
+            href={clean(plan.cta?.href ?? "")}
             className={`btn btn-ghost ${styles.cta}`}
             data-in
           >
-            {plan.cta.label}
+            {plan.cta?.label}
           </a>
         </div>
         <Bolt className={styles.bolt} />

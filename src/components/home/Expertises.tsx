@@ -1,17 +1,21 @@
-import { expertises, type Expertise } from "@/content/accueil";
 import RichText from "@/components/RichText";
 import { Bolt } from "@/components/Logo";
+import { clean, editAttr } from "@/sanity/lib/clean";
+import { imageUrl } from "@/sanity/lib/image";
 import HorizontalScroll from "./HorizontalScroll";
+import type { ExpertiseCardData, ExpertisesData, HomeDoc } from "./homeTypes";
 import styles from "./Expertises.module.css";
 
 /** Carte d'expertise : sombre au repos ; au survol un voile clair monte et révèle le texte (réf. m-n.fr Manifesto). */
-function Card({ item, num, i }: { item: Expertise; num: number; i: number }) {
+function Card({ item, num, i }: { item: ExpertiseCardData; num: number; i: number }) {
+  const href = clean(item.link?.href ?? "");
+  const link = item.link?.label && href ? { before: item.link.before, label: item.link.label, href } : null;
   return (
     <article
       className={styles.card}
       style={{ "--i": i } as React.CSSProperties}
       data-cursor="card"
-      tabIndex={item.link ? undefined : 0}
+      tabIndex={link ? undefined : 0}
       aria-labelledby={`exp-${num}`}
     >
       <span className={styles.num} aria-hidden="true">
@@ -21,12 +25,12 @@ function Card({ item, num, i }: { item: Expertise; num: number; i: number }) {
         <p>
           <strong>{item.lead}</strong>
           {item.text && <> {item.text}</>}
-          {item.link && (
+          {link && (
             <>
               {" "}
-              {item.link.before}{" "}
-              <a href={item.link.href} className={styles.link}>
-                {item.link.label}
+              {link.before}{" "}
+              <a href={link.href} className={styles.link}>
+                {link.label}
               </a>
               .
             </>
@@ -34,8 +38,8 @@ function Card({ item, num, i }: { item: Expertise; num: number; i: number }) {
         </p>
       </div>
       <h3 id={`exp-${num}`} className={styles.cardTitle}>
-        {item.title.map((l) => (
-          <span key={l}>{l}</span>
+        {item.title?.map((l, k) => (
+          <span key={k}>{l}</span>
         ))}
       </h3>
     </article>
@@ -43,7 +47,10 @@ function Card({ item, num, i }: { item: Expertise; num: number; i: number }) {
 }
 
 /** Bloc 9.4 · Expertises : titre, présentation, puis les deux lignes de cartes, en défilement horizontal. */
-export default function Expertises() {
+export default function Expertises({ expertises, doc }: { expertises: ExpertisesData; doc: HomeDoc }) {
+  const cards = expertises.cards ?? [];
+  // Ratio de la photo : 535 / 581 (×2 pour la netteté), le point focal s'applique.
+  const photo = imageUrl(expertises.image, 1070, 1162);
   return (
     <HorizontalScroll
       id="expertises"
@@ -57,8 +64,8 @@ export default function Expertises() {
       <div className={`${styles.panel} ${styles.titlePanel}`} data-panel data-reveal data-tone="dark">
         <div className="fx-grain" aria-hidden="true" />
         <h2 className={styles.title} data-speed="-0.1">
-          {expertises.title.map((l) => (
-            <span key={l} className={styles.ln}>
+          {expertises.title?.map((l, k) => (
+            <span key={k} className={styles.ln}>
               <span>{l}</span>
             </span>
           ))}
@@ -75,12 +82,14 @@ export default function Expertises() {
             </span>
           </p>
           <p className={styles.intro}>
-            <RichText text={expertises.intro} />
+            <RichText text={expertises.intro ?? ""} />
           </p>
         </div>
-        <figure className={styles.photo} data-speed="0.06">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={expertises.image} alt="Mains sur une machine à écrire ancienne" width={535} height={581} loading="lazy" />
+        <figure className={styles.photo} data-speed="0.06" data-sanity={editAttr(doc, "expertises.image")}>
+          {photo && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={photo} alt={clean(expertises.image?.alt ?? "")} width={535} height={581} loading="lazy" />
+          )}
         </figure>
         <Bolt className={styles.bolt} />
       </div>
@@ -89,8 +98,8 @@ export default function Expertises() {
       <div className={`${styles.panel} ${styles.cardsPanel}`} data-panel data-reveal data-tone="dark">
         <p className="visually-hidden">Ligne 1 : stratégie</p>
         <div className={styles.cards}>
-          {expertises.strategy.map((e, i) => (
-            <Card key={e.title.join(" ")} item={e} num={i + 1} i={i} />
+          {cards.slice(0, 3).map((e, i) => (
+            <Card key={clean(e._key)} item={e} num={i + 1} i={i} />
           ))}
         </div>
         <Bolt className={styles.bolt} />
@@ -98,8 +107,8 @@ export default function Expertises() {
       <div className={`${styles.panel} ${styles.cardsPanel}`} data-panel data-reveal data-tone="dark">
         <p className="visually-hidden">Ligne 2 : mise en œuvre</p>
         <div className={styles.cards}>
-          {expertises.delivery.map((e, i) => (
-            <Card key={e.title.join(" ")} item={e} num={i + 4} i={i} />
+          {cards.slice(3, 6).map((e, i) => (
+            <Card key={clean(e._key)} item={e} num={i + 4} i={i} />
           ))}
         </div>
         <Bolt className={styles.bolt} />

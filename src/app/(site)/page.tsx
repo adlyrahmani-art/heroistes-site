@@ -43,10 +43,10 @@ export default async function Home() {
         {home.besoins && <Besoins besoins={home.besoins} doc={doc} />}
 
         {/* Section Expertises : défilement horizontal, puis retour au vertical */}
-        <Expertises />
+        {home.expertises && <Expertises expertises={home.expertises} doc={doc} />}
 
         {/* Pourquoi une agence B2B + Du plan aux résultats : fond fumée WebGL et parallaxe en calques */}
-        <B2BSections />
+        {home.pourquoi && home.plan && <B2BSections pourquoi={home.pourquoi} plan={home.plan} doc={doc} />}
 
         {/* Cas clients : intro puis cas épinglés, dévoilés un à un (réf. mattis « We build websites ») */}
         <CasClients />
