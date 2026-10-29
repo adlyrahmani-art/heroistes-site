@@ -16,3 +16,19 @@
   width: max-content;
   will-change: transform;
 }
+
+/* Mobile et tablette portrait : les lames s'empilent verticalement, le fond suit la section */
+@media (max-width: 1024px) {
+  .wrap {
+    height: auto;
+  }
+  .track {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    will-change: auto;
+  }
+  .track [data-speed] {
+    transform: none !important;
+  }
+}

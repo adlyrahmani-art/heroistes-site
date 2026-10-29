@@ -196,7 +196,7 @@
   font-family: var(--font-display);
   text-transform: uppercase;
   font-size: max(30px, calc(80 * var(--u)));
-  line-height: 0.88;
+  line-height: 0.98;
   letter-spacing: -0.03em;
   transition: color var(--dur-m);
 }
@@ -216,7 +216,7 @@
   font-family: var(--font-display);
   text-transform: uppercase;
   font-size: max(34px, calc(80 * var(--u)));
-  line-height: 0.88;
+  line-height: 1;
   letter-spacing: -0.03em;
 }
 .intro {
@@ -312,7 +312,7 @@
 }
 
 /* ---------- Mobile : une colonne, sans glissement ---------- */
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .zone {
     margin-top: 0;
   }
@@ -390,5 +390,31 @@
   .ln > span,
   .bar {
     transition: none;
+  }
+}
+
+/* Mobile et tablette portrait : unité compacte ; champs à 16 px (sinon iOS zoome au focus) */
+@media (max-width: 1024px) {
+  .zone {
+    --u: calc(100vw / 1100);
+  }
+  .input {
+    font-size: 16px;
+  }
+  .linkedin {
+    width: 44px;
+  }
+  .privacy a {
+    display: inline-block;
+    padding: 12px 0;
+  }
+  .send {
+    margin-left: 0;
+  }
+}
+@media (max-width: 1024px) {
+  .subscribe,
+  .privacy {
+    font-size: 12px;
   }
 }

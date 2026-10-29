@@ -30,7 +30,7 @@
   font-weight: 400;
   text-transform: uppercase;
   font-size: max(38px, calc(80 * var(--u)));
-  line-height: 0.86;
+  line-height: 1;
   letter-spacing: -0.03em;
   white-space: nowrap;
   margin-bottom: calc(60 * var(--u));
@@ -239,7 +239,7 @@
   translate: none;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .head {
     margin-left: 0;
   }

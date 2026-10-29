@@ -44,13 +44,14 @@ export default function CasClients() {
       if (reduce) return;
 
       // Photo centrale et nom qui défile fixes pendant que leur panneau monte : ils sont décalés
-      // d'autant que le panneau est encore bas, puis le panneau s'épingle (desktop uniquement)
+      // d'autant que le panneau est encore bas, puis le panneau s'épingle (tous écrans ; la
+      // hauteur du panneau sert de distance, robuste à la barre d'adresse mobile)
       ScrollTrigger.matchMedia({
-        "(min-width: 901px)": () => {
+        all: () => {
           gsap.utils.toArray<HTMLElement>("[data-slide]", stack).forEach((slide) => {
             gsap.fromTo(
               slide.querySelectorAll("[data-fixed]"),
-              { y: () => -innerHeight },
+              { y: () => -slide.offsetHeight },
               {
                 y: 0,
                 ease: "none",

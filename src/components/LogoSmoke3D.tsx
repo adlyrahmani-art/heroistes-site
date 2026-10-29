@@ -10,7 +10,9 @@ import { BLADE_LEFT, BLADE_RIGHT } from "@/components/Logo";
 // du haut vers le bas, le flou grandit → les particules reviennent reconstruire le logo.
 // Rendu : particules additives (densité) en basse résolution → flou Kawase → gris sur fond clair.
 
-const COUNT = 40000;
+// Nombre de particules : moitié moins sur mobile et tablette (GPU plus modestes)
+const COUNT_DESKTOP = 40000;
+const COUNT_COMPACT = 20000;
 const CYCLE = 16; // secondes : tenue, dispersion, dérive, retour
 
 /** Polygone SVG simple (M, L, H, V, Z) → points normalisés, centrés sur le symbole */
@@ -45,7 +47,7 @@ function inside(poly: [number, number][], x: number, y: number) {
 }
 
 /** Particules réparties dans le volume des deux lames, avec direction et retard de dispersion */
-function buildParticles() {
+function buildParticles(COUNT: number) {
   const blades = [polygonFromPath(BLADE_LEFT), polygonFromPath(BLADE_RIGHT)];
   const position = new Float32Array(COUNT * 3);
   const dir = new Float32Array(COUNT * 3);
@@ -169,11 +171,12 @@ export default function LogoSmoke3D({ className }: { className?: string }) {
     const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 50);
     camera.position.set(0, 0, 6);
 
-    const geometry = buildParticles();
+    const count = innerWidth > 1024 ? COUNT_DESKTOP : COUNT_COMPACT;
+    const geometry = buildParticles(count);
     const material = new THREE.ShaderMaterial({
       vertexShader: particleVertex,
       fragmentShader: particleFragment,
-      uniforms: { uTime: { value: 0 }, uSize: { value: 6 }, uGain: { value: 0.075 } },
+      uniforms: { uTime: { value: 0 }, uSize: { value: 6 }, uGain: { value: 0.075 * (COUNT_DESKTOP / count) } },
       transparent: true,
       depthTest: false,
       depthWrite: false,

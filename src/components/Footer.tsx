@@ -33,7 +33,7 @@ export default function Footer() {
 
     const ctx = gsap.context(() => {
       ScrollTrigger.matchMedia({
-        "(min-width: 901px)": () => {
+        "(min-width: 1025px)": () => {
           if (reduce || !faq) {
             title.classList.add(styles.in);
             return;
@@ -63,7 +63,7 @@ export default function Footer() {
             },
           );
         },
-        "(max-width: 900px)": () => {
+        "(max-width: 1024px)": () => {
           title.classList.add(styles.in);
           ScrollTrigger.create({
             trigger: zone,

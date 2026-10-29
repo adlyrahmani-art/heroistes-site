@@ -37,6 +37,30 @@ export default function HorizontalScroll({ children, id, label, background }: Pr
     };
 
     const ctx = gsap.context(() => {
+      ScrollTrigger.matchMedia({
+        // Mobile et tablette portrait : lames empilées verticalement (une piste horizontale épinglée
+        // pilotée au doigt est peu lisible sur un écran vertical) ; elles apparaissent au défilement
+        "(max-width: 1024px)": () => {
+          panels.forEach((panel) => {
+            ScrollTrigger.create({
+              trigger: panel,
+              start: "top 75%",
+              once: true,
+              onEnter: () => panel.classList.add("is-in"),
+            });
+            ScrollTrigger.create({
+              trigger: panel,
+              start: "top 60px",
+              end: "bottom 60px",
+              onToggle: (self) => self.isActive && setTone(panel.dataset.tone),
+            });
+          });
+        },
+        "(min-width: 1025px)": () => desktop(),
+      });
+    }, wrap);
+
+    function desktop() {
       const move = gsap.to(track, {
         x: () => -distance(),
         ease: "none",
@@ -85,7 +109,7 @@ export default function HorizontalScroll({ children, id, label, background }: Pr
           },
         );
       });
-    }, wrap);
+    }
 
     setTone("dark");
     return () => {

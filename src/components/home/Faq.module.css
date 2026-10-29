@@ -18,7 +18,7 @@
   font-family: var(--font-display);
   text-transform: uppercase;
   font-size: max(34px, calc(80 * var(--u)));
-  line-height: 0.86;
+  line-height: 1;
   letter-spacing: -0.03em;
 }
 
@@ -148,7 +148,7 @@
   translate: none;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .section {
     padding: 96px 20px 72px;
   }
@@ -171,5 +171,12 @@
     opacity: 1;
     translate: none;
     transition: none;
+  }
+}
+
+/* Mobile et tablette portrait : unité compacte */
+@media (max-width: 1024px) {
+  .section {
+    --u: calc(100vw / 1100);
   }
 }

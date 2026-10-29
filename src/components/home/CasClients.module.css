@@ -35,7 +35,7 @@
   font-family: var(--font-display);
   text-transform: uppercase;
   font-size: max(34px, calc(80 * var(--u)));
-  line-height: 0.88;
+  line-height: 1;
   letter-spacing: -0.03em;
   white-space: nowrap;
 }
@@ -76,13 +76,13 @@
   display: flex;
   flex-direction: column;
   font-weight: 700;
-  font-size: max(11px, calc(13 * var(--u)));
+  font-size: max(12px, calc(13 * var(--u)));
   text-transform: uppercase;
   line-height: 1.2;
 }
 .hint small {
   font-weight: 400;
-  font-size: 0.8em;
+  font-size: max(11px, 0.8em);
   text-transform: none;
   color: #8d8d8d;
 }
@@ -298,7 +298,7 @@
   display: flex;
   flex-direction: column;
   font-weight: 700;
-  font-size: max(11px, calc(13 * var(--u)));
+  font-size: max(12px, calc(13 * var(--u)));
   text-transform: uppercase;
   line-height: 1.2;
 }
@@ -317,12 +317,15 @@
   white-space: nowrap;
 }
 
-/* ---------- Mobile : cas empilés, sans épinglage ---------- */
-@media (max-width: 900px) {
+/* ---------- Mobile et tablette portrait ----------
+   L'intro s'empile ; les cas gardent le mouvement (panneaux épinglés qui se recouvrent, photo et
+   nom fixes à l'écran). Photo pleine largeur sous le menu, texte et boutons dessous : le tout
+   tient dans la hauteur d'écran, jusqu'à 375 × 667. */
+@media (max-width: 1024px) {
   .intro {
     height: auto;
     min-height: 0;
-    padding: 96px 20px 64px;
+    padding: 120px var(--gut) 72px;
   }
   .axis,
   .bolt {
@@ -341,54 +344,102 @@
     text-align: left;
     white-space: normal;
   }
+  .introText {
+    max-width: 560px;
+  }
+  .introPhoto {
+    max-width: 640px;
+  }
   .introBody {
     margin-top: 32px;
     gap: 32px;
   }
   .hint {
     margin-top: 32px;
+    min-height: 44px;
+    justify-content: center;
   }
 
-  .item,
-  .item:last-child {
-    height: auto;
-    margin-top: 0;
-  }
   .slide {
-    position: relative;
-    height: auto;
-    padding: 72px 20px 56px;
+    /* haut, largeur et hauteur de la photo (format de la maquette, pleine largeur) */
+    --top: 88px;
+    --cardW: calc(100vw - 2 * var(--gut));
+    --cardH: calc(var(--cardW) * 476 / 1325);
   }
   .line {
     display: none;
   }
+  /* Pas de « translate » ici : la photo est déplacée par l'animation (transform) ; un décalage
+     CSS séparé peut être écrasé sur mobile, d'où une photo décentrée */
+  .card {
+    top: var(--top);
+    left: var(--gut);
+    width: var(--cardW);
+  }
+  /* Mobile et tablette : pas de nom qui défile (masqué, animation arrêtée) */
   .marquee {
-    top: 140px;
+    display: none;
   }
-  .word {
-    font-size: 96px;
-  }
-  .card,
-  .info {
-    position: relative;
-    top: auto;
-    left: auto;
-    width: 100%;
+  .tag {
+    top: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    font-size: 11px;
   }
   .logo {
-    width: calc(var(--size) * 0.5px);
+    width: calc(var(--size) * 0.45px);
   }
   .info {
-    margin-top: 32px;
+    top: calc(var(--top) + var(--cardH) + 22px);
+    left: var(--gut);
+    width: var(--cardW);
     grid-template-columns: 1fr;
-    row-gap: 32px;
+  }
+  .caseTitle {
+    max-width: none;
+    font-size: clamp(21px, 5.6vw, 34px);
+    line-height: 1.08;
   }
   .items {
-    margin-top: 24px;
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .stat {
+    margin-top: 8px;
+    max-width: none;
+    font-size: 13px;
+    line-height: 1.4;
   }
   .actions {
-    padding-left: 0;
+    order: 2;
+    align-self: auto;
+    align-items: center;
     flex-wrap: wrap;
+    gap: 12px 20px;
+    margin-top: 16px;
+    padding-left: 0;
+  }
+  .discover small {
+    font-size: 11px;
+  }
+  .cta {
+    min-width: 0;
+  }
+}
+@media (min-width: 600px) and (max-width: 1024px) {
+  .slide {
+    --top: 104px;
+  }
+  .logo {
+    width: calc(var(--size) * 0.7px);
+  }
+  .info {
+    top: calc(var(--top) + var(--cardH) + 36px);
+  }
+  .items,
+  .stat {
+    font-size: 16px;
   }
 }
 
@@ -401,9 +452,7 @@
     translate: none;
     transition: none;
   }
-}
-/* Sans animation : les cas se suivent simplement, sans pile */
-@media (prefers-reduced-motion: reduce) and (min-width: 901px) {
+  /* Sans animation : les cas se suivent simplement, sans pile */
   .item,
   .item:last-child {
     height: auto;

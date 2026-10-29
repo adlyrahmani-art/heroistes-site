@@ -68,7 +68,7 @@
   font-family: var(--font-display);
   text-transform: uppercase;
   font-size: max(34px, calc(80 * var(--u)));
-  line-height: 0.9;
+  line-height: 1;
   letter-spacing: -0.03em;
   white-space: nowrap;
   margin-bottom: calc(70 * var(--u));
@@ -186,7 +186,7 @@
   font-family: var(--font-display);
   text-transform: uppercase;
   font-size: max(24px, calc(52 * var(--u)));
-  line-height: 0.97;
+  line-height: 1.04;
   letter-spacing: -0.03em;
 }
 
@@ -286,26 +286,114 @@
   }
 }
 
-@media (max-width: 900px) {
-  .cardsPanel {
-    flex: 0 0 auto;
+/* Mobile et tablette portrait : lames empilées dans le flux vertical, cartes en colonne
+   (2 colonnes sur tablette), texte des cartes toujours visible */
+@media (max-width: 1024px) {
+  .panel {
+    flex: none;
+    width: 100%;
+    height: auto;
+  }
+  .titlePanel {
+    padding: 120px var(--gut) 72px;
+  }
+  .title {
+    font-size: clamp(44px, 12vw, 110px);
+  }
+  .details {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 24px var(--gut) 56px;
+  }
+  .detailsText,
+  .photo {
+    position: static;
+    width: auto;
+    min-width: 0;
+  }
+  .heading {
+    white-space: normal;
+    margin-bottom: 24px;
+  }
+  .heading .ln {
     width: auto;
   }
+  .photo {
+    width: min(100%, 520px);
+  }
+  .bolt {
+    display: none;
+  }
+
+  .cardsPanel {
+    padding: 0 var(--gut) 24px;
+  }
+  .cardsPanel + .cardsPanel {
+    padding-bottom: 72px;
+  }
   .cards {
-    position: relative;
-    top: auto;
-    left: auto;
+    position: static;
     translate: none;
-    height: 100%;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 16px;
-    padding: 90px 16px 40px;
   }
   .card {
-    width: min(82vw, 380px);
-    height: min(72svh, 520px);
+    width: auto;
+    height: auto;
+    min-height: 0;
+    padding: 24px 22px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
   }
-  
+  .num {
+    position: static;
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+  }
+  .cardTitle {
+    position: static;
+    order: -1;
+    margin-top: 0;
+    font-size: clamp(24px, 6.4vw, 34px);
+  }
+  .num {
+    order: -2;
+  }
+  .desc,
+  .card:hover .desc {
+    position: static;
+    margin: 0;
+    padding: 0;
+    color: var(--gris-clair);
+    font-size: 15px;
+    opacity: 1;
+    transform: none;
+  }
+  .desc strong {
+    color: var(--blanc);
+  }
+  .card::before,
+  .card:hover::before {
+    display: none;
+  }
+  .card:hover .num {
+    background-color: var(--turquoise);
+  }
+}
+@media (min-width: 700px) and (max-width: 1024px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+  /* 3 cartes par groupe : la troisième prend toute la largeur */
+  .card:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ln > span,
   .bar,

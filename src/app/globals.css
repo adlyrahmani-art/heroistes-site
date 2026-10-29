@@ -36,6 +36,20 @@
   color-scheme: dark;
 }
 
+/* Mobile et tablette portrait (≤ 1024 px) : mises en page empilées ; l'unité maquette est
+   calibrée sur 1100 px de large pour garder des textes lisibles (les tailles ont des planchers) */
+@media (max-width: 1024px) {
+  :root {
+    --u: calc(100vw / 1100);
+    --gut: 20px;
+  }
+}
+@media (min-width: 600px) and (max-width: 1024px) {
+  :root {
+    --gut: 40px;
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -156,6 +170,15 @@ html.lenis body {
   outline: 2px solid currentColor;
   outline-offset: 3px;
 }
+/* Écrans tactiles et compacts : cible d'au moins 44 px de haut */
+@media (pointer: coarse), (max-width: 1024px) {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+  }
+}
 
 /* Effets VHS : grain, lignes de balayage, vignette */
 .fx-grain,
@@ -226,4 +249,29 @@ html.lenis body {
 }
 .has-cursor :is(input, textarea, select, [contenteditable="true"]) {
   cursor: auto !important;
+}
+
+/* Mobile et tablette : les grands titres (police Gloock, approche serrée) ont besoin d'un vrai
+   espace entre les mots et d'un interligne plus aéré ; s'applique à toutes les classes de titre
+   des modules (.title, .heading, .h1…). Spécificité :root + attribut > classe de module. */
+@media (max-width: 1024px) {
+  :root :is(
+  [class$="__title"], [class*="__title "],
+  [class$="__heading"], [class*="__heading "],
+  [class$="__h1"], [class*="__h1 "],
+  [class$="__h2"], [class*="__h2 "],
+  [class$="__h3"], [class*="__h3 "],
+  [class$="__subtitle"], [class*="__subtitle "],
+  [class$="__caseTitle"], [class*="__caseTitle "],
+  [class$="__cardTitle"], [class*="__cardTitle "],
+  [class$="__bigTitle"], [class*="__bigTitle "],
+  [class$="__newsTitle"], [class*="__newsTitle "],
+  [class$="__megaTitle"], [class*="__megaTitle "],
+  [class$="__email"], [class*="__email "],
+  [class$="__mobileLink"], [class*="__mobileLink "]
+  ) {
+    word-spacing: 0.12em;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
 }

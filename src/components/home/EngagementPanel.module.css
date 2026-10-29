@@ -69,7 +69,7 @@
   font-family: var(--font-display);
   text-transform: uppercase;
   font-size: max(34px, calc(80 * var(--u)));
-  line-height: 0.86;
+  line-height: 1;
   letter-spacing: -0.03em;
 }
 
@@ -142,7 +142,7 @@
   display: flex;
   flex-direction: column;
   font-weight: 700;
-  font-size: max(11px, calc(13 * var(--u)));
+  font-size: max(12px, calc(13 * var(--u)));
   text-transform: uppercase;
   line-height: 1.2;
 }
@@ -219,14 +219,17 @@
   transform: none;
 }
 
-/* Mobile : pile verticale dans la lame */
-@media (max-width: 767px) {
+/* Mobile et tablette portrait : pile verticale, lame dans le flux */
+@media (max-width: 1024px) {
   .panel {
+    flex: none;
+    width: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 20px;
-    padding: 80px 20px 40px;
+    gap: 24px;
+    padding: 96px var(--gut) 64px;
   }
   .axis {
     display: none;
@@ -239,19 +242,37 @@
     text-align: left !important;
     align-items: flex-start !important;
   }
+  /* Mot fantôme derrière le contenu : il ne doit pas gêner la lecture des boutons */
   .ghost {
     top: auto;
     bottom: 18%;
+    z-index: 0;
+    opacity: 0.35;
     font-size: 34vw;
+  }
+  .head,
+  .body,
+  .cta,
+  .cases {
+    z-index: 1;
   }
   .text {
     width: auto;
+    max-width: 560px;
   }
   .photo {
     width: 100%;
+    max-width: 640px;
+  }
+  .cases {
+    min-height: 44px;
+    justify-content: center;
+  }
+  .cases small {
+    font-size: 12px;
   }
   .bolt {
-    right: 20px;
+    right: var(--gut);
     top: auto;
     bottom: 24px;
   }

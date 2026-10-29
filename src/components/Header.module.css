@@ -202,7 +202,7 @@
   font-family: var(--font-display);
   text-transform: uppercase;
   font-size: max(36px, calc(72 * var(--u)));
-  line-height: 0.9;
+  line-height: 1;
   letter-spacing: -0.03em;
 }
 .megaPitch {
@@ -501,6 +501,8 @@
 }
 .mobileSub .subLink,
 .mobileSub .list .subLink {
+  /* cible tactile d'environ 44 px */
+  padding: 11px 0;
   font-size: 20px;
 }
 .mobileSub .groupTitle {
@@ -550,5 +552,15 @@
     opacity: 1;
     translate: none;
     transition: none !important;
+  }
+}
+
+/* Écrans compacts : boutons du header à 44 px de haut minimum */
+@media (max-width: 1080px) {
+  .burger {
+    min-height: 44px;
+  }
+  .cta {
+    min-height: 44px;
   }
 }

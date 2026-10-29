@@ -21,7 +21,7 @@
   font-family: var(--font-display);
   text-transform: uppercase;
   font-size: max(52px, calc(190 * var(--u)));
-  line-height: 0.9;
+  line-height: 0.98;
   letter-spacing: -0.03em;
 }
 .num {
@@ -59,6 +59,20 @@
 :global(.is-in) .ln > span,
 :global(.is-in) .bar {
   transform: none;
+}
+
+/* Mobile et tablette portrait : carton de titre dans le flux vertical */
+@media (max-width: 1024px) {
+  .panel {
+    flex: none;
+    width: 100%;
+    height: auto;
+    justify-content: flex-start;
+    padding: 120px var(--gut) 72px;
+  }
+  .title {
+    font-size: clamp(40px, 10.5vw, 120px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

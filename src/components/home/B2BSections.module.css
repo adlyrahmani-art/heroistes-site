@@ -49,7 +49,7 @@
   font-family: var(--font-display);
   text-transform: uppercase;
   font-size: max(34px, calc(80 * var(--u)));
-  line-height: 0.88;
+  line-height: 1;
   letter-spacing: -0.03em;
 }
 .subtitle {
@@ -78,7 +78,7 @@
   flex-direction: column;
   font-family: var(--font-display);
   font-size: max(28px, calc(48 * var(--u)));
-  line-height: 0.98;
+  line-height: 1.06;
   letter-spacing: -0.02em;
 }
 .text {
@@ -206,7 +206,7 @@
 }
 
 /* ---------- Mobile ---------- */
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .section {
     padding: 80px 20px 96px;
   }
@@ -238,5 +238,12 @@
     opacity: 1;
     translate: none;
     transition: none;
+  }
+}
+
+/* Mobile et tablette portrait : unité compacte (textes lisibles) */
+@media (max-width: 1024px) {
+  .scene {
+    --u: calc(100vw / 1100);
   }
 }
