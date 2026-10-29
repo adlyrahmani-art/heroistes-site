@@ -1,6 +1,10 @@
 /**
- * Import des contenus actuels dans Sanity (idempotent).
+ * Import INITIAL des contenus actuels dans Sanity. À n'utiliser qu'une fois.
+ * Relancer ce script écrase les modifications faites ensuite dans le Studio :
+ * il s'arrête donc si une page d'accueil existe déjà, sauf avec --force.
+ *
  * Exécution : npx sanity exec scripts/seed-sanity.ts
+ * Écrasement volontaire : npx sanity exec scripts/seed-sanity.ts -- --force
  * Nécessite SANITY_API_WRITE_TOKEN dans .env.local.
  */
 import { readFileSync } from "node:fs";
@@ -53,6 +57,15 @@ const block = (key: string, text: string) => ({
 const LANG = { language: "fr" };
 
 async function main() {
+  const force = process.argv.includes("--force");
+  if (!force && (await client.fetch<number>(`count(*[_id == "homePage"])`)) > 0) {
+    console.error(
+      "Arrêt : une page d’accueil existe déjà dans Sanity. Relancer l’import écraserait les modifications du Studio. Pour écraser quand même : npx sanity exec scripts/seed-sanity.ts -- --force",
+    );
+    process.exitCode = 1;
+    return;
+  }
+
   const docs: Record<string, unknown>[] = [];
 
   /* ---------- Cas clients ---------- */
@@ -64,7 +77,7 @@ async function main() {
   for (const c of casClients.cases) {
     const stat = "stat" in c ? c.stat : undefined;
     docs.push({
-      _id: `caseStudy.${c.slug}`,
+      _id: `caseStudy-${c.slug}`,
       _type: "caseStudy",
       ...LANG,
       title: `${c.name} : ${c.question}`,
@@ -75,7 +88,7 @@ async function main() {
       image: await image(c.image, c.imageAlt),
       tag: c.tag,
       question: c.question,
-      background: await image(c.bg, c.imageAlt),
+      background: await image(c.bg, `Fond de la page ${c.name}`),
       logo: await image(c.logo, c.logoAlt),
       logoSize: c.logoSize,
       highlights: c.items,
@@ -88,7 +101,7 @@ async function main() {
     const slug = a.href.split("/").filter(Boolean).pop()!;
     const title = `${a.lead} ${a.rest}`.trim();
     docs.push({
-      _id: `blogPost.${slug}`,
+      _id: `blogPost-${slug}`,
       _type: "blogPost",
       ...LANG,
       title,
@@ -197,7 +210,7 @@ async function main() {
       title: casClients.title,
       intro: casClients.intro,
       image: await image(casClients.image, casClients.imageAlt),
-      cases: casClients.cases.map((c) => ({ _type: "reference", _key: `cas-${c.slug}`, _ref: `caseStudy.${c.slug}` })),
+      cases: casClients.cases.map((c) => ({ _type: "reference", _key: `cas-${c.slug}`, _ref: `caseStudy-${c.slug}` })),
       cta: button(casClients.cta),
     },
     blog: { title: blog.title, cta: button(blog.cta) },
@@ -264,6 +277,12 @@ async function main() {
 
   /* ---------- Écriture : une seule transaction ---------- */
   const tx = client.transaction();
+  // Anciens identifiants à point (privés dans Sanity), créés par une version précédente du script
+  const legacy = [...casClients.cases.map((c) => `caseStudy.${c.slug}`), ...blog.articles.map((a) => `blogPost.${a.href.split("/").filter(Boolean).pop()}`)];
+  for (const id of legacy) {
+    tx.delete(id);
+    tx.delete(`drafts.${id}`);
+  }
   for (const doc of docs) {
     tx.createOrReplace(doc as { _id: string; _type: string });
     tx.delete(`drafts.${doc._id as string}`);
