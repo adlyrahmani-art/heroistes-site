@@ -114,7 +114,7 @@ describe("handleContact : Sanity indisponible (§8.2)", () => {
   });
   test("configuration de repli : téléphone et sujet obligatoires, destinataire par défaut ou CONTACT_TO_EMAIL", () => {
     const f = fallbackContactForm({});
-    expect(f.recipient).toBe("contact@heroistes.com");
+    expect(f.recipient).toBe("contact@uxtreampro.com");
     expect(validateContact({ ...valid(), phone: "", subject: "" }, f)).toMatchObject({
       ok: false,
       errors: { phone: expect.any(String), subject: expect.any(String) },

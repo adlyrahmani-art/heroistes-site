@@ -8,7 +8,7 @@ export const CONTACT_DEFAULT_MESSAGES = {
     "Vous avez envoyé plusieurs demandes en peu de temps. Réessayez dans une heure ou écrivez-nous à contact@heroistes.com.",
 } as const;
 
-export const CONTACT_DEFAULT_RECIPIENT = "contact@heroistes.com";
+export const CONTACT_DEFAULT_RECIPIENT = "contact@uxtreampro.com";
 
 /** Configuration de repli (spec §8.2) : téléphone et sujet affichés et obligatoires, textes par défaut. */
 export function fallbackContactForm(env: Record<string, string | undefined>): ContactFormConfig {

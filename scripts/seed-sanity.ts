@@ -268,7 +268,7 @@ async function main() {
     ...LANG,
     title: footer.title,
     intro: footer.intro,
-    recipient: "contact@heroistes.com",
+    recipient: "contact@uxtreampro.com",
     submitLabel: footer.submit,
     successMessage: "Merci, votre demande est bien envoyée. Nous revenons vers vous rapidement.",
     errorMessage: "L’envoi n’a pas abouti. Réessayez dans un instant ou écrivez-nous à contact@heroistes.com.",
