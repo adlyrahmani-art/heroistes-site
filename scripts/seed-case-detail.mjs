@@ -104,7 +104,7 @@ const fields = {
     {
       _key: "chapitre-1",
       _type: "caseChapter",
-      title: ["Installer les", "fondations d’une", "visibilité durable"],
+      title: ["Installer les fondations", "d’une visibilité durable"],
       blocks: [
         block(
           "chapitre-1-bloc-1",
@@ -123,7 +123,7 @@ const fields = {
     {
       _key: "chapitre-2",
       _type: "caseChapter",
-      title: ["Déployer une", "acquisition ciblée", "auprès des praticiens"],
+      title: ["Déployer une acquisition", "ciblée auprès des praticiens"],
       blocks: [
         block(
           "chapitre-2-bloc-1",

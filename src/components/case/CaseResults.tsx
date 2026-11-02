@@ -10,29 +10,23 @@ import styles from "./CaseEnd.module.css";
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * « Les premiers résultats » (maquette « Praneo resultats », 1920 × 1080, sombre).
- * Entrée en parallaxe (ordinateur) : la section monte par-dessus le dernier chapitre clair, dont le
- * contenu descend un peu (il défile plus lentement) ; dans la section, lignes du titre et chiffres
- * arrivent avec des décalages différents (scrub), au repos quand la section remplit l'écran.
+ * « Les premiers résultats » (maquette « Cas 1 _ Pranéo Intro », sous l'en-tête, sombre).
+ * Entrée en parallaxe (ordinateur) : la section monte par-dessus l'en-tête, qui défile plus
+ * lentement ; dans la section, lignes du titre et chiffres arrivent avec des décalages différents
+ * (scrub), au repos quand la section atteint le haut de l'écran.
  * Les chiffres comptent une fois. Mouvement réduit : tout est simplement visible.
  */
-export default function CaseResults({
-  results,
-  logo,
-}: {
-  results: Results;
-  logo: { src: string; alt: string } | null;
-}) {
+export default function CaseResults({ results }: { results: Results }) {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const root = ref.current!;
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    // Compteurs : seulement si la section est encore sous l'écran (sinon on garde la valeur finale)
+    // Compteurs : seulement si la section n'a pas déjà été dépassée (sinon on garde la valeur finale)
     const counters = [...root.querySelectorAll<HTMLElement>("[data-count]")];
     let io: IntersectionObserver | undefined;
-    if (root.getBoundingClientRect().top > innerHeight) {
+    if (root.getBoundingClientRect().bottom > 0) {
       counters.forEach((el) => (el.textContent = "0"));
       io = new IntersectionObserver(
         (entries) => {
@@ -57,9 +51,10 @@ export default function CaseResults({
     const ctx = gsap.context(() => {
       ScrollTrigger.matchMedia({
         "(min-width: 1025px)": () => {
-          const enter = { trigger: root, start: "top bottom", end: "top top", scrub: true, invalidateOnRefresh: true };
-          // Le dernier chapitre clair défile plus lentement : la section sombre le recouvre
-          const under = document.querySelector<HTMLElement>("[data-case-light]")?.lastElementChild;
+          // clamp : la section dépasse déjà en bas de l'écran au chargement, tout part de la position de repos
+          const enter = { trigger: root, start: "clamp(top bottom)", end: "top top", scrub: true, invalidateOnRefresh: true };
+          // L'en-tête défile plus lentement : la section sombre le recouvre
+          const under = document.querySelector<HTMLElement>("[data-case-hero]");
           if (under) gsap.fromTo(under, { y: 0 }, { y: () => innerHeight * 0.45, ease: "none", scrollTrigger: enter });
           // Dans la section : chaque élément a son propre retard (vitesses différentes)
           gsap.utils.toArray<HTMLElement>("[data-depth]", root).forEach((el) => {
@@ -93,10 +88,6 @@ export default function CaseResults({
         </div>
 
         <div className={styles.resultsSide}>
-          {logo && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img className={styles.resultsLogo} src={logo.src} alt={logo.alt} width={100} height={100} loading="lazy" data-depth={0.1} />
-          )}
           <ul className={styles.stats}>
             {results.stats.map((s, i) => (
               <li key={i} data-depth={0.22 + i * 0.08}>

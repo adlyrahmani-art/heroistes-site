@@ -1,5 +1,5 @@
 /* Sections de fin de la page détail cas client.
-   Cotes : maquettes « Praneo resultats » (1920 × 1080) et « Praneo CTA FInal » (1920 × 1275).
+   Cotes : maquettes « Cas 1 _ Pranéo Intro » (résultats : 768 de haut à 1920) et « Praneo CTA FInal » (1920 × 1275).
    Sections verticales : l'échelle suit la largeur seule. */
 .results,
 .cta {
@@ -28,20 +28,17 @@
 
 /* ---------- Les premiers résultats ---------- */
 .results {
-  display: grid;
-  align-items: center;
-  min-height: max(100svh, calc(1080 * var(--u)));
+  min-height: calc(768 * var(--u));
 }
 .resultsInner {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: calc(929 * var(--u)) 1fr;
   align-items: start;
-  padding: calc(120 * var(--u)) 0;
+  padding: calc(101 * var(--u)) 0 calc(60 * var(--u));
 }
 .resultsHead {
-  margin-top: calc(-5 * var(--u));
-  padding-left: calc(161 * var(--u));
+  padding-left: calc(127 * var(--u));
 }
 .resultsTitle {
   display: flex;
@@ -63,20 +60,10 @@
 .resultsSide {
   padding-right: calc(120 * var(--u));
 }
-.resultsLogo {
-  display: block;
-  width: calc(100 * var(--u));
-  min-width: 56px;
-  height: auto;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-top: calc(8 * var(--u));
-}
 .stats {
   display: grid;
-  grid-template-columns: calc(322 * var(--u)) calc(291 * var(--u)) auto;
-  margin: calc(43 * var(--u)) 0 0;
+  grid-template-columns: calc(320 * var(--u)) calc(291 * var(--u)) auto;
+  margin: calc(152 * var(--u)) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -322,9 +309,6 @@
   .resultsBar {
     width: 100%;
     margin-top: 20px;
-  }
-  .resultsLogo {
-    margin-top: 0;
   }
   .stats {
     grid-template-columns: 1fr;

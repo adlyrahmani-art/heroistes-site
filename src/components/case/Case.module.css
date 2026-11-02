@@ -9,7 +9,7 @@
   position: relative;
   background: var(--fond-clair);
   color: var(--encre);
-  padding: calc(80 * var(--u)) 0 calc(125 * var(--u));
+  padding: calc(133 * var(--u)) 0 calc(172 * var(--u));
   overflow-x: clip;
 }
 .axis {
@@ -76,6 +76,13 @@
 .challenge .display {
   font-size: max(40px, calc(64 * var(--u)));
 }
+.challengeBolt {
+  position: absolute;
+  top: calc(32 * var(--u));
+  left: var(--left);
+  width: max(14px, calc(23 * var(--u)));
+  height: auto;
+}
 .challenge .lead {
   margin-top: calc(23 * var(--u));
   font-size: var(--text);
@@ -89,23 +96,26 @@
 
 /* ---------- Chapitres ---------- */
 .chapter {
-  margin-top: calc(105 * var(--u));
+  margin-top: calc(148 * var(--u));
 }
 .challenge + .chapter {
-  margin-top: calc(26 * var(--u));
+  margin-top: calc(156 * var(--u));
+}
+.chapterHead {
+  position: relative;
 }
 .bolt {
-  display: block;
+  position: absolute;
+  top: calc(-18 * var(--u));
+  left: calc(1 * var(--u));
   width: max(14px, calc(23 * var(--u)));
   height: auto;
-  margin-left: calc(1 * var(--u));
 }
 .chapterTitle {
   display: flex;
   flex-direction: column;
-  margin-top: calc(12 * var(--u));
-  font-size: max(44px, calc(128 * var(--u)));
-  line-height: calc(151 / 128);
+  font-size: max(44px, calc(96 * var(--u)));
+  line-height: calc(99 / 96);
   white-space: nowrap;
 }
 /* Les deux colonnes partent du trait central : on annule les marges de la section */
@@ -113,7 +123,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: start;
-  margin: calc(83 * var(--u)) calc(-1 * var(--right)) 0 calc(-1 * var(--left));
+  margin: calc(67 * var(--u)) calc(-1 * var(--right)) 0 calc(-1 * var(--left));
 }
 .cols.untitled {
   margin-top: calc(50 * var(--u));
@@ -133,7 +143,7 @@
   margin-top: calc(28 * var(--u));
 }
 .block + .block {
-  margin-top: calc(78 * var(--u));
+  margin-top: calc(75 * var(--u));
 }
 .block > .text:first-child {
   margin-top: 0;
@@ -148,10 +158,13 @@
   overflow: hidden;
 }
 /* Image à gauche : elle s'arrête au trait central, les blocs passent à droite (texte à droite) */
+.imageLeft {
+  margin-top: calc(99 * var(--u));
+}
 .imageLeft .figure {
   grid-column: 1;
   justify-self: end;
-  margin-top: calc(35 * var(--u));
+  margin-top: calc(28 * var(--u));
 }
 .imageLeft .blocks {
   grid-column: 2;
@@ -228,8 +241,17 @@
   .challenge + .chapter {
     margin-top: 72px;
   }
+  .challengeBolt {
+    position: static;
+    display: block;
+    margin-bottom: 16px;
+  }
+  .bolt {
+    position: static;
+    display: block;
+    margin-bottom: 16px;
+  }
   .chapterTitle {
-    margin-top: 20px;
     font-size: clamp(44px, 7vw, 72px);
     line-height: 1.05;
     white-space: normal;

@@ -74,7 +74,7 @@ const detailFields: Field[] = [
         name: "caseChapter",
         title: "Chapitre",
         fields: [
-          sig("title", "Grand titre", { maxLines: 3, maxChars: 22 }),
+          sig("title", "Grand titre", { maxLines: 3, maxChars: 30 }),
           defineField({
             name: "blocks",
             title: "Blocs de texte",

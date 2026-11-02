@@ -66,8 +66,8 @@ export async function generateMetadata({ params }: PageProps<"/cas-clients/[slug
 export const instant = false;
 
 /**
- * Page détail cas client (maquette « Pranéo détails ») : en-tête sombre, puis sections claires
- * traversées par le trait central. Le header passe du blanc à l'encre en quittant l'en-tête et
+ * Page détail cas client (maquettes « Cas 1 _ Pranéo Intro » et « Cas 1 _ Pranéo détails ») : en-tête
+ * sombre, premiers résultats, puis sections claires traversées par le trait central. Le header passe du blanc à l'encre en quittant l'en-tête et
  * redevient blanc sur les sections sombres de fin (CaseEffects).
  * Un cas sans contenu « Page détail » affiche son corps de texte historique.
  */
@@ -81,20 +81,20 @@ export default async function CaseStudyPage({ params }: PageProps<"/cas-clients/
   const hasDetail = !!(c.detailIntro || c.challenge || chapters.length);
   // Sections de fin (contenu statique provisoire, futur Sanity) : rendues seulement si le slug en a
   const extras = getCaseExtras(clean(c.slug) || slug);
-  const logo = imageUrl(c.logo, 200, 200);
 
   return (
     <>
       <SiteHeader anchorBase="/" />
       <main>
         <CaseEffects />
-        <CaseHero c={c} doc={doc} />
+        <CaseHero c={c} doc={doc} hideHighlights={!!extras.results} />
+        {extras.results && <CaseResults results={extras.results} />}
         <div className={styles.light} data-reveal data-case-light>
           <span className={styles.axis} aria-hidden="true" />
           {c.detailIntro && <CaseIntro intro={c.detailIntro} doc={doc} />}
           {c.challenge && <CaseChallenge challenge={c.challenge} />}
-          {chapters.map((ch) => (
-            <CaseChapter key={clean(ch._key)} chapter={ch} doc={doc} />
+          {chapters.map((ch, i) => (
+            <CaseChapter key={clean(ch._key)} chapter={ch} doc={doc} bolt={i === 1} />
           ))}
           {!hasDetail && !!c.body?.length && (
             <div className={`${styles.section} ${styles.body}`}>
@@ -102,12 +102,6 @@ export default async function CaseStudyPage({ params }: PageProps<"/cas-clients/
             </div>
           )}
         </div>
-        {extras.results && (
-          <CaseResults
-            results={extras.results}
-            logo={logo ? { src: logo, alt: clean(c.logo?.alt) ?? "" } : null}
-          />
-        )}
         {(extras.cta || extras.nav) && <CaseCta cta={extras.cta} nav={extras.nav} />}
       </main>
       <SiteFooter lead={lead} staticTone="light" flat hideTitle={!!extras.cta} />

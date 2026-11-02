@@ -9,10 +9,10 @@ const IMG_H = 476; // hauteur des images de chapitre à 1920
 const FALLBACK_RATIO = 663 / 476;
 
 /**
- * Chapitre : éclair, très grand titre qui traverse le trait central, blocs de texte et image facultative.
+ * Chapitre : très grand titre qui traverse le trait central (éclair facultatif), blocs de texte et image facultative.
  * Image à droite → blocs à gauche ; image à gauche → blocs à droite (texte aligné à droite) ; sans image → blocs à gauche.
  */
-export default function CaseChapter({ chapter, doc }: { chapter: ChapterData; doc: CaseDoc }) {
+export default function CaseChapter({ chapter, doc, bolt }: { chapter: ChapterData; doc: CaseDoc; bolt?: boolean }) {
   const key = clean(chapter._key);
   const dims = chapter.image?.asset?.metadata?.dimensions;
   const ratio = dims?.width && dims?.height ? dims.width / dims.height : FALLBACK_RATIO;
@@ -22,8 +22,8 @@ export default function CaseChapter({ chapter, doc }: { chapter: ChapterData; do
 
   return (
     <section className={`${styles.section} ${styles.chapter}`}>
-      <div data-in>
-        <Bolt className={styles.bolt} />
+      <div className={styles.chapterHead} data-in>
+        {bolt && <Bolt className={styles.bolt} />}
         <h2 className={`${styles.display} ${styles.chapterTitle}`}>
           {chapter.title?.map((l, i) => (
             <span key={i}>{i ? " " : ""}{l}</span>

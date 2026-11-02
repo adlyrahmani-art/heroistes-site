@@ -69,7 +69,7 @@
 }
 .intro {
   max-width: max(320px, calc(570 * var(--u)));
-  margin-top: calc(39 * var(--u));
+  margin-top: calc(89 * var(--u));
   padding-left: calc(5 * var(--u));
   font-size: max(14px, calc(16 * var(--u)));
   line-height: 1.5;
