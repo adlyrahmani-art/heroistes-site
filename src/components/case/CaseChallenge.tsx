@@ -1,5 +1,4 @@
 import RichText from "@/components/RichText";
-import { Bolt } from "@/components/Logo";
 import type { CaseData } from "./caseTypes";
 import styles from "./Case.module.css";
 
@@ -7,7 +6,6 @@ import styles from "./Case.module.css";
 export default function CaseChallenge({ challenge }: { challenge: NonNullable<CaseData["challenge"]> }) {
   return (
     <section className={`${styles.section} ${styles.challenge}`} data-in>
-      <Bolt className={styles.challengeBolt} />
       <h2 className={styles.display}>{challenge.title || "Notre défi"}</h2>
       {challenge.lead && <p className={styles.lead}>{challenge.lead}</p>}
       {challenge.text && (

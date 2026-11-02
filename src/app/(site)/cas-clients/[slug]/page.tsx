@@ -93,8 +93,8 @@ export default async function CaseStudyPage({ params }: PageProps<"/cas-clients/
           <span className={styles.axis} aria-hidden="true" />
           {c.detailIntro && <CaseIntro intro={c.detailIntro} doc={doc} />}
           {c.challenge && <CaseChallenge challenge={c.challenge} />}
-          {chapters.map((ch, i) => (
-            <CaseChapter key={clean(ch._key)} chapter={ch} doc={doc} bolt={i === 1} />
+          {chapters.map((ch) => (
+            <CaseChapter key={clean(ch._key)} chapter={ch} doc={doc} />
           ))}
           {!hasDetail && !!c.body?.length && (
             <div className={`${styles.section} ${styles.body}`}>

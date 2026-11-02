@@ -29,11 +29,3 @@ export function LogoMark({ className, variant = "light" }: { className?: string;
   );
 }
 
-/** Éclair turquoise seul (lame droite), utilisé comme signature en bas des lames. */
-export function Bolt({ className }: { className?: string }) {
-  return (
-    <svg viewBox="205 38 176 350" className={className} aria-hidden="true">
-      <path d={BLADE_RIGHT} fill="#11E3C7" />
-    </svg>
-  );
-}

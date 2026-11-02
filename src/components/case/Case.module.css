@@ -76,13 +76,6 @@
 .challenge .display {
   font-size: max(40px, calc(64 * var(--u)));
 }
-.challengeBolt {
-  position: absolute;
-  top: calc(32 * var(--u));
-  left: var(--left);
-  width: max(14px, calc(23 * var(--u)));
-  height: auto;
-}
 .challenge .lead {
   margin-top: calc(23 * var(--u));
   font-size: var(--text);
@@ -100,16 +93,6 @@
 }
 .challenge + .chapter {
   margin-top: calc(156 * var(--u));
-}
-.chapterHead {
-  position: relative;
-}
-.bolt {
-  position: absolute;
-  top: calc(-18 * var(--u));
-  left: calc(1 * var(--u));
-  width: max(14px, calc(23 * var(--u)));
-  height: auto;
 }
 .chapterTitle {
   display: flex;
@@ -240,16 +223,6 @@
   .chapter,
   .challenge + .chapter {
     margin-top: 72px;
-  }
-  .challengeBolt {
-    position: static;
-    display: block;
-    margin-bottom: 16px;
-  }
-  .bolt {
-    position: static;
-    display: block;
-    margin-bottom: 16px;
   }
   .chapterTitle {
     font-size: clamp(44px, 7vw, 72px);
