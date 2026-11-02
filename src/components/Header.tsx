@@ -52,7 +52,6 @@ export default function Header({
   const lenisRef = useLenis();
   // Le formulaire (#contact) est dans le footer de chaque page : ce lien reste sur la page courante.
   const to = (href: string) => (href.startsWith("#") && href !== "#contact" ? `${anchorBase}${href}` : href);
-  const onHome = anchorBase === "";
 
   const openMenu = (i: number) => {
     clearTimeout(closeTimer.current);
@@ -68,19 +67,8 @@ export default function Header({
     setMobileOpen(false);
   }, []);
 
-  // Ancres de la page d'accueil : défilement doux (Lenis) et fermeture des menus
-  const navigate = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const href = e.currentTarget.getAttribute("href") ?? "";
-    closeAll();
-    // Seules les ancres de la page courante sont interceptées ; ailleurs, navigation normale vers « /#… ».
-    if (!onHome || !href.startsWith("#")) return;
-    const target = document.querySelector(href);
-    if (!target) return;
-    e.preventDefault();
-    lenisRef?.current?.start();
-    if (lenisRef?.current) lenisRef.current.scrollTo(target as HTMLElement, { duration: 1.4 });
-    else target.scrollIntoView({ behavior: "smooth" });
-  };
+  // Le défilement vers les ancres est géré par SmoothScroll ; ici on ferme seulement les menus
+  const navigate = closeAll;
 
   // Échap ferme ; le défilement de la page ferme le méga-menu
   useEffect(() => {

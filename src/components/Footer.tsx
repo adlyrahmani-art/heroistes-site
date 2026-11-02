@@ -219,7 +219,7 @@ export default function Footer({
   }, [staticTone, flat]);
 
   return (
-    <footer ref={ref} id="contact" className={`${styles.zone} ${flat ? styles.flat : ""}`} aria-labelledby="contact-title">
+    <footer ref={ref} id="contact" data-anchor-end className={`${styles.zone} ${flat ? styles.flat : ""}`} aria-labelledby="contact-title">
       <div ref={trackRef} className={styles.track}>
         {/* Titre (maquette « Footer titre »), à gauche du footer sur la piste (au-dessus en mode vertical) */}
         {!hideTitle && (
