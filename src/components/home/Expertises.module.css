@@ -116,22 +116,12 @@
   transition: scale 1.4s var(--ease-reveal) 350ms;
 }
 
-.bolt {
-  position: absolute;
-  right: calc(68 * var(--u));
-  top: calc(934 * var(--uy));
-  width: max(16px, calc(24 * var(--u)));
-  height: auto;
-}
 
 /* ---------- Lames de cartes ---------- */
 /* 3 cartes (1765) + une marge de 40 de chaque côté : même écart entre deux lames qu'entre deux cartes */
 .cardsPanel {
   flex-basis: calc(1845 * var(--u));
   width: calc(1845 * var(--u));
-}
-.cardsPanel .bolt {
-  right: calc(8 * var(--u));
 }
 .cards {
   position: absolute;
@@ -335,9 +325,6 @@
   }
   .photo {
     width: min(100%, 520px);
-  }
-  .bolt {
-    display: none;
   }
 
   .cardsPanel {

@@ -1,5 +1,4 @@
 import RichText from "@/components/RichText";
-import { Bolt } from "@/components/Logo";
 import { clean, editAttr } from "@/sanity/lib/clean";
 import { imageUrl } from "@/sanity/lib/image";
 import HorizontalScroll from "./HorizontalScroll";
@@ -92,7 +91,6 @@ export default function Expertises({ expertises, doc }: { expertises: Expertises
             <img src={photo} alt={clean(expertises.image?.alt ?? "")} width={535} height={581} loading="lazy" />
           )}
         </figure>
-        <Bolt className={styles.bolt} />
       </div>
 
       {/* Lignes de cartes (maquettes « Expertises Cards Ligne 1 / 2 ») */}
@@ -104,7 +102,6 @@ export default function Expertises({ expertises, doc }: { expertises: Expertises
               <Card key={clean(e._key)} item={e} num={i + 1} i={i} />
             ))}
           </div>
-          <Bolt className={styles.bolt} />
         </div>
         <div className={`${styles.panel} ${styles.cardsPanel}`} data-panel data-reveal data-tone="dark">
           <p className="visually-hidden">Ligne 2 : mise en œuvre</p>
@@ -113,7 +110,6 @@ export default function Expertises({ expertises, doc }: { expertises: Expertises
               <Card key={clean(e._key)} item={e} num={i + 4} i={i} />
             ))}
           </div>
-          <Bolt className={styles.bolt} />
         </div>
       </SwipeRow>
     </HorizontalScroll>

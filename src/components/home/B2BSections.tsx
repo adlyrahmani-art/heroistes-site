@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import RichText from "@/components/RichText";
-import { Bolt } from "@/components/Logo";
 import LogoSmoke3D from "@/components/LogoSmoke3D";
 import { clean, editAttr } from "@/sanity/lib/clean";
 import { imageUrl } from "@/sanity/lib/image";
@@ -198,7 +197,6 @@ export default function B2BSections({ pourquoi, plan, doc }: { pourquoi: Pourquo
             {pourquoi.cta?.label}
           </a>
         </div>
-        <Bolt className={styles.bolt} />
       </section>
 
       {/* Bloc 9.6 · Du plan aux résultats */}
@@ -271,7 +269,6 @@ export default function B2BSections({ pourquoi, plan, doc }: { pourquoi: Pourquo
             {plan.cta?.label}
           </a>
         </div>
-        <Bolt className={styles.bolt} />
       </section>
     </div>
   );

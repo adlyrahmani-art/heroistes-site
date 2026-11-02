@@ -1,5 +1,4 @@
 import RichText from "@/components/RichText";
-import { Bolt } from "@/components/Logo";
 import { clean, editAttr } from "@/sanity/lib/clean";
 import { imageUrl } from "@/sanity/lib/image";
 import WaveWord from "./WaveWord";
@@ -59,7 +58,6 @@ export default function EngagementPanel({ item, index, doc }: { item: Engagement
         <small>Voir nos</small>
         Cas clients
       </a>
-      <Bolt className={styles.bolt} />
     </article>
   );
 }

@@ -184,13 +184,6 @@
 .plan .cta {
   margin-top: calc(85 * var(--u));
 }
-.bolt {
-  position: absolute;
-  right: calc(68 * var(--u));
-  bottom: calc(150 * var(--u));
-  width: max(16px, calc(24 * var(--u)));
-  height: auto;
-}
 
 /* ---------- Entrées ---------- */
 .section [data-in] {
@@ -230,9 +223,6 @@
   }
   .stepText .h3 {
     min-height: 0;
-  }
-  .bolt {
-    bottom: 40px;
   }
 }
 

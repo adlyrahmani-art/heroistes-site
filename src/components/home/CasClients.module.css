@@ -89,13 +89,6 @@
 .hint:hover {
   color: var(--turquoise-profond);
 }
-.bolt {
-  position: absolute;
-  right: calc(68 * var(--u));
-  top: calc(785 * var(--vy));
-  width: max(16px, calc(24 * var(--u)));
-  height: auto;
-}
 
 /* Entrées de l'intro */
 .intro [data-in] {
@@ -368,9 +361,6 @@
     padding: var(--section-y) var(--gut);
   }
   .axis,
-  .bolt {
-    display: none;
-  }
   .title,
   .introBody,
   .introText,

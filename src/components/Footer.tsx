@@ -4,7 +4,6 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import RichText from "@/components/RichText";
-import { Bolt } from "@/components/Logo";
 import { clean, editAttr } from "@/sanity/lib/clean";
 import { imageUrl } from "@/sanity/lib/image";
 import type { SETTINGS_QUERY_RESULT } from "../../sanity.types";
@@ -231,7 +230,6 @@ export default function Footer({
             ))}
             <span className={styles.bar} aria-hidden="true" />
           </p>
-          <Bolt className={styles.bolt} />
         </div>
         )}
 

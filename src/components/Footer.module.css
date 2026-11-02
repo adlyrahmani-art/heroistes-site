@@ -70,13 +70,6 @@
 .in .bar {
   transform: none;
 }
-.bolt {
-  position: absolute;
-  right: calc(68 * var(--u));
-  bottom: 9svh;
-  width: max(16px, calc(24 * var(--u)));
-  height: auto;
-}
 
 .sheet {
   display: grid;
@@ -375,9 +368,6 @@
   }
   .bar {
     width: 100%;
-  }
-  .bolt {
-    display: none;
   }
   .sheet {
     grid-template-columns: 1fr;

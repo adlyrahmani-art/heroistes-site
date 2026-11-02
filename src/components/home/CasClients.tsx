@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import RichText from "@/components/RichText";
-import { Bolt } from "@/components/Logo";
 import { clean, editAttr } from "@/sanity/lib/clean";
 import { imageUrl } from "@/sanity/lib/image";
 import type { CasClientsData, HomeDoc } from "./homeTypes";
@@ -119,7 +118,6 @@ export default function CasClients({ casClients, doc }: { casClients: CasClients
             Voir nos travaux
           </a>
         )}
-        <Bolt className={styles.bolt} />
       </div>
 
       {/* Cas : panneaux épinglés qui se recouvrent l'un l'autre */}

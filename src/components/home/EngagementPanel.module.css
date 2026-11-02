@@ -86,14 +86,15 @@
   left: calc(50% + 17 * var(--u));
 }
 .titleRight .body {
-  top: calc(334 * var(--uy));
+  top: calc(328 * var(--uy));
   right: calc(50% + 16 * var(--u));
   align-items: flex-end;
   text-align: right;
 }
+/* Largeur en em (suit la taille du texte) et hauteur réservée : trois lignes, photos alignées d'un engagement à l'autre */
 .text {
-  width: calc(300 * var(--u));
-  min-width: min(260px, 80vw);
+  width: 20.5em;
+  min-height: calc(3 * 1.45em);
   font-size: max(14px, calc(16.5 * var(--u)));
   line-height: 1.45;
 }
@@ -165,14 +166,6 @@
   color: var(--turquoise-profond);
 }
 
-.bolt {
-  position: absolute;
-  z-index: 2;
-  right: calc(68 * var(--u));
-  top: calc(934 * var(--uy));
-  width: max(16px, calc(24 * var(--u)));
-  height: auto;
-}
 
 /* Révélation : titre d'abord, puis texte, photo et boutons */
 /* Marge haute compensée pour ne pas rogner les accents (SPÉCIALISATION, ACCÈS, MESURÉ) */
@@ -275,11 +268,6 @@
   }
   .cases small {
     font-size: 12px;
-  }
-  .bolt {
-    right: 0;
-    top: auto;
-    bottom: 24px;
   }
 }
 
