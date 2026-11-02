@@ -403,6 +403,10 @@
     padding-left: 0;
     margin-left: 0;
   }
+  .intro {
+    max-width: none;
+    min-width: 0;
+  }
   .title {
     margin-left: 0;
   }

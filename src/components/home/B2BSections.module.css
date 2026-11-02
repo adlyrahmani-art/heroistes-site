@@ -224,6 +224,14 @@
   .stepText .h3 {
     min-height: 0;
   }
+  /* Texte sur toute la largeur de l'écran */
+  .intro,
+  .reasonText .text,
+  .stepText .text,
+  .outro,
+  .plan .outro {
+    max-width: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

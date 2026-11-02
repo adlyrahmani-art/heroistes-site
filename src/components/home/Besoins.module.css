@@ -242,6 +242,8 @@
 @media (max-width: 1024px) {
   .head {
     margin-left: 0;
+    max-width: none;
+    min-width: 0;
   }
   .inner {
     grid-template-columns: 1fr;
