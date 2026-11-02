@@ -1,9 +1,9 @@
 /* Cotes : maquettes Section2-1* (1920 × 1080), 1 px = var(--u), ligne centrale à 50 % */
 .panel {
   position: relative;
-  /* Plus étroite que l'écran : resserre l'espace entre deux engagements */
-  flex: 0 0 calc(1440 * var(--u));
-  width: calc(1440 * var(--u));
+  /* Un peu plus étroite que l'écran : réduit le vide entre deux engagements */
+  flex: 0 0 calc(1700 * var(--u));
+  width: calc(1700 * var(--u));
   height: 100svh;
   overflow: clip;
   background: var(--fond-clair);

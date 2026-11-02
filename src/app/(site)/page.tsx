@@ -12,7 +12,6 @@ import Besoins from "@/components/home/Besoins";
 import Expertises from "@/components/home/Expertises";
 import B2BSections from "@/components/home/B2BSections";
 import CasClients from "@/components/home/CasClients";
-import Faq from "@/components/home/Faq";
 import { clean } from "@/sanity/lib/clean";
 import { cachedFetch, getDynamicFetchOptions } from "@/sanity/lib/live";
 import { HOME_QUERY } from "@/sanity/lib/queries";
@@ -54,10 +53,9 @@ export default async function Home() {
         {/* Cas clients : intro puis cas épinglés, dévoilés un à un (réf. mattis « We build websites ») */}
         {home.casClients && <CasClients casClients={home.casClients} doc={doc} />}
 
-        {home.faq && <Faq faq={home.faq} />}
       </main>
 
-      {/* Footer : entre de droite à gauche par-dessus la FAQ (mouvement des Expertises) */}
+      {/* Footer : entre de droite à gauche par-dessus les cas clients (mouvement des Expertises) */}
       <SiteFooter lead={home.contactLead?.lead ?? []} />
     </>
   );

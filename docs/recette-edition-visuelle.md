@@ -57,8 +57,6 @@ Cocher la case une fois la ligne vérifiée. Le WebGL reste complet dans l'aper�
 | ☐ | Cas clients : nom du client qui défile (nom dupliqué en bandeau) | Cas client lié → « Nom du client » s'ouvre ; le nom change sur toutes les occurrences du texte défilant, sans saccade | |
 | ☐ | Cas clients : photo, étiquette, question d'une carte | Cas client lié → « Photo de la carte », « Étiquette », « Question » s'ouvrent | |
 | ☐ | Cas clients : bouton | « Bouton » s'ouvre | |
-| ☐ | FAQ : titre | « FAQ » → « Titre » s'ouvre | |
-| ☐ | FAQ : une question et sa réponse | Questions → (élément) → « Question » puis « Réponse » s'ouvrent | |
 | ☐ | « Votre prochaine étape » : accroche | « Accroche avant le pied de page » → « Accroche » (2 lignes, 24 caractères) s'ouvre | |
 
 ## 2. En-tête et pied de page (document « Réglages »)

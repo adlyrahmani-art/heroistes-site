@@ -203,14 +203,12 @@
   margin: 0 auto;
 }
 .megaHead > *,
-.megaInner li,
-.groupTitle {
+.megaInner li {
   opacity: 0;
   translate: 0 18px;
 }
 .megaOpen .megaHead > *,
-.megaOpen li,
-.megaOpen .groupTitle {
+.megaOpen li {
   opacity: 1;
   translate: none;
   transition:
@@ -260,26 +258,10 @@
 }
 
 /* Colonnes de liens */
-.groups {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: calc(48 * var(--u));
-}
-.groups ul,
 .list {
   margin: 0;
   padding: 0;
   list-style: none;
-}
-.groupTitle {
-  margin-bottom: calc(22 * var(--u));
-  padding-bottom: calc(12 * var(--u));
-  border-bottom: 1px solid #3a3a3a;
-  font-weight: 700;
-  font-size: max(11px, calc(12 * var(--u)));
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #8d8d8d;
 }
 .list {
   display: grid;
@@ -517,12 +499,10 @@
   min-height: 0;
   overflow: hidden;
 }
-.mobileSub .groups,
 .mobileSub .listCols {
   grid-template-columns: 1fr;
   gap: 18px;
 }
-.mobileSub .groups,
 .mobileSub .list {
   padding: 4px 0 22px 34px;
 }
@@ -531,11 +511,6 @@
   /* cible tactile d'environ 44 px */
   padding: 11px 0;
   font-size: 20px;
-}
-.mobileSub .groupTitle {
-  margin-bottom: 8px;
-  opacity: 1;
-  translate: none;
 }
 .mobileSub li {
   opacity: 1;
@@ -574,7 +549,6 @@
   }
   .megaHead > *,
   .megaInner li,
-  .groupTitle,
   .mobileList > li {
     opacity: 1;
     translate: none;

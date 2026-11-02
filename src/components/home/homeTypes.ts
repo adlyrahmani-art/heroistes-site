@@ -19,4 +19,3 @@ export type PourquoiData = NonNullable<Home["pourquoi"]>;
 export type PlanData = NonNullable<Home["plan"]>;
 export type CasClientsData = NonNullable<Home["casClients"]>;
 export type CaseData = NonNullable<CasClientsData["cases"]>[number];
-export type FaqData = NonNullable<Home["faq"]>;

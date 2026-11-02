@@ -3,7 +3,7 @@
   --u: calc(100vw / 1920);
   position: relative;
   z-index: 3;
-  /* chevauche le dernier écran de la FAQ et réserve un écran pour le glissement horizontal */
+  /* chevauche le dernier écran des cas clients et réserve un écran pour le glissement horizontal */
   margin-top: -100svh;
   overflow-x: clip;
   pointer-events: none;
@@ -417,7 +417,7 @@
     margin-left: 0;
   }
 }
-/* Animations limitées : le footer suit simplement la FAQ */
+/* Animations limitées : le footer suit simplement les cas clients */
 @media (prefers-reduced-motion: reduce) {
   .zone {
     margin-top: 0;

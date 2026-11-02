@@ -9,31 +9,9 @@ import styles from "./Header.module.css";
 
 const num = (i: number) => `${String(i + 1).padStart(2, "0")}.`;
 
-/** Contenu d'un sous-menu : groupes titrés (Expertises) ou liste simple, en colonnes */
+/** Contenu d'un sous-menu : liste de liens, en colonnes */
 function SubLinks({ item, onNavigate, to }: { item: NavItem; onNavigate: () => void; to: (href: string) => string }) {
   let k = 0; // rang d'apparition, pour la cascade
-  if (item.groups) {
-    return (
-      <div className={styles.groups}>
-        {item.groups.map((g) => (
-          <div key={g.label} className={styles.group}>
-            <p className={styles.groupTitle} style={{ "--k": k++ } as React.CSSProperties}>
-              {g.label}
-            </p>
-            <ul>
-              {g.links.map((l) => (
-                <li key={l.href} style={{ "--k": k++ } as React.CSSProperties}>
-                  <a href={to(l.href)} className={styles.subLink} onClick={onNavigate}>
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    );
-  }
   return (
     <ul className={`${styles.list} ${(item.links?.length ?? 0) > 6 ? styles.listCols : ""}`}>
       {item.links?.map((l) => (
@@ -151,7 +129,7 @@ export default function Header({
         <nav className={styles.menu} aria-label="Navigation principale">
           <ul className={styles.top}>
             {navigation.map((item, i) => {
-              const hasSub = Boolean(item.groups || item.links);
+              const hasSub = Boolean(item.links);
               const isOpen = active === i;
               return (
                 <li
@@ -162,7 +140,6 @@ export default function Header({
                   <a
                     href={to(item.href)}
                     className={`${styles.topLink} ${isOpen ? styles.current : ""}`}
-                    aria-current={i === 0 && onHome ? "page" : undefined}
                     onClick={navigate}
                   >
                     <i>{num(i)}</i>
@@ -216,7 +193,7 @@ export default function Header({
       <div id="menu-mobile" className={`${styles.mobile} ${mobileOpen ? styles.mobileOpen : ""}`} inert={!mobileOpen} data-lenis-prevent>
         <ul className={styles.mobileList}>
           {navigation.map((item, i) => {
-            const hasSub = Boolean(item.groups || item.links);
+            const hasSub = Boolean(item.links);
             const subOpen = mobileSub === i;
             return (
               <li key={item.label} style={{ "--k": i } as React.CSSProperties} className={subOpen ? styles.subOpen : ""}>

@@ -80,10 +80,10 @@ function formFields(cf: ContactFormConfig | null): FormField[] {
 
 /**
  * Footer · Bloc 9.10 Contact (maquette « Footer »).
- * Entrée comme la section Expertises : en bas de la FAQ, la molette fait défiler de droite à
- * gauche le titre « Votre prochaine étape » (la FAQ, épinglée, part vers la gauche), puis le
+ * Entrée comme la section Expertises : en bas des cas clients, la molette fait défiler de droite à
+ * gauche le titre « Votre prochaine étape » (la section, épinglée, part vers la gauche), puis le
  * footer ; le défilement redevient ensuite vertical dans le footer.
- * Mécanique : la zone chevauche le dernier écran de la FAQ (marge −100svh) et réserve deux écrans
+ * Mécanique : la zone chevauche le dernier écran des cas clients (marge −100svh) et réserve deux écrans
  * de défilement ; la piste (titre à gauche du footer) y reste collée en haut le temps du glissement.
  */
 export default function Footer({
@@ -98,7 +98,7 @@ export default function Footer({
   /** Page à fond clair fixe (pages détail) : aucun changement de ton du header au défilement. */
   staticTone?: "light";
   /**
-   * Pages détail : footer vertical, dans le flux (pas de FAQ, donc pas de glissement horizontal) ;
+   * Pages détail : footer vertical, dans le flux (pas de glissement horizontal) ;
    * sans marge négative ni écrans réservés, le défilement ne marque aucun arrêt.
    */
   flat?: boolean;
@@ -161,7 +161,7 @@ export default function Footer({
     const track = trackRef.current!;
     const title = titleRef.current;
     if (!title) return;
-    const faq = document.getElementById("faq");
+    const previous = document.getElementById("cas-clients");
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const setTone = (v: "light" | "dark") => requestAnimationFrame(() => (document.body.dataset.tone = v));
 
@@ -172,16 +172,16 @@ export default function Footer({
             title.classList.add(styles.in);
             return;
           }
-          if (flat || !faq) {
+          if (flat || !previous) {
             // Footer dans le flux : le titre se révèle en entrant à l'écran
             ScrollTrigger.create({ trigger: title, start: "top 75%", once: true, onEnter: () => title.classList.add(styles.in) });
             return;
           }
           const first = { trigger: zone, start: "top top", end: "+=100%", scrub: true, invalidateOnRefresh: true };
-          // La FAQ reste en place (épinglée) pendant le premier glissement ; on anime son contenu,
+          // La section précédente reste en place (épinglée) pendant le premier glissement ; on anime son contenu,
           // jamais le conteneur épinglé
-          ScrollTrigger.create({ trigger: zone, start: "top top", end: "+=100%", pin: faq, pinSpacing: false });
-          gsap.fromTo(faq.children, { x: 0 }, { x: () => -innerWidth, ease: "none", scrollTrigger: first });
+          ScrollTrigger.create({ trigger: zone, start: "top top", end: "+=100%", pin: previous, pinSpacing: false });
+          gsap.fromTo(previous.children, { x: 0 }, { x: () => -innerWidth, ease: "none", scrollTrigger: first });
           // Piste : le titre puis le footer, deux écrans de droite à gauche
           gsap.fromTo(
             track,
@@ -193,7 +193,7 @@ export default function Footer({
                 ...first,
                 end: "+=200%",
                 onUpdate: (self) => {
-                  // Header : blanc sur la FAQ, encre dès que le titre clair occupe l'écran
+                  // Header : blanc sur les cas clients, encre dès que le titre clair occupe l'écran
                   setTone(self.progress > 0.4 ? "light" : "dark");
                   if (self.progress > 0.1) title.classList.add(styles.in);
                 },
