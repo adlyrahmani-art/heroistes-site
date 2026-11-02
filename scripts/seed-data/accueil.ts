@@ -1,7 +1,7 @@
 // Contenu de la page d'accueil (source : ressources/CONTENU_ACCUEIL_2026-10-19.docx + maquettes)
 
 export const hero = {
-  eyebrow: ["Le", "héros", "du R.O.I."],
+  eyebrow: ["Héros", "du R.O.I."],
   titleLines: ["L’agence", "marketing B2B"],
   subtitle: "jugée sur vos",
   highlight: "ventes",

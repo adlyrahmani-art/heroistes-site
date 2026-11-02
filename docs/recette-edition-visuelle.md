@@ -3,7 +3,7 @@
 ## Avant de commencer
 
 1. Ouvrir `/studio` sur la preview Vercel (ou en local), puis l'onglet **Presentation**.
-2. Choisir le document à tester : **Accueil**, **Réglages**, **Formulaire de contact**, un **Article de blog** ou un **Cas client**.
+2. Choisir le document à tester : **Accueil**, **Réglages**, **Formulaire de contact** ou un **Cas client**.
 3. Dans l'aperçu, survoler un texte ou une image : un cadre apparaît. Cliquer dessus ouvre le champ correspondant dans le panneau de droite.
 4. Pour chaque ligne du tableau : cliquer, vérifier que le bon champ s'ouvre, modifier la valeur, constater le changement dans l'aperçu, puis noter l'écart éventuel dans « Résultat ». Ne pas publier les modifications de test (ou rétablir les valeurs d'origine).
 
@@ -57,9 +57,6 @@ Cocher la case une fois la ligne vérifiée. Le WebGL reste complet dans l'aper�
 | ☐ | Cas clients : nom du client qui défile (nom dupliqué en bandeau) | Cas client lié → « Nom du client » s'ouvre ; le nom change sur toutes les occurrences du texte défilant, sans saccade | |
 | ☐ | Cas clients : photo, étiquette, question d'une carte | Cas client lié → « Photo de la carte », « Étiquette », « Question » s'ouvrent | |
 | ☐ | Cas clients : bouton | « Bouton » s'ouvre | |
-| ☐ | Blog : titre de la lame | « Blog » → « Titre » s'ouvre | |
-| ☐ | Blog : bouton | « Bouton » s'ouvre | |
-| ☐ | Blog : titre, résumé, couverture d'un article | Article de blog lié → « Titre », « Résumé », « Image de couverture » s'ouvrent | |
 | ☐ | FAQ : titre | « FAQ » → « Titre » s'ouvre | |
 | ☐ | FAQ : une question et sa réponse | Questions → (élément) → « Question » puis « Réponse » s'ouvrent | |
 | ☐ | « Votre prochaine étape » : accroche | « Accroche avant le pied de page » → « Accroche » (2 lignes, 24 caractères) s'ouvre | |
@@ -93,15 +90,6 @@ Cocher la case une fois la ligne vérifiée. Le WebGL reste complet dans l'aper�
 | ☐ | Bouton d'envoi | « Libellé du bouton d’envoi » s'ouvre | |
 | ☐ | Mention de confidentialité et son lien | « Mention de confidentialité » puis « Lien de confidentialité » s'ouvrent | |
 
-## 4. Page d'un article de blog (document « Article de blog »)
-
-| OK | Où cliquer | Champ attendu | Résultat |
-|---|---|---|---|
-| ☐ | Titre de l'article | « Titre » s'ouvre | |
-| ☐ | Date | « Date de publication » s'ouvre | |
-| ☐ | Image de couverture | « Image de couverture » s'ouvre | |
-| ☐ | Résumé | « Résumé » s'ouvre | |
-| ☐ | Corps du texte (paragraphe, titre intermédiaire, image) | « Contenu » s'ouvre sur le bloc cliqué | |
 
 ## 5. Page d'un cas client (document « Cas client »)
 

@@ -951,123 +951,6 @@ export type CONTACT_LEAD_QUERY_RESULT = {
 } | null;
 
 // Source: src/sanity/lib/queries.ts
-// Variable: BLOG_POST_QUERY
-// Query: *[_type == "blogPost" && language == "fr" && slug.current == $slug][0]{  ...,  "slug": slug.current,  cover{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }}
-export type BLOG_POST_QUERY_RESULT = {
-  _id: string;
-  _type: "blogPost";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  language?: string;
-  title?: string;
-  slug: string | null;
-  publishedAt?: string;
-  excerpt?: string;
-  cover: {
-    _type: "imageWithAlt";
-    asset: {
-      _id: string;
-      url: string | null;
-      metadata: {
-        dimensions: SanityImageDimensions | null;
-      } | null;
-    } | null;
-    media?: unknown;
-    hotspot: SanityImageHotspot | null;
-    crop: SanityImageCrop | null;
-    alt: string | null;
-  } | null;
-  body: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?:
-          "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-    | {
-        _key: string;
-        _type: "imageWithAlt";
-        asset: {
-          _id: string;
-          url: string | null;
-          metadata: {
-            dimensions: SanityImageDimensions | null;
-          } | null;
-        } | null;
-        media?: unknown;
-        hotspot: SanityImageHotspot | null;
-        crop: SanityImageCrop | null;
-        alt: string | null;
-      }
-  > | null;
-  seo: {
-    _type: "seo";
-    title?: string;
-    description?: string;
-    image: {
-      _type: "imageWithAlt";
-      asset: {
-        _id: string;
-        url: string | null;
-        metadata: {
-          dimensions: SanityImageDimensions | null;
-        } | null;
-      } | null;
-      media?: unknown;
-      hotspot: SanityImageHotspot | null;
-      crop: SanityImageCrop | null;
-      alt: string | null;
-    } | null;
-  } | null;
-} | null;
-
-// Source: src/sanity/lib/queries.ts
-// Variable: BLOG_SLUGS_QUERY
-// Query: *[_type == "blogPost" && language == "fr" && defined(slug.current)]{ "slug": slug.current }
-export type BLOG_SLUGS_QUERY_RESULT = Array<{
-  slug: string | null;
-}>;
-
-// Source: src/sanity/lib/queries.ts
-// Variable: LATEST_POSTS_QUERY
-// Query: *[_type == "blogPost" && language == "fr" && defined(slug.current)] | order(publishedAt desc)[0...4]{  _id, title, "slug": slug.current, publishedAt, excerpt, cover{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }}
-export type LATEST_POSTS_QUERY_RESULT = Array<{
-  _id: string;
-  title: string | null;
-  slug: string | null;
-  publishedAt: string | null;
-  excerpt: string | null;
-  cover: {
-    _type: "imageWithAlt";
-    asset: {
-      _id: string;
-      url: string | null;
-      metadata: {
-        dimensions: SanityImageDimensions | null;
-      } | null;
-    } | null;
-    media?: unknown;
-    hotspot: SanityImageHotspot | null;
-    crop: SanityImageCrop | null;
-    alt: string | null;
-  } | null;
-}>;
-
-// Source: src/sanity/lib/queries.ts
 // Variable: CASE_STUDY_QUERY
 // Query: *[_type == "caseStudy" && language == "fr" && slug.current == $slug][0]{  ...,  "slug": slug.current,  image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, logo{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  detailHero{ ..., background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  detailIntro{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  chapters[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }}
 export type CASE_STUDY_QUERY_RESULT = {
@@ -1279,9 +1162,6 @@ declare global {
     '*[_type == "homePage" && language == "fr"][0]{\n  ...,\n  hero{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  engagements[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  logosBand{ ..., clients[]{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  besoins{ ..., items[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } } },\n  expertises{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  pourquoi{ ..., items[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } } },\n  plan{ ..., steps[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } } },\n  casClients{\n    ...,\n    image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },\n    cases[]->{\n      _id, title, "slug": slug.current, clientName, sector, tag, question, logoSize, highlights, keyFigures,\n      image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, logo{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }\n    }\n  }\n}': HOME_QUERY_RESULT;
     '*[_type == "contactForm" && language == "fr"][0]': CONTACT_FORM_QUERY_RESULT;
     '*[_type == "homePage" && language == "fr"][0]{ contactLead }': CONTACT_LEAD_QUERY_RESULT;
-    '*[_type == "blogPost" && language == "fr" && slug.current == $slug][0]{\n  ...,\n  "slug": slug.current,\n  cover{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },\n  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }\n}': BLOG_POST_QUERY_RESULT;
-    '*[_type == "blogPost" && language == "fr" && defined(slug.current)]{ "slug": slug.current }': BLOG_SLUGS_QUERY_RESULT;
-    '*[_type == "blogPost" && language == "fr" && defined(slug.current)] | order(publishedAt desc)[0...4]{\n  _id, title, "slug": slug.current, publishedAt, excerpt, cover{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }\n}': LATEST_POSTS_QUERY_RESULT;
     '*[_type == "caseStudy" && language == "fr" && slug.current == $slug][0]{\n  ...,\n  "slug": slug.current,\n  image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, logo{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },\n  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  detailHero{ ..., background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  detailIntro{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  chapters[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }\n}': CASE_STUDY_QUERY_RESULT;
     '*[_type == "caseStudy" && language == "fr" && defined(slug.current)]{ "slug": slug.current }': CASE_SLUGS_QUERY_RESULT;
   }

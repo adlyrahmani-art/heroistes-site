@@ -6,11 +6,8 @@ test("accueil : hero et 3 cas clients", async ({ page }) => {
   await expect(page.locator("#cas-clients article[data-slide]")).toHaveCount(3);
 });
 
-test("article de blog", async ({ page, request }) => {
-  await page.goto("/blog/illusion-esthetique-refonte-ui");
-  await expect(page.locator("h1").first()).toBeVisible();
-  await expect(page.locator("h1").first()).not.toBeEmpty();
-  const res = await request.get("/blog/inexistant");
+test("cas client inconnu", async ({ request }) => {
+  const res = await request.get("/cas-clients/inexistant");
   expect(res.status()).toBe(404);
 });
 

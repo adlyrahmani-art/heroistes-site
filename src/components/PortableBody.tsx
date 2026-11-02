@@ -1,7 +1,7 @@
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { clean } from "@/sanity/lib/clean";
 import { imageUrl } from "@/sanity/lib/image";
-import styles from "./DetailLayout.module.css";
+import styles from "./PortableBody.module.css";
 
 const components: PortableTextComponents = {
   types: {

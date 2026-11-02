@@ -1,8 +1,9 @@
 /* Cotes : maquettes Section2-1* (1920 × 1080), 1 px = var(--u), ligne centrale à 50 % */
 .panel {
   position: relative;
-  flex: 0 0 100vw;
-  width: 100vw;
+  /* Plus étroite que l'écran : resserre l'espace entre deux engagements */
+  flex: 0 0 calc(1440 * var(--u));
+  width: calc(1440 * var(--u));
   height: 100svh;
   overflow: clip;
   background: var(--fond-clair);
@@ -132,7 +133,7 @@
   left: calc(50% + 323 * var(--u));
 }
 .titleRight .cta {
-  left: calc(409 * var(--u));
+  left: calc(50% - 551 * var(--u));
 }
 
 .cases {
@@ -219,21 +220,21 @@
   transform: none;
 }
 
-/* Mobile et tablette portrait : pile verticale, lame dans le flux */
+/* Mobile et tablette portrait : engagements côte à côte, balayés au doigt (SwipeRow) */
 @media (max-width: 1024px) {
+  .row {
+    background: var(--fond-clair);
+  }
   .panel {
-    flex: none;
-    width: 100%;
+    flex: 0 0 min(84vw, 560px);
+    width: min(84vw, 560px);
     height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 24px;
-    padding: 28px var(--gut) 28px;
-  }
-  /* Dernier engagement : fin de section, marge commune */
-  .panel:last-child {
-    padding-bottom: var(--section-y);
+    padding: 28px 0 var(--section-y);
+    scroll-snap-align: start;
   }
   .axis {
     display: none;
@@ -276,7 +277,7 @@
     font-size: 12px;
   }
   .bolt {
-    right: var(--gut);
+    right: 0;
     top: auto;
     bottom: 24px;
   }

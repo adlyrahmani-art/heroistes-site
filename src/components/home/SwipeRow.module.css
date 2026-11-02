@@ -1,0 +1,21 @@
+.row {
+  display: contents;
+}
+
+@media (max-width: 1024px) {
+  .row {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    width: 100%;
+    padding-inline: var(--gut);
+    scroll-padding-inline: var(--gut);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .row::-webkit-scrollbar {
+    display: none;
+  }
+}

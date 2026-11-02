@@ -57,6 +57,11 @@
 }
 
 /* ---------- Lame présentation ---------- */
+/* Largeur du contenu seulement : resserre l'espace avec les cartes */
+.details {
+  flex-basis: calc(1620 * var(--u));
+  width: calc(1620 * var(--u));
+}
 .detailsText {
   position: absolute;
   top: calc(365 * var(--uy));
@@ -120,6 +125,14 @@
 }
 
 /* ---------- Lames de cartes ---------- */
+/* 3 cartes (1765) + une marge de 40 de chaque côté : même écart entre deux lames qu'entre deux cartes */
+.cardsPanel {
+  flex-basis: calc(1845 * var(--u));
+  width: calc(1845 * var(--u));
+}
+.cardsPanel .bolt {
+  right: calc(8 * var(--u));
+}
 .cards {
   position: absolute;
   top: calc(365 * var(--uy));
@@ -286,10 +299,11 @@
   }
 }
 
-/* Mobile et tablette portrait : lames empilées dans le flux vertical, cartes en colonne
-   (2 colonnes sur tablette), texte des cartes toujours visible */
+/* Mobile et tablette portrait : lames empilées, six cartes balayées au doigt (SwipeRow),
+   texte des cartes toujours visible */
 @media (max-width: 1024px) {
-  .panel {
+  .panel,
+  .details {
     flex: none;
     width: 100%;
     height: auto;
@@ -327,23 +341,25 @@
   }
 
   .cardsPanel {
-    padding: 0 var(--gut) 24px;
-  }
-  .cardsPanel + .cardsPanel {
-    padding-bottom: var(--section-y);
+    flex: none;
+    width: max-content;
+    padding: 0 0 var(--section-y);
   }
   .cards {
     position: static;
     translate: none;
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    align-items: stretch;
     gap: 16px;
+    height: 100%;
   }
   .card {
+    flex: 0 0 min(82vw, 420px);
     width: auto;
     height: auto;
     min-height: 0;
     padding: 24px 22px 28px;
+    scroll-snap-align: start;
     display: flex;
     flex-direction: column;
     gap: 18px;
@@ -384,16 +400,6 @@
     background-color: var(--turquoise);
   }
 }
-@media (min-width: 700px) and (max-width: 1024px) {
-  .cards {
-    grid-template-columns: 1fr 1fr;
-  }
-  /* 3 cartes par groupe : la troisième prend toute la largeur */
-  .card:nth-child(3) {
-    grid-column: 1 / -1;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .ln > span,
   .bar,

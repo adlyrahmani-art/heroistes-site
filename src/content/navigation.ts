@@ -4,7 +4,7 @@
 export type NavLink = { label: string; href: string };
 export type NavGroup = { label: string; links: NavLink[] };
 /** Clés des libellés de 1er niveau dans les Réglages (siteSettings.navLabels) */
-export type NavKey = "accueil" | "expertises" | "conseil" | "casClients" | "secteurs" | "agence" | "blog" | "contact";
+export type NavKey = "accueil" | "expertises" | "casClients" | "agence" | "contact";
 export type NavLabels = Partial<Record<NavKey, string | null | undefined>>;
 export type NavItem = {
   /** Clé du libellé éditable dans les Réglages */
@@ -44,6 +44,7 @@ export const navigation: NavItem[] = [
     href: "#expertises",
     pitch: "Six expertises réunies dans une agence 360, pour des actions qui se renforcent.",
     groups: [
+      { label: "Conseil", links: links("/conseil/", ["Audit commercial", "Audit digital", "Accompagnement dirigeant"]) },
       group("Développement commercial", ["Stratégie commerciale", "Prospection commerciale", "Génération de leads"]),
       group("Branding & contenu", [
         "Plateforme de marque",
@@ -55,13 +56,6 @@ export const navigation: NavItem[] = [
       group("Digital experience", ["Site institutionnel", "E-commerce B2B", "Landing page", "Application métier", "UX Design"]),
       group("Acquisition & performance", ["SEO", "GEO", "Google Ads", "Social Ads", "Marketing automation", "Web analytics"]),
     ],
-  },
-  {
-    key: "conseil",
-    label: "Conseil",
-    href: "/conseil/",
-    pitch: "Un regard extérieur sur vos ventes et votre marketing, et un plan d’action concret.",
-    links: links("/conseil/", ["Audit commercial", "Audit digital", "Accompagnement dirigeant"]),
   },
   {
     key: "casClients",
@@ -83,19 +77,6 @@ export const navigation: NavItem[] = [
       "Minos",
     ]),
   },
-  {
-    key: "secteurs",
-    label: "Secteurs",
-    href: "/secteurs/",
-    pitch: "Des équipes qui connaissent les cycles de vente de votre secteur.",
-    links: [
-      { label: "Industrie", href: "/secteurs/industrie/" },
-      { label: "Tech & SaaS", href: "/secteurs/tech-saas/" },
-      { label: "Services B2B", href: "/secteurs/services-b2b/" },
-      { label: "Distribution & logistique", href: "/secteurs/distribution-logistique/" },
-    ],
-  },
   { key: "agence", label: "L’agence", href: "/agence/" },
-  { key: "blog", label: "Blog", href: "#blog" },
   { key: "contact", label: "Contact", href: "#contact" },
 ];

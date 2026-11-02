@@ -3,6 +3,7 @@ import { Bolt } from "@/components/Logo";
 import { clean, editAttr } from "@/sanity/lib/clean";
 import { imageUrl } from "@/sanity/lib/image";
 import HorizontalScroll from "./HorizontalScroll";
+import SwipeRow from "./SwipeRow";
 import type { ExpertiseCardData, ExpertisesData, HomeDoc } from "./homeTypes";
 import styles from "./Expertises.module.css";
 
@@ -95,24 +96,26 @@ export default function Expertises({ expertises, doc }: { expertises: Expertises
       </div>
 
       {/* Lignes de cartes (maquettes « Expertises Cards Ligne 1 / 2 ») */}
-      <div className={`${styles.panel} ${styles.cardsPanel}`} data-panel data-reveal data-tone="dark">
-        <p className="visually-hidden">Ligne 1 : stratégie</p>
-        <div className={styles.cards}>
-          {cards.slice(0, 3).map((e, i) => (
-            <Card key={clean(e._key)} item={e} num={i + 1} i={i} />
-          ))}
+      <SwipeRow label="Nos six expertises">
+        <div className={`${styles.panel} ${styles.cardsPanel}`} data-panel data-reveal data-tone="dark">
+          <p className="visually-hidden">Ligne 1 : stratégie</p>
+          <div className={styles.cards}>
+            {cards.slice(0, 3).map((e, i) => (
+              <Card key={clean(e._key)} item={e} num={i + 1} i={i} />
+            ))}
+          </div>
+          <Bolt className={styles.bolt} />
         </div>
-        <Bolt className={styles.bolt} />
-      </div>
-      <div className={`${styles.panel} ${styles.cardsPanel}`} data-panel data-reveal data-tone="dark">
-        <p className="visually-hidden">Ligne 2 : mise en œuvre</p>
-        <div className={styles.cards}>
-          {cards.slice(3, 6).map((e, i) => (
-            <Card key={clean(e._key)} item={e} num={i + 4} i={i} />
-          ))}
+        <div className={`${styles.panel} ${styles.cardsPanel}`} data-panel data-reveal data-tone="dark">
+          <p className="visually-hidden">Ligne 2 : mise en œuvre</p>
+          <div className={styles.cards}>
+            {cards.slice(3, 6).map((e, i) => (
+              <Card key={clean(e._key)} item={e} num={i + 4} i={i} />
+            ))}
+          </div>
+          <Bolt className={styles.bolt} />
         </div>
-        <Bolt className={styles.bolt} />
-      </div>
+      </SwipeRow>
     </HorizontalScroll>
   );
 }

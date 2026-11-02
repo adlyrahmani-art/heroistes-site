@@ -34,22 +34,6 @@ export const CONTACT_FORM_QUERY = defineQuery(
 
 export const CONTACT_LEAD_QUERY = defineQuery(`*[_type == "homePage" && language == "fr"][0]{ contactLead }`);
 
-export const BLOG_POST_QUERY = defineQuery(`*[_type == "blogPost" && language == "fr" && slug.current == $slug][0]{
-  ...,
-  "slug": slug.current,
-  cover${IMG},
-  body[]{ ..., _type == "imageWithAlt" => ${IMG} },
-  seo{ ..., image${IMG} }
-}`);
-
-export const BLOG_SLUGS_QUERY = defineQuery(
-  `*[_type == "blogPost" && language == "fr" && defined(slug.current)]{ "slug": slug.current }`,
-);
-
-export const LATEST_POSTS_QUERY = defineQuery(`*[_type == "blogPost" && language == "fr" && defined(slug.current)] | order(publishedAt desc)[0...4]{
-  _id, title, "slug": slug.current, publishedAt, excerpt, cover${IMG}
-}`);
-
 export const CASE_STUDY_QUERY = defineQuery(`*[_type == "caseStudy" && language == "fr" && slug.current == $slug][0]{
   ...,
   "slug": slug.current,
