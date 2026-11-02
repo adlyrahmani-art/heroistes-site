@@ -176,15 +176,17 @@ export default function Footer({
             ScrollTrigger.create({ trigger: title, start: "top 75%", once: true, onEnter: () => title.classList.add(styles.in) });
             return;
           }
+          // Sans la barre de défilement : le titre reste collé à la section qu'il pousse, sans bande entre les deux
+          const clientWidth = () => document.documentElement.clientWidth;
           const first = { trigger: zone, start: "top top", end: "+=100%", scrub: true, invalidateOnRefresh: true };
           // La section précédente reste en place (épinglée) pendant le premier glissement ; on anime son contenu,
           // jamais le conteneur épinglé
           ScrollTrigger.create({ trigger: zone, start: "top top", end: "+=100%", pin: previous, pinSpacing: false });
-          gsap.fromTo(previous.children, { x: 0 }, { x: () => -innerWidth, ease: "none", scrollTrigger: first });
+          gsap.fromTo(previous.children, { x: 0 }, { x: () => -(innerWidth + clientWidth()) / 2, ease: "none", scrollTrigger: first });
           // Piste : le titre puis le footer, deux écrans de droite à gauche
           gsap.fromTo(
             track,
-            { x: () => 2 * innerWidth },
+            { x: () => innerWidth + clientWidth() },
             {
               x: 0,
               ease: "none",
