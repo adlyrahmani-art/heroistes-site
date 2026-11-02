@@ -114,8 +114,15 @@ export default function CasClients({ casClients, doc }: { casClients: CasClients
         </div>
         {cases[0] && (
           <a href={`#cas-${clean(cases[0].slug ?? cases[0]._id)}`} className={styles.hint}>
-            <small>Scroll pour</small>
-            Voir nos travaux
+            <svg className={styles.mouse} viewBox="0 0 19 43" fill="none" stroke="currentColor" aria-hidden="true">
+              <rect x="1" y="1" width="17" height="27" rx="8.5" strokeWidth="1.6" />
+              <path d="M9.5 7v6" strokeWidth="1.6" strokeLinecap="round" />
+              <path d="M9.5 32v9M5.5 37.5l4 3.5 4-3.5" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className={styles.hintText}>
+              <small>Scroll pour</small>
+              Voir nos travaux
+            </span>
           </a>
         )}
       </div>

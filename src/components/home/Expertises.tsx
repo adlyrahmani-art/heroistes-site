@@ -57,12 +57,11 @@ export default function Expertises({ expertises, doc }: { expertises: Expertises
       label="Nos expertises"
       background={
         // eslint-disable-next-line @next/next/no-img-element
-        <img src="/images/expertises-bg.jpg" alt="" className={styles.bgImg} />
+        <img src="/images/expertises-bg-new.jpg" alt="" className={styles.bgImg} />
       }
     >
       {/* Lame titre (maquette « Expertises - Titre ») */}
       <div className={`${styles.panel} ${styles.titlePanel}`} data-panel data-reveal data-tone="dark">
-        <div className="fx-grain" aria-hidden="true" />
         <h2 className={styles.title} data-speed="-0.1">
           {expertises.title?.map((l, k) => (
             <span key={k} className={styles.ln}>
