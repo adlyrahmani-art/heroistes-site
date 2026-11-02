@@ -72,10 +72,10 @@
 .hint {
   position: absolute;
   top: calc(749 * var(--vy));
-  left: calc(50% - 587 * var(--u));
+  left: calc(50% - 697 * var(--u));
   display: flex;
   align-items: flex-end;
-  gap: max(9px, calc(12 * var(--u)));
+  gap: max(9px, calc(14 * var(--u)));
   font-weight: 700;
   font-size: max(12px, calc(13 * var(--u)));
   text-transform: uppercase;
@@ -89,7 +89,7 @@
 /* Icône souris flottante : invite à défiler */
 .mouse {
   flex: none;
-  width: max(16px, calc(19 * var(--u)));
+  width: max(16px, calc(22.6 * var(--u)));
   height: auto;
   animation: mouse-float 2.2s ease-in-out infinite;
 }
