@@ -142,8 +142,7 @@
     min-height: 100svh;
     height: auto;
   }
-  /* Le texte démarre en haut : le surtitre occupe la bande de la constellation, à sa gauche,
-     et le grand titre commence juste en dessous (aucun vide, aucun chevauchement) */
+  /* Le texte démarre en haut ; le surtitre est posé juste au-dessus du grand titre */
   .content {
     min-height: 100svh;
     justify-content: flex-start;
@@ -154,6 +153,7 @@
   }
   .eyebrow {
     min-height: var(--cst-h);
+    justify-content: flex-end;
     margin-bottom: 14px;
   }
   .h2 {
@@ -162,11 +162,9 @@
   .text {
     max-width: 560px;
   }
-  /* Constellation réduite, dans l'espace vide en haut à droite : elle ne passe plus sur le texte */
+  /* Pas de sigle flottant sur mobile et tablette */
   .constellation {
-    inset: 80px var(--gut) auto auto;
-    width: min(50vw, 360px);
-    height: var(--cst-h);
+    display: none;
   }
 }
 @media (max-width: 767px) {

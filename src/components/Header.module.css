@@ -501,16 +501,16 @@
 }
 .mobileSub .listCols {
   grid-template-columns: 1fr;
-  gap: 18px;
+  gap: 0;
 }
 .mobileSub .list {
-  padding: 4px 0 22px 34px;
+  row-gap: 0;
+  padding: 2px 0 16px 34px;
 }
 .mobileSub .subLink,
 .mobileSub .list .subLink {
-  /* cible tactile d'environ 44 px */
-  padding: 11px 0;
-  font-size: 20px;
+  padding: 6px 0;
+  font-size: 16px;
 }
 .mobileSub li {
   opacity: 1;
