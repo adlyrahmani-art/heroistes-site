@@ -1,0 +1,588 @@
+{
+  "_createdAt": "2026-10-29T17:55:59Z",
+  "_id": "homePage",
+  "_rev": "UNWnf6bKah51NTCe7T758D",
+  "_system": {
+    "base": {
+      "id": "homePage",
+      "rev": "KjsNkDWRo4QQsuwuGOqjCL"
+    }
+  },
+  "_type": "homePage",
+  "_updatedAt": "2026-11-11T22:27:00Z",
+  "besoins": {
+    "intro": "**Un bon accompagnement** commence par le bon objectif.\nPlus de leads, un site qui convertit, une marque claire, une meilleure visibilité : choisissez votre priorité parmi ces six objectifs. Nous démarrons par elle, sans bousculer vos partenaires actuels.",
+    "items": [
+      {
+        "_key": "besoin-1",
+        "href": "/developpement-commercial/generation-leads/",
+        "image": {
+          "_type": "imageWithAlt",
+          "alt": "Je manque de leads",
+          "asset": {
+            "_ref": "image-15af083f17b292800eea3df669f5555fe6742180-845x387-jpg",
+            "_type": "reference"
+          }
+        },
+        "offer": "Génération de leads",
+        "text": "Donnez à vos commerciaux des contacts prêts à échanger. Nous activons les canaux adaptés à vos acheteurs pour **générer plus de leads qualifiés**.",
+        "title": "Je veux plus de leads qualifiés"
+      },
+      {
+        "_key": "besoin-2",
+        "href": "/digital/site-institutionnel/",
+        "image": {
+          "_type": "imageWithAlt",
+          "alt": "Mon site ne génère aucune demande",
+          "asset": {
+            "_ref": "image-dd0d90f95e67ecd9d59b36d69f99c8fe1ac23f0f-845x387-jpg",
+            "_type": "reference"
+          }
+        },
+        "offer": "Site institutionnel",
+        "text": "Faites de vos visites des appels et des formulaires envoyés. Nous repensons vos pages pour obtenir **un site qui transforme vos visiteurs en contacts**.",
+        "title": "Je veux un site qui génère des demandes"
+      },
+      {
+        "_key": "besoin-3",
+        "href": "/branding/plateforme-de-marque/",
+        "image": {
+          "_type": "imageWithAlt",
+          "alt": "Ma marque n’est pas claire",
+          "asset": {
+            "_ref": "image-d026dd6549b9037f77c1a801ba7cb063ae06a639-845x387-jpg",
+            "_type": "reference"
+          }
+        },
+        "offer": "Plateforme de marque",
+        "text": "Un même discours dans toute l’entreprise, compris dès le premier contact. Nous vous aidons à **clarifier votre positionnement de marque** pour de bon.",
+        "title": "Je veux une marque claire"
+      },
+      {
+        "_key": "besoin-4",
+        "href": "/conseil/audit-diagnostic-commercial/",
+        "image": {
+          "_type": "imageWithAlt",
+          "alt": "Mes ventes plafonnent",
+          "asset": {
+            "_ref": "image-95d92b2f202484b53b1e4070cf7ba5ad11b463f4-845x387-jpg",
+            "_type": "reference"
+          }
+        },
+        "offer": "Audit commercial",
+        "text": "Donnez plus d’impact à l’énergie de vos équipes. Notre audit commercial permet d’**identifier vos leviers de croissance**, puis d’agir.",
+        "title": "Je veux relancer mes ventes"
+      },
+      {
+        "_key": "besoin-5",
+        "href": "/acquisition/seo/",
+        "image": {
+          "_type": "imageWithAlt",
+          "alt": "On ne nous trouve ni sur Google ni dans les IA",
+          "asset": {
+            "_ref": "image-e775bd84ea6d2b6e7be14234c3a54c933c608401-845x387-jpg",
+            "_type": "reference"
+          }
+        },
+        "offer": "SEO",
+        "text": "Apparaissez là où vos acheteurs vous cherchent. Nous travaillons votre SEO et votre GEO pour **être visible sur Google et dans les IA**.",
+        "title": "Je veux être visible sur Google et dans les IA"
+      },
+      {
+        "_key": "besoin-6",
+        "href": "/acquisition/tracking-analytics/",
+        "image": {
+          "_type": "imageWithAlt",
+          "alt": "Je ne sais pas ce qui rapporte",
+          "asset": {
+            "_ref": "image-cc2ac0daaafddc93f1c697625a95a22061d9b92e-845x387-jpg",
+            "_type": "reference"
+          }
+        },
+        "offer": "Web analytics",
+        "text": "Publicité, salons, réseaux sociaux : sachez où investir. Nous installons un suivi pour **mesurer ce que rapporte chaque canal**.",
+        "title": "Je veux savoir ce qui rapporte"
+      }
+    ],
+    "title": "Vos besoins, nos solutions"
+  },
+  "blog": {
+    "cta": {
+      "href": "/blog/",
+      "label": "Tous nos articles"
+    },
+    "title": [
+      "Blog",
+      "Nos dernières",
+      "publications"
+    ]
+  },
+  "casClients": {
+    "cases": [
+      {
+        "_key": "cas-praneo",
+        "_ref": "caseStudy-praneo",
+        "_type": "reference"
+      },
+      {
+        "_key": "cas-rezo-partage",
+        "_ref": "caseStudy-rezo-partage",
+        "_type": "reference"
+      },
+      {
+        "_key": "cas-isere-habitat",
+        "_ref": "caseStudy-isere-habitat",
+        "_type": "reference"
+      }
+    ],
+    "cta": {
+      "href": "/cas-clients/",
+      "label": "Voir nos cas clients"
+    },
+    "image": {
+      "_type": "imageWithAlt",
+      "alt": "Bureau d’agence : écran affichant une carte, documents et affiches au mur",
+      "asset": {
+        "_ref": "image-cc589074ebb7b76f589da1999ceabfa15848b17c-536x321-jpg",
+        "_type": "reference"
+      }
+    },
+    "intro": "Découvrez les derniers projets menés par l’agence, **toujours avec un objectif de résultat et de ROI**, répondant à des enjeux précis avec l’expertise la mieux adaptée pour les traiter.",
+    "title": [
+      "Nos cas clients.",
+      "Modestement."
+    ]
+  },
+  "contactLead": {
+    "lead": [
+      "Et vous,",
+      "c’est pour quand ?"
+    ]
+  },
+  "engagements": [
+    {
+      "_key": "engagement-1",
+      "ghost": "Mission",
+      "image": {
+        "_type": "imageWithAlt",
+        "alt": "Jeune homme de dos montant les marches d’un passage souterrain vers la lumière",
+        "asset": {
+          "_ref": "image-ae12cc68c43aac158b77fade0b03c4c2925ce293-1072x642-jpg",
+          "_type": "reference"
+        }
+      },
+      "side": "left",
+      "text": "**Aider les PME et les ETI à se développer** en faisant du canal digital le levier d’acquisition stratégique, et leur permettre d’atteindre une croissance qui dure, année après année.",
+      "title": [
+        "Notre",
+        "mission"
+      ]
+    },
+    {
+      "_key": "engagement-2",
+      "ghost": "Moyens",
+      "image": {
+        "_type": "imageWithAlt",
+        "alt": "Mains de plusieurs personnes réunies les unes sur les autres",
+        "asset": {
+          "_ref": "image-ebb2b3674663fde0119012ca5890821cdb133e2c-1072x642-jpg",
+          "_type": "reference"
+        }
+      },
+      "side": "right",
+      "text": "**Tout mettre en œuvre pour réussir ensemble** à atteindre votre ROI et faire exploser le plafond de verre de l’acquisition et du pipeline commercial de votre société.",
+      "title": [
+        "L’obligation",
+        "de moyens"
+      ]
+    },
+    {
+      "_key": "engagement-3",
+      "ghost": "Conseil",
+      "image": {
+        "_type": "imageWithAlt",
+        "alt": "Deux collègues échangent en marchant, un café à la main",
+        "asset": {
+          "_ref": "image-ade21e5023c75a7a952ccb34a2eb6b1551cdacc4-1072x642-jpg",
+          "_type": "reference"
+        }
+      },
+      "side": "left",
+      "text": "Au travers d’une **approche globale et transverse**, pour assurer que l’ensemble des dispositifs et des investissements média soit réalisé avec clairvoyance et efficience.",
+      "title": [
+        "Le devoir",
+        "du conseil"
+      ]
+    },
+    {
+      "_key": "engagement-4",
+      "ghost": "Valeurs",
+      "image": {
+        "_type": "imageWithAlt",
+        "alt": "Groupe d’amis de dos, bras sur les épaules les uns des autres",
+        "asset": {
+          "_ref": "image-b92d69f8fa5b43ab7a004838f5ca65e5fce04451-1072x642-jpg",
+          "_type": "reference"
+        }
+      },
+      "side": "right",
+      "text": "**Travailler toujours avec respect, bienveillance et intégrité.**\nTout mettre en œuvre pour que nos relations soient saines et durables.\nTravailler sérieusement, sans se prendre au sérieux.",
+      "title": [
+        "Ne pas",
+        "transiger sur",
+        "nos valeurs"
+      ]
+    },
+    {
+      "_key": "engagement-5",
+      "_type": "engagement",
+      "ghost": "Veille",
+      "image": {
+        "_type": "imageWithAlt",
+        "alt": "Jeune homme observant la ville aux jumelles",
+        "asset": {
+          "_ref": "image-cfa8645ebfad5829e5d74eda8bf22dc7a8874419-1072x642-jpg",
+          "_type": "reference"
+        }
+      },
+      "side": "left",
+      "text": "Vous faire bénéficier de **15 ans d’expérience dans le marketing digital**, acquise auprès de grands groupes, et vous apporter tout le benchmark et la veille concurrentielle et technologique au service de vos enjeux business.",
+      "title": [
+        "15 ans",
+        "d’expérience"
+      ]
+    },
+    {
+      "_key": "engagement-6",
+      "_type": "engagement",
+      "ghost": "Mesure",
+      "image": {
+        "_type": "imageWithAlt",
+        "alt": "Coureur en position de départ sur une place pavée",
+        "asset": {
+          "_ref": "image-3e3454c2efa74a9abf1116371bc83739e2870ab4-1072x642-jpg",
+          "_type": "reference"
+        }
+      },
+      "side": "right",
+      "text": "**Chaque investissement doit avoir un impact, et cet impact doit être mesuré.** Les KPI ne sont que des indicateurs pour matérialiser la rentabilité de nos collaborations sur votre business.",
+      "title": [
+        "La culture",
+        "de la mesure",
+        "et du résultat"
+      ]
+    }
+  ],
+  "engagementsTitle": "Nos engagements",
+  "expertises": {
+    "cards": [
+      {
+        "_key": "strategie-1",
+        "lead": "Écoute active et compréhension fine de vos enjeux business et de votre environnement technique.",
+        "text": "Définition d’une ambition partagée et élaboration d’une feuille de route claire pour répondre à vos défis grâce à des objectifs ambitieux, mais réalistes. Un regard extérieur et précieux, de dirigeant à dirigeant.",
+        "title": [
+          "Conseil"
+        ]
+      },
+      {
+        "_key": "strategie-2",
+        "lead": "Décloisonner le monde du marketing et du business.",
+        "link": null,
+        "text": "Construire une stratégie et des dispositifs sur mesure avec vos équipes pour alimenter la génération de leads et la prise de rendez-vous. Démultiplier votre potentiel et faire exploser le plafond de verre de votre chiffre d’affaires.",
+        "title": [
+          "Développement",
+          "commercial"
+        ]
+      },
+      {
+        "_key": "strategie-3",
+        "lead": "Construire la bonne image sur votre marché, au regard de votre identité, de votre business et de vos interlocuteurs.",
+        "link": null,
+        "text": "Formaliser votre posture et maîtriser vos prises de parole sur l’ensemble des territoires d’expression de votre entreprise.",
+        "title": [
+          "Branding",
+          "et contenu"
+        ]
+      },
+      {
+        "_key": "deploiement-1",
+        "lead": "La technologie au service de l’usage : tel est notre mantra.",
+        "link": null,
+        "text": "Garantir une expérience utilisateur réussie à chaque point de contact, en parfaite cohérence avec le positionnement de votre entreprise. Proposer un parcours fiable et sans couture pour assurer des acquisitions qualifiées, sans friction et les plus efficaces possible.",
+        "title": [
+          "Digital",
+          "Experience"
+        ]
+      },
+      {
+        "_key": "deploiement-2",
+        "lead": "SEO, GEO, publicité en ligne sur Google Ads et LinkedIn, marketing automation : nous pilotons tout votre webmarketing, jusque dans les moteurs d’intelligence artificielle.",
+        "text": "Pour une acquisition client maîtrisée, nous vous aidons à structurer votre acquisition digitale.",
+        "title": [
+          "Acquisition",
+          "et performance"
+        ]
+      },
+      {
+        "_key": "deploiement-3",
+        "lead": "Nous travaillons principalement sur la sécurité de vos e-mails, ainsi que sur la sécurité informatique de votre site Internet et de vos outils.",
+        "link": null,
+        "text": "Un service DSI externalisé pour vous permettre de sécuriser vos actifs numériques.",
+        "title": [
+          "Cybersécurité"
+        ]
+      }
+    ],
+    "heading": "Nos expertises",
+    "image": {
+      "_type": "imageWithAlt",
+      "alt": "Machine à écrire en gros plan",
+      "asset": {
+        "_ref": "image-c6c8d6d16f07d694073b2a86baa4a1d1a8cbbb6c-535x581-jpg",
+        "_type": "reference"
+      }
+    },
+    "intro": "Une agence qui fait tout ne fait rien à fond ?\n**Chez Héroïstes, chaque pôle a ses propres spécialistes.**\nLes trois premiers posent la stratégie, les trois suivants la déploient, et tous travaillent sur le même dossier : le vôtre.",
+    "title": [
+      "Six expertises",
+      "transverses"
+    ]
+  },
+  "faq": {
+    "items": [
+      {
+        "_key": "faq-1",
+        "answer": "Une agence marketing B2B commence par trouver où se bloquent vos ventes, puis mobilise les bons leviers pour générer des leads qualifiés. Prenons un fabricant qui reçoit des visites mais peu de devis : l’agence analyse son parcours, revoit les pages clés, cible les acheteurs de son secteur et suit chaque demande jusqu’à la vente.",
+        "question": "Que fait concrètement une agence marketing B2B ?"
+      },
+      {
+        "_key": "faq-2",
+        "answer": "En B2B, vous vendez à une entreprise : le montant est plus élevé, le cycle plus long et la décision partagée entre plusieurs personnes. Le B2C joue davantage sur l’émotion et l’impulsion. Il faut donc d’abord rassurer, prouver son expertise et soigner la fidélisation client, d’où l’intérêt d’une agence marketing BtoB habituée à ces parcours.",
+        "question": "Quelle différence entre le marketing B2B et le B2C ?"
+      },
+      {
+        "_key": "faq-3",
+        "answer": "Commencez par définir vos cibles prioritaires et votre positionnement, puis choisissez deux ou trois canaux adaptés à vos acheteurs plutôt que d’être partout. Fixez des objectifs mesurables, partagés avec les commerciaux, et suivez les résultats dans votre CRM. Quand marketing et ventes partagent les mêmes indicateurs, aucun lead ne se perd entre les deux équipes.",
+        "question": "Comment structurer son marketing quand on vend aux entreprises ?"
+      },
+      {
+        "_key": "faq-4",
+        "answer": "Il n’existe pas de canal miracle : tout dépend de votre cible et du rythme de vos ventes. Le marketing de contenu et le SEO attirent des prospects en recherche, LinkedIn et Google Ads accélèrent la visibilité, le marketing automation entretient le lien. Combinés en inbound marketing, ces leviers offrent le meilleur retour sur investissement.",
+        "question": "Quel marketing est le plus efficace pour trouver des clients professionnels ?"
+      },
+      {
+        "_key": "faq-5",
+        "answer": "Ce sont avant tout des entreprises, le plus souvent des PME et des ETI, mais aussi des grands comptes et des administrations. Pour les atteindre, identifiez les décideurs, comprenez leurs priorités et soyez présent là où ils s’informent : Google, assistants d’IA, LinkedIn, salons professionnels. Votre message doit parler de leur problème avant votre offre.",
+        "question": "Qui sont les clients B2B et comment les atteindre ?"
+      }
+    ],
+    "title": [
+      "Vos questions,",
+      "nos réponses"
+    ]
+  },
+  "hero": {
+    "ctaPrimary": {
+      "href": "#contact",
+      "label": "Devenez un héros du R.O.I"
+    },
+    "ctaSecondary": {
+      "href": "#expertises",
+      "label": "Découvrez nos expertises"
+    },
+    "eyebrow": [],
+    "highlight": "R.O.I",
+    "image": {
+      "_type": "imageWithAlt",
+      "alt": "Photographie d’ambiance de l’agence Héroïstes",
+      "asset": {
+        "_ref": "image-5ebe6988df07d32fe6f470342e6b1a03e253dd3f-1920x1080-jpg",
+        "_type": "reference"
+      }
+    },
+    "subtitle": "du",
+    "text": "L’agence marketing jugée **sur vos ventes**",
+    "titleLines": [
+      "Héros"
+    ]
+  },
+  "language": "fr",
+  "logosBand": {
+    "clients": [
+      {
+        "_key": "logo-1",
+        "_type": "imageWithAlt",
+        "alt": "Carpigiani",
+        "asset": {
+          "_ref": "image-757a3bdea218fa58d8e460bd64322c42007051e6-173x74-png",
+          "_type": "reference"
+        }
+      },
+      {
+        "_key": "logo-2",
+        "_type": "imageWithAlt",
+        "alt": "Pranéo",
+        "asset": {
+          "_ref": "image-e3025f2be38b82dd22d3e743df0e148ad57ac3ce-126x126-png",
+          "_type": "reference"
+        }
+      },
+      {
+        "_key": "logo-3",
+        "_type": "imageWithAlt",
+        "alt": "Arkolia",
+        "asset": {
+          "_ref": "image-9cbcdb92697f26528f54780f5fa24846853395d5-188x82-png",
+          "_type": "reference"
+        }
+      },
+      {
+        "_key": "logo-4",
+        "_type": "imageWithAlt",
+        "alt": "Isère Habitat",
+        "asset": {
+          "_ref": "image-76beb28a6c2c8fa3acab666ec59003900480311b-154x146-png",
+          "_type": "reference"
+        }
+      },
+      {
+        "_key": "logo-5",
+        "_type": "imageWithAlt",
+        "alt": "Beauchamp",
+        "asset": {
+          "_ref": "image-b95451f1c188a7a1d04d58953374a8642c775f3b-210x49-png",
+          "_type": "reference"
+        }
+      },
+      {
+        "_key": "logo-6",
+        "_type": "imageWithAlt",
+        "alt": "Isotac",
+        "asset": {
+          "_ref": "image-92179d2eabf10af35ebf185481a0518634e8f929-147x26-png",
+          "_type": "reference"
+        }
+      },
+      {
+        "_key": "logo-7",
+        "_type": "imageWithAlt",
+        "alt": "Rezo Partage",
+        "asset": {
+          "_ref": "image-a826450da3ce6bbc4f6f0239776ae82ab6041ece-176x135-png",
+          "_type": "reference"
+        }
+      }
+    ],
+    "text": "Ils nous confient déjà leur croissance, de la stratégie aux campagnes."
+  },
+  "plan": {
+    "cta": {
+      "href": "/contact/",
+      "label": "Discutons de votre projet"
+    },
+    "intro": "Combien de plans marketing ne dépassent jamais le stade du document ? Une agence B2B ne devrait pas s’arrêter au conseil.\nChez Héroïstes, les mêmes équipes conçoivent le plan, le déploient, puis répondent de ses résultats.",
+    "outro": [
+      "C’est tout le sens de notre signature, le Héros du R.O.I. Nous savons ce que produit chaque action : ce qui fait avancer vos ventes est renforcé, le reste est corrigé ou arrêté.",
+      "Les objectifs sont fixés avec vous dès le départ, et nous faisons le point ensemble à chaque étape. Vous restez libre : on peut commencer par un seul besoin, puis aller plus loin quand vous êtes convaincu."
+    ],
+    "steps": [
+      {
+        "_key": "etape-1",
+        "image": {
+          "_type": "imageWithAlt",
+          "alt": "Partie d’échecs géants sur une place",
+          "asset": {
+            "_ref": "image-fd810b17cb01ffd18e2a6db8f1b42a5b4161e8e9-625x543-jpg",
+            "_type": "reference"
+          }
+        },
+        "text": "Tout commence par un diagnostic de vos ventes, de votre marché et de votre marque. Avec vous, nous fixons cibles prioritaires, positionnement et objectifs commerciaux, puis une feuille de route : quelles actions, dans quel ordre, avec quel budget.",
+        "title": [
+          "Définir la stratégie"
+        ]
+      },
+      {
+        "_key": "etape-2",
+        "image": {
+          "_type": "imageWithAlt",
+          "alt": "Compteur à aiguille sur un tableau de bord ancien",
+          "asset": {
+            "_ref": "image-da957718dea8f0977cb533ce7335b74a47ffe3f6-625x543-jpg",
+            "_type": "reference"
+          }
+        },
+        "text": "Nos équipes déploient ensuite le plan : prospection, site web, contenus, campagnes Google Ads ou LinkedIn, marketing automation.\nAucun passage de relais entre prestataires. Chaque action est tracée jusque dans votre CRM, et nos rapports parlent de leads et de ventes.",
+        "title": [
+          "La mettre en œuvre",
+          "et la mesurer"
+        ]
+      }
+    ],
+    "subtitle": "Comment passer du plan aux résultats ?",
+    "title": "Agence marketing B2B :"
+  },
+  "pourquoi": {
+    "cta": {
+      "href": "/agence/",
+      "label": "Découvrez l’agence Héroïstes"
+    },
+    "intro": "**Vendre à une entreprise ne ressemble en rien à vendre à un particulier**.\nLes recettes du marketing grand public y fonctionnent mal, et une agence généraliste le découvre souvent trop tard. Trois réalités changent la donne :",
+    "items": [
+      {
+        "_key": "pourquoi-1",
+        "image": {
+          "_type": "imageWithAlt",
+          "alt": "Longue route droite qui file vers l’horizon",
+          "asset": {
+            "_ref": "image-86b4c01680e521a2ef539950179149aaacc6291d-317x542-jpg",
+            "_type": "reference"
+          }
+        },
+        "text": "Entre le premier contact et la signature, il s’écoule souvent des mois. **Vos prospects doivent trouver le bon contenu** à chaque étape, sans relance maladroite.",
+        "title": [
+          "Un cycle de",
+          "vente long"
+        ]
+      },
+      {
+        "_key": "pourquoi-2",
+        "image": {
+          "_type": "imageWithAlt",
+          "alt": "Homme devant un mur couvert de portraits épinglés",
+          "asset": {
+            "_ref": "image-512facc4fec4a4bfb2ed3018954d55613a85cf50-317x542-jpg",
+            "_type": "reference"
+          }
+        },
+        "text": "**Dirigeant, acheteur, direction technique** : chacun juge votre offre avec ses propres critères. Votre discours doit rassurer chacun d’eux, sans jamais en oublier un seul.",
+        "title": [
+          "Plusieurs",
+          "décideurs à",
+          "convaincre"
+        ]
+      },
+      {
+        "_key": "pourquoi-3",
+        "image": {
+          "_type": "imageWithAlt",
+          "alt": "Téléphone public couvert de graffitis",
+          "asset": {
+            "_ref": "image-d98a316a1226f15c0187055d14e247d771168b8c-317x542-jpg",
+            "_type": "reference"
+          }
+        },
+        "text": "Quand le marketing envoie des contacts que vos commerciaux jugent inutiles, tout le monde perd. **Une logique RevOps donne les mêmes objectifs aux deux équipes.**",
+        "title": [
+          "Des ventes et",
+          "un marketing",
+          "à aligner"
+        ]
+      }
+    ],
+    "outro": "Nos associés cumulent 15 ans d’expérience en marketing et en développement commercial. Ils ont fondé Héroïstes pour mettre ce savoir-faire au service des dirigeants qui veulent des résultats concrets.",
+    "title": [
+      "Pourquoi choisir une",
+      "agence spécialisée en B2B ?"
+    ]
+  }
+}
