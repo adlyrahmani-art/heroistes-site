@@ -68,6 +68,11 @@ export default function Expertises({ expertises, doc }: { expertises: Expertises
               <span>{l}</span>
             </span>
           ))}
+          {expertises.subtitle && (
+            <span className={`${styles.ln} ${styles.subtitle}`}>
+              <span>{expertises.subtitle}</span>
+            </span>
+          )}
           <span className={styles.bar} aria-hidden="true" />
         </h2>
       </div>

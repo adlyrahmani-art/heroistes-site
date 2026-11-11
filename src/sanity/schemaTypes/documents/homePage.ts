@@ -97,7 +97,8 @@ export const homePage = defineType({
       ]),
     ]),
     section("expertises", "Expertises", [
-      sig("title", "Titre", { maxLines: 4, maxChars: 24 }),
+      sig("title", "Titre", { maxLines: 2, maxChars: 24 }),
+      str("subtitle", "Sous-titre (une ligne, plus petit)", 40, true),
       str("heading", "Intitulé"),
       txt("intro", "Introduction", BOLD_HINT),
       img("image", "Image"),
@@ -144,7 +145,7 @@ export const homePage = defineType({
       btn("cta", "Bouton"),
     ]),
     section("casClients", "Cas clients", [
-      sig("title", "Titre", { maxLines: 4, maxChars: 17 }),
+      sig("title", "Titre", { maxLines: 3, maxChars: 17 }),
       txt("intro", "Introduction", BOLD_HINT),
       img("image", "Image"),
       defineField({

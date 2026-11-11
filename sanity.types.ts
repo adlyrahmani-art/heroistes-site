@@ -297,6 +297,7 @@ export type HomePage = {
   };
   expertises?: {
     title?: Array<string>;
+    subtitle?: string;
     heading?: string;
     intro?: string;
     image?: ImageWithAlt;
@@ -706,6 +707,7 @@ export type HOME_QUERY_RESULT = {
   } | null;
   expertises: {
     title?: Array<string>;
+    subtitle?: string;
     heading?: string;
     intro?: string;
     image: {
