@@ -2,7 +2,7 @@ import { expect, test, type Page } from "@playwright/test";
 
 test("accueil : hero et 3 cas clients", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator("#hero-title")).toContainText("L’agence");
+  await expect(page.locator("#hero-title")).toContainText("Héros");
   await expect(page.locator("#cas-clients article[data-slide]")).toHaveCount(3);
 });
 

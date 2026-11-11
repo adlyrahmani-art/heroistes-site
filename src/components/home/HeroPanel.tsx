@@ -23,24 +23,28 @@ export default function HeroPanel({ hero }: { hero: HeroData }) {
       <div className="fx-grain" aria-hidden="true" />
 
       <div className={styles.content}>
-        <p className={styles.eyebrow}>
-          {hero.eyebrow?.map((w, i) => (
-            <span key={i} className={styles.ln}>
-              <span style={delay(i)}>{w}</span>
-            </span>
-          ))}
-        </p>
+        {!!hero.eyebrow?.length && (
+          <p className={styles.eyebrow}>
+            {hero.eyebrow.map((w, i) => (
+              <span key={i} className={styles.ln}>
+                <span style={delay(i)}>{w}</span>
+              </span>
+            ))}
+          </p>
+        )}
         <h1 id="hero-title" className={styles.title}>
           {hero.titleLines?.map((l, i) => (
             <span key={i} className={`${styles.ln} ${styles.h1}`}>
               <span style={delay(i + 2)}>{l}</span>
             </span>
           ))}
-          <span className={`${styles.ln} ${styles.h2}`}>
-            <span style={delay(4)}>
-              {hero.subtitle} <span className={styles.hl}>{hero.highlight}</span>
+          {(hero.subtitle || hero.highlight) && (
+            <span className={`${styles.ln} ${styles.h2}`}>
+              <span style={delay(4)}>
+                {hero.subtitle} {hero.highlight && <span className={styles.hl}>{hero.highlight}</span>}
+              </span>
             </span>
-          </span>
+          )}
         </h1>
         <p className={`${styles.text} ${styles.fade}`} style={delay(6)}>
           <RichText text={hero.text ?? ""} />

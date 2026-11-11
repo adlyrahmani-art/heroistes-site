@@ -3,7 +3,7 @@
 
 export type NavLink = { label: string; href: string };
 /** Clés des libellés de 1er niveau dans les Réglages (siteSettings.navLabels) */
-export type NavKey = "expertises" | "casClients" | "agence" | "contact";
+export type NavKey = "casClients" | "agence" | "contact";
 export type NavLabels = Partial<Record<NavKey, string | null | undefined>>;
 export type NavItem = {
   /** Clé du libellé éditable dans les Réglages */
@@ -17,41 +17,8 @@ export type NavItem = {
   pitch?: string;
 };
 
-const slug = (s: string) =>
-  s
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .toLowerCase()
-    .replace(/&/g, "et")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-
-const links = (base: string, labels: string[]): NavLink[] =>
-  labels.map((label) => ({ label, href: `${base}${slug(label)}/` }));
-
 export const navigation: NavItem[] = [
-  // Sans sous-menu : deviendra une page entière
-  { key: "expertises", label: "Expertises", href: "#expertises" },
-  {
-    key: "casClients",
-    label: "Cas clients",
-    href: "#cas-clients",
-    pitch: "Des projets menés pour nos clients, chacun en réponse à un enjeu précis.",
-    links: links("/cas-clients/", [
-      "Pranéo",
-      "Carpigiani",
-      "Beauchamp",
-      "Rezo Partage",
-      "Bioport",
-      "Isère Habitat",
-      "Arkolia",
-      "Air DDM",
-      "Orrizzon",
-      "Peektoria",
-      "Isotac",
-      "Minos",
-    ]),
-  },
+  { key: "casClients", label: "Cas clients", href: "#cas-clients" },
   { key: "agence", label: "L’agence", href: "/agence/" },
   { key: "contact", label: "Contact", href: "#contact" },
 ];

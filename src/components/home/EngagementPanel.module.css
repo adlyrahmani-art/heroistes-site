@@ -81,12 +81,18 @@
   flex-direction: column;
   gap: calc(20 * var(--u));
 }
+/* Le haut des photos est fixe (texte de 3 lignes sur la maquette) : un texte plus long monte au-dessus */
+.body {
+  --fs: max(14px, calc(16.5 * var(--u)));
+  bottom: calc(100% - 328 * var(--uy) - 4.35 * var(--fs) - 20 * var(--u) - 321 * var(--u));
+}
 .titleLeft .body {
-  top: calc(328 * var(--uy));
   left: calc(50% + 17 * var(--u));
 }
+.text {
+  white-space: pre-line;
+}
 .titleRight .body {
-  top: calc(328 * var(--uy));
   right: calc(50% + 16 * var(--u));
   align-items: flex-end;
   text-align: right;
@@ -94,7 +100,6 @@
 /* Largeur en em (suit la taille du texte) et hauteur réservée : trois lignes, photos alignées d'un engagement à l'autre */
 .text {
   width: 20.5em;
-  min-height: calc(3 * 1.45em);
   font-size: max(14px, calc(16.5 * var(--u)));
   line-height: 1.45;
 }

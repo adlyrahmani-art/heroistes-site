@@ -51,18 +51,18 @@ export const homePage = defineType({
   fields: [
     languageField,
     section("hero", "Hero", [
-      sig("eyebrow", "Sur-titre", { maxLines: 3, maxChars: 12 }),
+      sig("eyebrow", "Sur-titre", { maxLines: 3, maxChars: 12 }, true),
       sig("titleLines", "Titre", { maxLines: 2, maxChars: 14 }),
-      str("subtitle", "Sous-titre", 16),
-      str("highlight", "Mot mis en avant", 10),
+      str("subtitle", "Sous-titre", 16, true),
+      str("highlight", "Mot mis en avant", 10, true),
       txt("text", "Texte", BOLD_HINT),
       btn("ctaPrimary", "Bouton principal"),
       btn("ctaSecondary", "Bouton secondaire"),
       img("image", "Image (photo WebGL)"),
     ]),
     str("engagementsTitle", "Titre des engagements", 20),
-    fixedList("engagements", "Engagements", 4, "engagement", [
-      sig("title", "Titre", { maxLines: 2, maxChars: 14 }),
+    fixedList("engagements", "Engagements", 6, "engagement", [
+      sig("title", "Titre", { maxLines: 3, maxChars: 16 }),
       str("ghost", "Mot en filigrane", 8),
       txt("text", "Texte", BOLD_HINT),
       img("image", "Image"),
@@ -97,7 +97,7 @@ export const homePage = defineType({
       ]),
     ]),
     section("expertises", "Expertises", [
-      sig("title", "Titre", { maxLines: 2, maxChars: 24 }),
+      sig("title", "Titre", { maxLines: 4, maxChars: 24 }),
       str("heading", "Intitulé"),
       txt("intro", "Introduction", BOLD_HINT),
       img("image", "Image"),
@@ -144,7 +144,7 @@ export const homePage = defineType({
       btn("cta", "Bouton"),
     ]),
     section("casClients", "Cas clients", [
-      sig("title", "Titre", { maxLines: 3, maxChars: 17 }),
+      sig("title", "Titre", { maxLines: 4, maxChars: 17 }),
       txt("intro", "Introduction", BOLD_HINT),
       img("image", "Image"),
       defineField({
