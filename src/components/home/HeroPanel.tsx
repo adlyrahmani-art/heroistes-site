@@ -54,7 +54,7 @@ export default function HeroPanel({ hero }: { hero: HeroData }) {
             <a href={clean(hero.ctaPrimary.href)} className="btn btn-primary">{hero.ctaPrimary.label}</a>
           )}
           {hero.ctaSecondary && (
-            <a href={clean(hero.ctaSecondary.href)} className="btn btn-light">{hero.ctaSecondary.label}</a>
+            <a href={clean(hero.ctaSecondary.href)} className={`btn btn-light ${styles.ghost}`}>{hero.ctaSecondary.label}</a>
           )}
         </div>
       </div>
