@@ -130,7 +130,12 @@
   transition: opacity var(--dur-s), border-color var(--dur-m);
 }
 /* Survol, sous-menu ouvert = même état que le lien actif (« Accueil ») */
-.topLink:hover,
+/* Entrée sans page pour l'instant : visible, sans effet de lien */
+.topLink[aria-disabled="true"],
+.mobileLink[aria-disabled="true"] {
+  cursor: default;
+}
+.topLink:not([aria-disabled]):hover,
 .topLink:focus-visible,
 .current,
 .topLink[aria-current="page"] {

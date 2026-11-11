@@ -126,7 +126,8 @@ export default function Header({
                   onFocus={() => (hasSub ? openMenu(i) : setActive(null))}
                 >
                   <a
-                    href={to(item.href)}
+                    href={item.href ? to(item.href) : undefined}
+                    aria-disabled={item.href ? undefined : true}
                     className={`${styles.topLink} ${isOpen ? styles.current : ""}`}
                     onClick={navigate}
                   >
@@ -145,7 +146,7 @@ export default function Header({
                           <span className={styles.megaNum}>{num(i)}</span>
                           <p className={styles.megaTitle}>{labelOf(item)}</p>
                           {item.pitch && <p className={styles.megaPitch}>{item.pitch}</p>}
-                          <a href={to(item.href)} className={styles.megaAll} onClick={navigate}>
+                          <a href={to(item.href ?? "")} className={styles.megaAll} onClick={navigate}>
                             Tout voir <span aria-hidden="true">→</span>
                           </a>
                         </div>
@@ -186,7 +187,12 @@ export default function Header({
             return (
               <li key={item.label} style={{ "--k": i } as React.CSSProperties} className={subOpen ? styles.subOpen : ""}>
                 <div className={styles.mobileRow}>
-                  <a href={to(item.href)} className={styles.mobileLink} onClick={navigate}>
+                  <a
+                    href={item.href ? to(item.href) : undefined}
+                    aria-disabled={item.href ? undefined : true}
+                    className={styles.mobileLink}
+                    onClick={navigate}
+                  >
                     <i>{num(i)}</i>
                     {labelOf(item)}
                   </a>
