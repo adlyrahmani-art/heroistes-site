@@ -18,14 +18,14 @@
 .titlePanel {
   display: flex;
   align-items: center;
-  padding-left: calc(80 * var(--u));
+  padding-left: calc(188 * var(--u));
 }
 .title {
   display: inline-flex;
   flex-direction: column;
   font-family: var(--font-display);
   text-transform: uppercase;
-  /* même taille que « Nos engagements » et « Et vous, c’est pour quand ? » ; tient sur une ligne */
+  /* même taille que « Nos engagements » et « Et vous, c’est pour quand ? » */
   font-size: max(40px, calc(128 * 100vw / 1920));
   line-height: 1;
   letter-spacing: -0.03em;
