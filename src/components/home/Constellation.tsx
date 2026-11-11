@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 // Tracé de la maquette « Section1 - Option2 » (repère 1920 × 1080).
-// Le point 2 est le coude sans pastille ; les 4 autres sont les nœuds turquoise.
+// Chaque point porte une pastille turquoise, coude compris (maquette « Section1 -Header new »).
 const POINTS: [number, number][] = [
   [1801, 223],
   [1248, 479],
@@ -12,7 +12,7 @@ const POINTS: [number, number][] = [
   [1243, 936],
   [1599, 769],
 ];
-const DOTS = [0, 1, 3, 4];
+const DOTS = [0, 1, 2, 3, 4];
 // Mobile et tablette portrait : cadrage resserré sur la forme (placée dans l'espace vide en haut
 // de la lame), pastilles agrandies pour rester visibles à cette échelle
 const VIEW_COMPACT = "1150 140 740 880";
