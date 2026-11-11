@@ -18,21 +18,23 @@
 .titlePanel {
   display: flex;
   align-items: center;
-  padding-left: calc(188 * var(--u));
+  padding-left: calc(80 * var(--u));
 }
 .title {
   display: inline-flex;
   flex-direction: column;
   font-family: var(--font-display);
   text-transform: uppercase;
-  font-size: max(40px, calc(150 * var(--u)));
+  /* même taille que « Nos engagements » et « Et vous, c’est pour quand ? » ; tient sur une ligne */
+  font-size: max(40px, calc(128 * 100vw / 1920));
   line-height: 1;
   letter-spacing: -0.03em;
+  white-space: nowrap;
 }
 /* Sous-titre : une ligne, plus petit, sous le titre principal */
 .subtitle {
   margin-top: calc(14 * var(--u));
-  font-size: max(20px, calc(60 * var(--u)));
+  font-size: max(20px, calc(84.5 * 100vw / 1920));
   line-height: 1.1;
   letter-spacing: -0.01em;
   white-space: nowrap;
@@ -310,6 +312,7 @@
   }
   .title {
     font-size: clamp(44px, 12vw, 110px);
+    white-space: normal;
   }
   .subtitle {
     margin-top: 10px;

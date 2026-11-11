@@ -38,8 +38,9 @@
   flex-direction: column;
   font-family: var(--font-display);
   text-transform: uppercase;
-  font-size: max(40px, calc(125 * var(--u)));
-  line-height: 1.12;
+  /* calé sur la largeur, comme « Nos engagements » et « Six expertises transverses » : même taille */
+  font-size: max(40px, calc(128 * 100vw / 1920));
+  line-height: 1.02;
   letter-spacing: -0.03em;
 }
 .ln {

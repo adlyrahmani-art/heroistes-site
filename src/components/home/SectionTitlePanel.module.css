@@ -20,7 +20,7 @@
   gap: calc(10 * var(--u));
   font-family: var(--font-display);
   text-transform: uppercase;
-  font-size: max(52px, calc(190 * var(--u)));
+  font-size: max(52px, calc(128 * 100vw / 1920));
   line-height: 0.98;
   letter-spacing: -0.03em;
 }
