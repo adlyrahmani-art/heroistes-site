@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import RichText from "@/components/RichText";
 import { clean, editAttr } from "@/sanity/lib/clean";
 import { imageUrl } from "@/sanity/lib/image";
@@ -10,6 +11,7 @@ const FALLBACK_RATIO = 663 / 476;
 /**
  * Chapitre : très grand titre qui traverse le trait central, blocs de texte et image facultative.
  * Image à droite → blocs à gauche ; image à gauche → blocs à droite (texte aligné à droite) ; sans image → blocs à gauche.
+ * Grand titre facultatif (suite d'un chapitre, maquette Beauchamp). Largeur des blocs réglable (`textWidth`, px à 1920).
  */
 export default function CaseChapter({ chapter, doc }: { chapter: ChapterData; doc: CaseDoc }) {
   const key = clean(chapter._key);
@@ -18,18 +20,23 @@ export default function CaseChapter({ chapter, doc }: { chapter: ChapterData; do
   const src = imageUrl(chapter.image, Math.round(2 * IMG_H * ratio), 2 * IMG_H);
   const left = !!src && clean(chapter.imageSide) === "left";
   const untitled = !chapter.blocks?.[0]?.title?.length;
+  const hasTitle = !!chapter.title?.length;
+  const textWidth = clean(chapter.textWidth);
 
   return (
-    <section className={`${styles.section} ${styles.chapter}`}>
-      <div data-in>
-        <h2 className={`${styles.display} ${styles.chapterTitle}`}>
-          {chapter.title?.map((l, i) => (
-            <span key={i}>{i ? " " : ""}{l}</span>
-          ))}
-        </h2>
-      </div>
+    <section className={`${styles.section} ${styles.chapter} ${hasTitle ? "" : styles.noTitle}`}>
+      {hasTitle && (
+        <div data-in>
+          <h2 className={`${styles.display} ${styles.chapterTitle}`}>
+            {chapter.title?.map((l, i) => (
+              <span key={i}>{i ? " " : ""}{l}</span>
+            ))}
+          </h2>
+        </div>
+      )}
       <div
         className={`${styles.cols} ${left ? styles.imageLeft : ""} ${untitled ? styles.untitled : ""}`}
+        style={textWidth ? ({ "--blocks-w": textWidth } as CSSProperties) : undefined}
       >
         <div className={styles.blocks} data-in>
           {chapter.blocks?.map((b) => (

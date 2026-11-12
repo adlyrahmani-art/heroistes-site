@@ -41,6 +41,17 @@
   z-index: 2;
   padding: calc(186 * var(--u)) var(--gut) 0 calc(50% + 29 * var(--u));
 }
+/* Logo, nom et sous-titre. Logo libre : bloc calé en bas (l'introduction garde sa place quelle que
+   soit la hauteur du logo ou la seconde ligne du nom, comme sur les maquettes Carpigiani et Beauchamp) */
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.free .head {
+  min-height: calc(380 * var(--u));
+  justify-content: flex-end;
+}
 .logo {
   display: block;
   width: calc(123 * var(--u));
@@ -50,6 +61,13 @@
   border-radius: 50%;
   object-fit: cover;
 }
+/* Logo libre (PNG détouré) : taille réelle de la maquette 1920, mise à l'échelle */
+.logoFree {
+  display: block;
+  width: calc(var(--lw) * var(--u));
+  min-width: calc(var(--lw) * 0.5px);
+  height: auto;
+}
 .name {
   margin-top: calc(36 * var(--u));
   font-family: var(--font-display);
@@ -57,6 +75,16 @@
   line-height: 1.1;
   text-transform: uppercase;
   overflow-wrap: anywhere;
+}
+.free .name {
+  margin-top: calc(45 * var(--u));
+}
+/* Seconde ligne du nom, plus petite (« FRANCE ») */
+.nameLine2 {
+  display: block;
+  margin-top: calc(2 * var(--u));
+  font-size: max(22px, calc(35 * var(--u)));
+  line-height: 1;
 }
 .subtitle {
   display: flex;
@@ -74,6 +102,16 @@
   font-size: max(14px, calc(16 * var(--u)));
   line-height: 1.5;
   white-space: pre-line;
+}
+.free .subtitle {
+  margin-top: calc(31 * var(--u));
+}
+.free .twoLines + .subtitle {
+  margin-top: calc(31 * var(--u));
+}
+.free .intro {
+  max-width: max(320px, calc(610 * var(--u)));
+  margin-top: calc(57 * var(--u));
 }
 .intro strong {
   font-weight: 900;
@@ -113,6 +151,13 @@
   .logo {
     width: 88px;
   }
+  .free .head {
+    min-height: 0;
+  }
+  .logoFree {
+    width: min(calc(var(--lw) * 0.8px), 100%);
+    min-width: 0;
+  }
   .name {
     margin-top: 24px;
   }
@@ -120,9 +165,13 @@
   .highlights {
     padding-left: 0;
   }
-  .intro {
+  .intro,
+  .free .intro {
     max-width: 560px;
     margin-top: 24px;
+  }
+  .free .subtitle {
+    margin-top: 12px;
   }
   .subtitle {
     display: block;
@@ -130,8 +179,9 @@
   }
 }
 @media (max-width: 767px) {
+  /* 56 px, réduit sur les plus petits écrans pour que les noms longs (« BEAUCHAMP ») tiennent sur une ligne */
   .name {
-    font-size: 56px;
+    font-size: clamp(40px, 13vw, 56px);
   }
   .subtitle {
     font-size: 26px;

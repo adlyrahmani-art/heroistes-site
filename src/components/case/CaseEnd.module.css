@@ -26,19 +26,35 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ---------- Les premiers résultats ---------- */
-.results {
-  min-height: calc(768 * var(--u));
+/* Fond texturé (maquette) : calé en haut, pleine largeur ; le grain CSS n'est plus nécessaire */
+.results.hasBg,
+.ctaTop.hasBg {
+  background-color: #0f0f10;
+  background-position: top center;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
 }
+.results.hasBg::before,
+.ctaTop.hasBg::before {
+  content: none;
+}
+
+/* ---------- Les (premiers) résultats ---------- */
+.results {
+  /* taille des chiffres et largeur de la barre (px maquette), réglables par cas */
+  --stat: 128;
+  --bar: 673;
+}
+/* Colonnes calées en bas : la barre s'aligne sur la dernière ligne du résumé (maquettes Pranéo, Carpigiani) */
 .resultsInner {
   position: relative;
   display: grid;
   grid-template-columns: calc(929 * var(--u)) 1fr;
-  align-items: start;
-  padding: calc(101 * var(--u)) 0 calc(60 * var(--u));
+  align-items: end;
+  padding: calc(101 * var(--u)) 0 calc(150 * var(--u));
 }
 .resultsHead {
-  padding-left: calc(127 * var(--u));
+  padding: 0 0 calc(8 * var(--u)) calc(127 * var(--u));
 }
 .resultsTitle {
   display: flex;
@@ -50,9 +66,15 @@
   line-height: calc(151 / 128);
   white-space: nowrap;
 }
+/* Ligne plus petite sous le titre (« Après six mois de campagne ») */
+.resultsSub {
+  margin: calc(16 * var(--u)) 0 calc(7 * var(--u));
+  font-size: max(26px, calc(48 * var(--u)));
+  line-height: 1;
+}
 .resultsBar {
   display: block;
-  width: calc(673 * var(--u));
+  width: calc(var(--bar) * var(--u));
   height: max(6px, calc(16 * var(--u)));
   margin-top: calc(40 * var(--u));
   background: var(--turquoise);
@@ -63,16 +85,25 @@
 .stats {
   display: grid;
   grid-template-columns: calc(320 * var(--u)) calc(291 * var(--u)) auto;
+  /* hauteur réservée à 3 lignes de texte : le résumé garde sa place (maquettes) */
+  min-height: calc(217 * var(--u));
   margin: calc(152 * var(--u)) 0 0;
   padding: 0;
   list-style: none;
 }
+/* Boîte de 128 de haut quelle que soit la taille des chiffres : les textes restent à la même hauteur */
 .num {
+  height: calc(128 * var(--u));
   font-family: var(--font-display);
-  font-size: max(56px, calc(128 * var(--u)));
+  font-size: max(56px, calc(var(--stat) * var(--u)));
   line-height: 1;
   color: var(--turquoise);
   white-space: nowrap;
+}
+.num > [aria-hidden] {
+  display: inline-block;
+  /* chiffres plus petits : pied des chiffres calé comme sur la maquette (−13 px pour 94 au lieu de 128) */
+  padding-top: calc((128 - var(--stat)) * 0.5 * var(--u));
 }
 /* « + » plus fin (deux traits), centré sur les chiffres */
 .plus {
@@ -92,9 +123,11 @@
 }
 .statText {
   max-width: max(200px, calc(240 * var(--u)));
-  margin-top: calc(15 * var(--u));
+  /* chiffres plus petits : le texte descend un peu moins que le pied des chiffres (maquette Carpigiani) */
+  margin-top: calc((15 + (128 - var(--stat)) * 0.1) * var(--u));
   font-size: var(--text);
   line-height: 1.5;
+  white-space: pre-line;
 }
 .statText strong,
 .summary {
@@ -105,6 +138,34 @@
   margin-top: calc(100 * var(--u));
   font-size: var(--text);
   line-height: 1.5;
+  white-space: pre-line;
+}
+
+/* Un seul chiffre (maquette Beauchamp) : chiffre et texte côte à côte, colonnes calées en haut */
+.resultsInline .resultsInner {
+  align-items: start;
+}
+.resultsInline .resultsBar {
+  margin-top: calc(21 * var(--u));
+}
+.resultsInline .resultsSide {
+  padding-left: calc(68 * var(--u));
+}
+.resultsInline .stats {
+  display: block;
+  min-height: 0;
+  margin-top: calc(87 * var(--u));
+}
+.resultsInline .stats li {
+  display: grid;
+  grid-template-columns: calc(207 * var(--u)) auto;
+  align-items: start;
+}
+.resultsInline .statText {
+  margin-top: calc(44 * var(--u));
+}
+.resultsInline .summary {
+  margin-top: calc(69 * var(--u));
 }
 
 /* ---------- Appel final ---------- */
@@ -162,6 +223,17 @@
   margin-top: calc(53 * var(--u));
   font-size: var(--text);
   line-height: 1.5;
+}
+/* Sans barre ni texte (maquettes Carpigiani, Beauchamp) : sous-titre plus bas, bouton plus large */
+.ctaShort {
+  padding-bottom: calc(107 * var(--u));
+}
+.ctaShort .ctaSubtitle {
+  margin-top: calc(51.5 * var(--u));
+}
+.ctaShort .ctaButton {
+  margin-top: calc(66 * var(--u));
+  padding-inline: max(16px, calc(22.5 * var(--u)));
 }
 .ctaButton {
   margin-top: calc(43 * var(--u));
@@ -306,6 +378,30 @@
   .resultsTitle {
     font-size: clamp(48px, 13vw, 96px);
   }
+  .resultsSub {
+    font-size: clamp(22px, 6vw, 40px);
+    white-space: normal;
+  }
+  .resultsInline .resultsSide {
+    padding-left: 0;
+  }
+  .resultsInline .stats {
+    margin-top: 0;
+  }
+  .resultsInline .stats li {
+    grid-template-columns: auto 1fr;
+    gap: 24px;
+  }
+  .resultsInline .statText {
+    margin-top: 0;
+    align-self: center;
+  }
+  .resultsInline .summary {
+    margin-top: 32px;
+  }
+  .results.hasBg {
+    background-size: cover;
+  }
   .resultsBar {
     width: 100%;
     margin-top: 20px;
@@ -316,7 +412,14 @@
     margin-top: 32px;
   }
   .num {
+    height: auto;
     font-size: clamp(56px, 15vw, 96px);
+  }
+  .num > [aria-hidden] {
+    padding-top: 0;
+  }
+  .stats {
+    min-height: 0;
   }
   .statText {
     max-width: 420px;
@@ -327,8 +430,15 @@
     margin-top: 40px;
   }
 
-  .ctaTop {
+  .ctaTop,
+  .ctaShort {
     padding: var(--section-y) var(--gut);
+  }
+  .ctaShort .ctaSubtitle {
+    margin-top: 20px;
+  }
+  .ctaShort .ctaButton {
+    margin-top: 28px;
   }
   .ctaTitle {
     font-size: clamp(32px, 8vw, 56px);

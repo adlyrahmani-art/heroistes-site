@@ -7,7 +7,8 @@ import type { CaseCta as Cta, CaseExtras } from "@/content/cases";
 import styles from "./CaseEnd.module.css";
 
 /**
- * Appel final + projets précédent / suivant (maquette « Praneo CTA FInal », 1920 × 1275, sombre).
+ * Appel final + projets précédent / suivant (maquettes « … CTA Final », sombres). Barre turquoise et ligne de
+ * texte facultatives (Pranéo les a, Carpigiani et Beauchamp non : sous-titre plus bas, bouton plus large).
  * Entrée verticale comme les lames de l'accueil : les lignes du titre montent hors d'un masque
  * (décalées), la barre se dessine, puis sous-titre, texte et bouton suivent.
  * Projets voisins : au survol (ou focus clavier) le portrait apparaît derrière le nom et le fond
@@ -54,7 +55,11 @@ export default function CaseCta({ cta, nav }: { cta?: Cta; nav?: CaseExtras["nav
   return (
     <section className={styles.cta} data-case-dark aria-labelledby={cta ? "cta-title" : undefined} aria-label={cta ? undefined : "Autres projets"}>
       {cta && (
-        <div ref={ref} className={styles.ctaTop}>
+        <div
+          ref={ref}
+          className={`${styles.ctaTop} ${!cta.bar && !cta.text ? styles.ctaShort : ""} ${cta.background ? styles.hasBg : ""}`}
+          style={cta.background ? { backgroundImage: `url(${cta.background})` } : undefined}
+        >
           <h2 id="cta-title" className={styles.ctaTitle}>
             {cta.title.map((line, i) => (
               <span key={i} className={styles.ln} style={{ "--i": i } as React.CSSProperties}>
@@ -72,8 +77,8 @@ export default function CaseCta({ cta, nav }: { cta?: Cta; nav?: CaseExtras["nav
               </span>
             ))}
           </p>
-          <span className={styles.ctaBar} aria-hidden="true" />
-          <p className={styles.ctaText}>{cta.text}</p>
+          {cta.bar && <span className={styles.ctaBar} aria-hidden="true" />}
+          {cta.text && <p className={styles.ctaText}>{cta.text}</p>}
           <a href={cta.button.href} className={`btn btn-primary ${styles.ctaButton}`} onClick={onAnchor}>
             {cta.button.label}
           </a>

@@ -1,6 +1,6 @@
 import type { CaseExtras } from "./types";
 
-/** Maquettes « Praneo resultats » et « Praneo CTA FInal » (textes transcrits tels quels). */
+/** Maquettes « Cas 1 _ Pranéo Intro » et « Praneo CTA Final » (textes transcrits tels quels). */
 export const praneo: CaseExtras = {
   results: {
     title: ["Les", "premiers", "résultats"],
@@ -11,6 +11,7 @@ export const praneo: CaseExtras = {
     ],
     summary:
       "Au-delà de ces premiers volumes, Pranéo dispose d’un dispositif qui relie contenus, acquisition payante et mesure des conversions pour accompagner son développement.",
+    background: "/images/cases/case-results-bg.jpg",
   },
   cta: {
     title: [
@@ -19,14 +20,16 @@ export const praneo: CaseExtras = {
     ],
     subtitle: [
       "Positionnement, visibilité, acquisition et mesure :",
-      "Heroïstes vous aide à articuler ces leviers autour de vos priorités business",
+      "Héroïstes vous aide à articuler ces leviers autour de vos priorités business",
     ],
+    bar: true,
     text: "Un échange est nécessaire pour identifier vos publics prioritaires et les premières étapes de votre acquisition.",
     button: { label: "Parlons de votre lancement", href: "#contact" },
+    background: "/images/cases/praneo-cta-bg.jpg",
   },
   nav: {
     // Minos n'a pas encore de page détail : le lien mène à une 404 tant qu'elle n'existe pas.
     prev: { label: "Projet précédent", name: "Minos", href: "/cas-clients/minos", image: "/images/cases/minos.png" },
-    next: { label: "Projet suivant", name: "Rezo partage", href: "/cas-clients/rezo-partage", image: "/images/cases/rezo-partage.png" },
+    next: { label: "Projet suivant", name: "Carpigiani", href: "/cas-clients/carpigiani", image: "/images/cases/carpigiani.png" },
   },
 };

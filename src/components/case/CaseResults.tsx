@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import RichText from "@/components/RichText";
@@ -10,7 +10,8 @@ import styles from "./CaseEnd.module.css";
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * « Les premiers résultats » (maquette « Cas 1 _ Pranéo Intro », sous l'en-tête, sombre).
+ * « Les (premiers) résultats » (maquettes « Cas … Intro », sous l'en-tête, sombre) : titre avec ligne plus petite
+ * facultative, 1 à 3 chiffres (« + » en traits fins ou « % »). Un seul chiffre : chiffre et texte côte à côte.
  * Entrée en parallaxe (ordinateur) : la section monte par-dessus l'en-tête, qui défile plus
  * lentement ; dans la section, lignes du titre et chiffres arrivent avec des décalages différents
  * (scrub), au repos quand la section atteint le haut de l'écran.
@@ -72,8 +73,21 @@ export default function CaseResults({ results }: { results: Results }) {
     };
   }, []);
 
+  const inline = results.stats.length === 1;
+  const vars = {
+    ...(results.statSize && { "--stat": results.statSize }),
+    ...(results.barWidth && { "--bar": results.barWidth }),
+    ...(results.background && { backgroundImage: `url(${results.background})` }),
+  } as CSSProperties;
+
   return (
-    <section ref={ref} className={styles.results} data-case-dark aria-labelledby="results-title">
+    <section
+      ref={ref}
+      className={`${styles.results} ${inline ? styles.resultsInline : ""} ${results.background ? styles.hasBg : ""}`}
+      style={vars}
+      data-case-dark
+      aria-labelledby="results-title"
+    >
       <div className={styles.resultsInner}>
         <div className={styles.resultsHead}>
           <h2 id="results-title" className={styles.resultsTitle}>
@@ -83,6 +97,12 @@ export default function CaseResults({ results }: { results: Results }) {
                 {l}
               </span>
             ))}
+            {results.subtitle && (
+              <span className={styles.resultsSub} data-depth={0.12 + results.title.length * 0.1}>
+                {" "}
+                {results.subtitle}
+              </span>
+            )}
           </h2>
           <span className={styles.resultsBar} data-depth={0.42} aria-hidden="true" />
         </div>
@@ -94,11 +114,12 @@ export default function CaseResults({ results }: { results: Results }) {
                 <p className={styles.num}>
                   <span className="visually-hidden">
                     {s.value}
-                    {s.suffix}
+                    {s.suffix === "%" ? "\u00a0%" : s.suffix}
                   </span>
                   <span aria-hidden="true">
                     <span data-count={s.value}>{s.value}</span>
-                    {s.suffix === "+" ? <span className={styles.plus} /> : s.suffix && <span className={styles.suffix}>{s.suffix}</span>}
+                    {s.suffix === "+" && <span className={styles.plus} />}
+                    {s.suffix === "%" && "\u00a0%"}
                   </span>
                 </p>
                 <p className={styles.statText}>

@@ -51,12 +51,14 @@
 }
 
 /* ---------- Introduction ---------- */
+/* Jusqu'à 7 lignes de texte, la grande image garde sa place (maquettes : y = 424 à 1920) */
 .intro .text {
-  max-width: max(320px, calc(610 * var(--u)));
+  max-width: max(320px, calc(615 * var(--u)));
+  min-height: calc(168 * var(--u));
   margin-top: calc(28 * var(--u));
 }
 .wide {
-  margin: calc(46 * var(--u)) 0 0;
+  margin: calc(22 * var(--u)) 0 0;
   aspect-ratio: 1325 / 476;
   overflow: hidden;
 }
@@ -82,7 +84,7 @@
   line-height: 1.5;
 }
 .challenge .text {
-  max-width: max(300px, calc(470 * var(--u)));
+  max-width: max(300px, calc(493 * var(--u)));
   margin: calc(39 * var(--u)) 0 0 auto;
   padding-right: calc(5 * var(--u));
 }
@@ -114,7 +116,7 @@
 .blocks {
   grid-row: 1;
   grid-column: 1;
-  width: max(300px, calc(570 * var(--u)));
+  width: max(300px, calc(var(--blocks-w, 570) * var(--u)));
   max-width: 100%;
   padding-left: var(--left);
   box-sizing: content-box;
@@ -124,6 +126,10 @@
 }
 .blocks .h2 + .text {
   margin-top: calc(28 * var(--u));
+}
+/* Titres de bloc : une ligne saisie = une ligne affichée (elles peuvent dépasser un peu la colonne) */
+.blocks .h2 > span {
+  white-space: nowrap;
 }
 .block + .block {
   margin-top: calc(75 * var(--u));
@@ -155,6 +161,14 @@
   /* bord droit des textes à x = 1621 sur la maquette */
   padding: 0 calc(var(--right) - 6 * var(--u)) 0 0;
   text-align: right;
+}
+
+/* Chapitre sans grand titre : suite du précédent, les colonnes démarrent directement */
+.chapter.noTitle {
+  margin-top: calc(110 * var(--u));
+}
+.noTitle .cols {
+  margin-top: 0;
 }
 
 /* ---------- Corps riche (cas sans page détail) ---------- */
@@ -203,6 +217,7 @@
     max-width: 640px;
   }
   .intro .text {
+    min-height: 0;
     margin-top: 20px;
   }
   .wide {
@@ -224,11 +239,13 @@
   .challenge + .chapter {
     margin-top: 72px;
   }
+  /* plancher abaissé : un mot long (« PROFESSIONNEL ») tient sur une ligne à 375 px */
   .chapterTitle {
-    font-size: clamp(44px, 7vw, 72px);
+    font-size: clamp(36px, 10.4vw, 72px);
     line-height: 1.05;
     white-space: normal;
     overflow-wrap: anywhere;
+    hyphens: auto;
   }
   /* Ordre de lecture : titre → blocs → image */
   .cols,
@@ -260,6 +277,15 @@
   }
   .figure img {
     height: auto;
+  }
+  .blocks .h2 > span {
+    white-space: normal;
+  }
+  .chapter.noTitle {
+    margin-top: 56px;
+  }
+  .noTitle .cols {
+    margin-top: 0;
   }
 }
 @media (max-width: 767px) {
