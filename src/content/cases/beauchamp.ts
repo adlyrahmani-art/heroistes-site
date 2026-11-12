@@ -2,6 +2,12 @@ import type { CaseExtras } from "./types";
 
 /** Maquettes « Cas 3 _ Beauchamp Intro » et « Beauchamp CTA Final » (textes transcrits tels quels). */
 export const beauchamp: CaseExtras = {
+  // Espacements des chapitres calés sur la maquette « Cas 2 _ Beauchamp détails » (px à 1920)
+  chapters: [
+    { gap: 94, colsGap: 79, imageGap: 10, blockGap: 45, blockWidths: [620, 580] },
+    { gap: 110, blockGap: 47 },
+    { gap: 172, colsGap: 88 },
+  ],
   results: {
     title: ["Les", "résultats"],
     stats: [{ value: 70, suffix: "+", text: "**leads**\npar mois" }],

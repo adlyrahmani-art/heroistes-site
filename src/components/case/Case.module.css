@@ -89,12 +89,15 @@
   padding-right: calc(5 * var(--u));
 }
 
-/* ---------- Chapitres ---------- */
+/* ---------- Chapitres ----------
+   Espacements par défaut (maquette Pranéo), réglables par chapitre (px à 1920, contenu de fin par cas) :
+   --ch-gap avant le chapitre, --cols-gap entre grand titre et colonnes, --fig-gap au-dessus de l'image,
+   --block-gap entre deux blocs, --bw largeur d'un bloc. */
 .chapter {
-  margin-top: calc(148 * var(--u));
+  margin-top: calc(var(--ch-gap, 148) * var(--u));
 }
 .challenge + .chapter {
-  margin-top: calc(156 * var(--u));
+  margin-top: calc(var(--ch-gap, 156) * var(--u));
 }
 .chapterTitle {
   display: flex;
@@ -108,10 +111,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: start;
-  margin: calc(67 * var(--u)) calc(-1 * var(--right)) 0 calc(-1 * var(--left));
+  margin: calc(var(--cols-gap, 67) * var(--u)) calc(-1 * var(--right)) 0 calc(-1 * var(--left));
 }
 .cols.untitled {
-  margin-top: calc(50 * var(--u));
+  margin-top: calc(var(--cols-gap, 50) * var(--u));
 }
 .blocks {
   grid-row: 1;
@@ -131,8 +134,14 @@
 .blocks .h2 > span {
   white-space: nowrap;
 }
+.block {
+  max-width: calc(var(--bw, 9999) * var(--u));
+}
+.imageLeft .block {
+  margin-left: auto;
+}
 .block + .block {
-  margin-top: calc(75 * var(--u));
+  margin-top: calc(var(--block-gap, 75) * var(--u));
 }
 .block > .text:first-child {
   margin-top: 0;
@@ -143,17 +152,17 @@
   justify-self: start;
   height: calc(476 * var(--u));
   max-width: 100%;
-  margin: calc(70 * var(--u)) 0 0;
+  margin: calc(var(--fig-gap, 70) * var(--u)) 0 0;
   overflow: hidden;
 }
 /* Image à gauche : elle s'arrête au trait central, les blocs passent à droite (texte à droite) */
 .imageLeft {
-  margin-top: calc(99 * var(--u));
+  margin-top: calc(var(--cols-gap, 99) * var(--u));
 }
 .imageLeft .figure {
   grid-column: 1;
   justify-self: end;
-  margin-top: calc(28 * var(--u));
+  margin-top: calc(var(--fig-gap, 28) * var(--u));
 }
 .imageLeft .blocks {
   grid-column: 2;
@@ -165,10 +174,10 @@
 
 /* Chapitre sans grand titre : suite du précédent, les colonnes démarrent directement */
 .chapter.noTitle {
-  margin-top: calc(110 * var(--u));
+  margin-top: calc(var(--ch-gap, 110) * var(--u));
 }
 .noTitle .cols {
-  margin-top: 0;
+  margin-top: calc(var(--cols-gap, 0) * var(--u));
 }
 
 /* ---------- Corps riche (cas sans page détail) ---------- */
@@ -286,6 +295,12 @@
   }
   .noTitle .cols {
     margin-top: 0;
+  }
+  .block {
+    max-width: none;
+  }
+  .imageLeft .block {
+    margin-left: 0;
   }
 }
 @media (max-width: 767px) {

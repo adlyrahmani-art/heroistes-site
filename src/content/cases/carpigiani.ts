@@ -2,6 +2,12 @@ import type { CaseExtras } from "./types";
 
 /** Maquettes « Cas 2 _ Carpigiani Intro » et « Carpigiani CTA Final » (textes transcrits tels quels). */
 export const carpigiani: CaseExtras = {
+  // Espacements des chapitres calés sur la maquette « Cas 2 _ Carpigiani détails » (px à 1920)
+  chapters: [
+    { gap: 54, colsGap: 83, imageGap: 10, blockGap: 58 },
+    { gap: 92, colsGap: 83, blockGap: 49, blockWidths: [610, 565] },
+    { gap: 130, colsGap: 35 },
+  ],
   results: {
     title: ["Les", "résultats"],
     subtitle: "Après six mois de campagne",

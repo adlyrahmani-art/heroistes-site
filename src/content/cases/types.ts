@@ -54,7 +54,26 @@ export type CaseNavItem = {
   image: string;
 };
 
+/**
+ * Espacements d'un chapitre de la partie claire (px à 1920), quand la maquette s'écarte des valeurs par défaut
+ * (calées sur Pranéo : avant 148/156, titre → colonnes 67, image 70 ou 28 si à gauche, entre blocs 75).
+ */
+export type ChapterLayout = {
+  /** Avant le chapitre. */
+  gap?: number;
+  /** Entre le grand titre et les colonnes (ou entre le haut du chapitre et les colonnes s'il n'a pas de titre). */
+  colsGap?: number;
+  /** Au-dessus de l'image, depuis le haut des colonnes. */
+  imageGap?: number;
+  /** Entre deux blocs. */
+  blockGap?: number;
+  /** Largeur de chaque bloc (même ordre que dans Sanity), quand deux blocs demandent des largeurs différentes. */
+  blockWidths?: (number | undefined)[];
+};
+
 export type CaseExtras = {
+  /** Espacements des chapitres, dans l'ordre des chapitres Sanity. */
+  chapters?: (ChapterLayout | undefined)[];
   results?: CaseResults;
   cta?: CaseCta;
   nav?: { prev?: CaseNavItem; next?: CaseNavItem };

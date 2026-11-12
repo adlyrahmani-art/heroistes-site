@@ -2,6 +2,8 @@ import type { CaseExtras } from "./types";
 
 /** Maquettes « Cas 1 _ Pranéo Intro » et « Praneo CTA Final » (textes transcrits tels quels). */
 export const praneo: CaseExtras = {
+  // Espacements des chapitres (maquette « Cas 1 _ Pranéo détails ») : seul l'écart entre les blocs du ch. 2 diffère
+  chapters: [undefined, { blockGap: 84 }],
   results: {
     title: ["Les", "premiers", "résultats"],
     stats: [
