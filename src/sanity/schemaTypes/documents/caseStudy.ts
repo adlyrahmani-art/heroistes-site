@@ -29,6 +29,15 @@ const detailFields: Field[] = [
     options: { collapsible: true, collapsed: false },
     fields: [
       img("background", "Image de fond", OPTIONAL),
+      defineField({
+        ...img("logo", "Logo de l’en-tête (forme libre)", OPTIONAL),
+        description:
+          "Facultatif. Logo détouré (PNG transparent) affiché tel quel, sans disque, à sa taille réelle à 1920 px de large. Sans lui, le logo de la carte est affiché dans un disque.",
+      }),
+      defineField({
+        ...str("nameLine2", "Seconde ligne du nom", 30, OPTIONAL),
+        description: "Facultatif. Ligne plus petite sous le nom du client (ex. « France »). 30 caractères maximum.",
+      }),
       sig("subtitle", "Sous-titre", { maxLines: 2, maxChars: 40 }, OPTIONAL),
       txt("intro", "Introduction", BOLD_HINT, OPTIONAL),
       defineField({
@@ -47,7 +56,7 @@ const detailFields: Field[] = [
     type: "object",
     options: { collapsible: true, collapsed: false },
     fields: [
-      sig("title", "Titre", { maxLines: 2, maxChars: 30 }, OPTIONAL),
+      sig("title", "Titre", { maxLines: 2, maxChars: 40 }, OPTIONAL),
       txt("text", "Texte", BOLD_HINT, OPTIONAL),
       img("image", "Grande image", OPTIONAL),
     ],
@@ -66,7 +75,7 @@ const detailFields: Field[] = [
   defineField({
     name: "chapters",
     title: "Chapitres",
-    description: "0 à 5 chapitres : grand titre, blocs de texte et image facultative.",
+    description: "0 à 5 chapitres : grand titre (facultatif), blocs de texte et image facultative.",
     type: "array",
     of: [
       defineArrayMember({
@@ -74,7 +83,7 @@ const detailFields: Field[] = [
         name: "caseChapter",
         title: "Chapitre",
         fields: [
-          sig("title", "Grand titre", { maxLines: 3, maxChars: 30 }),
+          sig("title", "Grand titre", { maxLines: 3, maxChars: 30 }, OPTIONAL),
           defineField({
             name: "blocks",
             title: "Blocs de texte",
@@ -115,10 +124,20 @@ const detailFields: Field[] = [
             },
             initialValue: "right",
           }),
+          defineField({
+            name: "textWidth",
+            title: "Largeur des blocs de texte",
+            description: "Facultatif. En pixels pour un écran de 1920 px de large (570 par défaut), pour caler les retours à la ligne sur la maquette.",
+            type: "number",
+            validation: (Rule) => Rule.min(400).max(800).integer(),
+          }),
         ],
         preview: {
           select: { title: "title", media: "image" },
-          prepare: ({ title, media }) => ({ title: Array.isArray(title) ? title.join(" ") : title, media }),
+          prepare: ({ title, media }) => ({
+            title: Array.isArray(title) && title.length ? title.join(" ") : "(chapitre sans grand titre)",
+            media,
+          }),
         },
       }),
     ],

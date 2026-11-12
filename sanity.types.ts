@@ -73,6 +73,8 @@ export type CaseStudy = {
   seo?: Seo;
   detailHero?: {
     background?: ImageWithAlt;
+    logo?: ImageWithAlt;
+    nameLine2?: string;
     subtitle?: Array<string>;
     intro?: string;
     highlights?: Array<string>;
@@ -97,6 +99,7 @@ export type CaseStudy = {
     }>;
     image?: ImageWithAlt;
     imageSide?: "left" | "right";
+    textWidth?: number;
     _type: "caseChapter";
     _key: string;
   }>;
@@ -954,7 +957,7 @@ export type CONTACT_LEAD_QUERY_RESULT = {
 
 // Source: src/sanity/lib/queries.ts
 // Variable: CASE_STUDY_QUERY
-// Query: *[_type == "caseStudy" && language == "fr" && slug.current == $slug][0]{  ...,  "slug": slug.current,  image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, logo{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  detailHero{ ..., background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  detailIntro{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  chapters[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }}
+// Query: *[_type == "caseStudy" && language == "fr" && slug.current == $slug][0]{  ...,  "slug": slug.current,  image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, logo{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  detailHero{ ..., background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, logo{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  detailIntro{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },  chapters[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }}
 export type CASE_STUDY_QUERY_RESULT = {
   _id: string;
   _type: "caseStudy";
@@ -1095,6 +1098,21 @@ export type CASE_STUDY_QUERY_RESULT = {
       crop: SanityImageCrop | null;
       alt: string | null;
     } | null;
+    logo: {
+      _type: "imageWithAlt";
+      asset: {
+        _id: string;
+        url: string | null;
+        metadata: {
+          dimensions: SanityImageDimensions | null;
+        } | null;
+      } | null;
+      media?: unknown;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+    nameLine2?: string;
     subtitle?: Array<string>;
     intro?: string;
     highlights?: Array<string>;
@@ -1145,6 +1163,7 @@ export type CASE_STUDY_QUERY_RESULT = {
       alt: string | null;
     } | null;
     imageSide?: "left" | "right";
+    textWidth?: number;
     _type: "caseChapter";
     _key: string;
   }> | null;
@@ -1164,7 +1183,7 @@ declare global {
     '*[_type == "homePage" && language == "fr"][0]{\n  ...,\n  hero{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  engagements[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  logosBand{ ..., clients[]{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  besoins{ ..., items[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } } },\n  expertises{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  pourquoi{ ..., items[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } } },\n  plan{ ..., steps[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } } },\n  casClients{\n    ...,\n    image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },\n    cases[]->{\n      _id, title, "slug": slug.current, clientName, sector, tag, question, logoSize, highlights, keyFigures,\n      image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, logo{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }\n    }\n  }\n}': HOME_QUERY_RESULT;
     '*[_type == "contactForm" && language == "fr"][0]': CONTACT_FORM_QUERY_RESULT;
     '*[_type == "homePage" && language == "fr"][0]{ contactLead }': CONTACT_LEAD_QUERY_RESULT;
-    '*[_type == "caseStudy" && language == "fr" && slug.current == $slug][0]{\n  ...,\n  "slug": slug.current,\n  image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, logo{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },\n  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  detailHero{ ..., background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  detailIntro{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  chapters[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }\n}': CASE_STUDY_QUERY_RESULT;
+    '*[_type == "caseStudy" && language == "fr" && slug.current == $slug][0]{\n  ...,\n  "slug": slug.current,\n  image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, logo{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } },\n  body[]{ ..., _type == "imageWithAlt" => { ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  seo{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  detailHero{ ..., background{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } }, logo{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  detailIntro{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } },\n  chapters[]{ ..., image{ ..., alt, hotspot, crop, asset->{ _id, url, metadata{ dimensions } } } }\n}': CASE_STUDY_QUERY_RESULT;
     '*[_type == "caseStudy" && language == "fr" && defined(slug.current)]{ "slug": slug.current }': CASE_SLUGS_QUERY_RESULT;
   }
 }
