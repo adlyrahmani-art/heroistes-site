@@ -5,6 +5,8 @@ import * as THREE from "three";
 
 // Effet au survol inspiré de philos.site : autour du curseur, la photo s'éclaire,
 // des ondes concentriques la déforment et les canaux RVB se décalent ; grain animé partout.
+// « La foule qui file » : avec un masque (blanc = l'héroïne), la foule autour glisse et s'étire
+// vers la droite en continu, l'héroïne reste nette.
 
 const vertexShader = /* glsl */ `
   varying vec2 vUv;
@@ -16,6 +18,8 @@ const vertexShader = /* glsl */ `
 
 const fragmentShader = /* glsl */ `
   uniform sampler2D uMap;
+  uniform sampler2D uMask;
+  uniform float uFlow;
   uniform vec2 uImageRes;
   uniform vec2 uPlaneRes;
   uniform vec2 uMouse;
@@ -28,6 +32,20 @@ const fragmentShader = /* glsl */ `
     vec3 p3 = fract(vec3(p.xyx) * 0.1031);
     p3 += dot(p3, p3.yzx + 33.33);
     return fract((p3.x + p3.y) * p3.z);
+  }
+
+  float vnoise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    return mix(mix(hash12(i), hash12(i + vec2(1.0, 0.0)), f.x),
+               mix(hash12(i + vec2(0.0, 1.0)), hash12(i + vec2(1.0, 1.0)), f.x), f.y);
+  }
+
+  vec3 rgb(vec2 uv, float shift) {
+    return vec3(texture2D(uMap, uv + vec2(shift, 0.0)).r,
+                texture2D(uMap, uv).g,
+                texture2D(uMap, uv - vec2(shift, 0.0)).b);
   }
 
   // Équivalent de background-size: cover; background-position: right center
@@ -56,9 +74,27 @@ const fragmentShader = /* glsl */ `
     vec2 cuv = coverUv(uv);
     float shift = 0.008 * zone;
     vec3 tex;
-    tex.r = texture2D(uMap, cuv + vec2(shift, 0.0)).r;
-    tex.g = texture2D(uMap, cuv).g;
-    tex.b = texture2D(uMap, cuv - vec2(shift, 0.0)).b;
+
+    // Foule : bande des passants (hors ciel, sol et zone noire de gauche), sauf l'héroïne
+    float band = smoothstep(0.14, 0.3, cuv.y) * smoothstep(0.82, 0.68, cuv.y) * smoothstep(0.28, 0.48, cuv.x);
+    float flow = uFlow * band * (1.0 - texture2D(uMask, cuv).r);
+    if (flow > 0.001) {
+      // Ondulation horizontale qui voyage vers la droite + traînée de flou directionnel
+      float n = vnoise(vec2(cuv.x * 7.0 - uTime * 0.9, cuv.y * 26.0)) * 0.6
+              + vnoise(vec2(cuv.x * 3.0 - uTime * 0.45, cuv.y * 8.0 + 5.0)) * 0.4;
+      float dx = (n - 0.5) * 0.016 * flow;
+      vec3 acc = vec3(0.0);
+      float wsum = 0.0;
+      for (int i = 0; i < 8; i++) {
+        float f = float(i) / 7.0;
+        float w = 1.0 - f * 0.7;
+        acc += rgb(cuv + vec2(dx - (f - 0.25) * 0.014 * flow, 0.0), shift) * w;
+        wsum += w;
+      }
+      tex = acc / wsum;
+    } else {
+      tex = rgb(cuv, shift);
+    }
 
     // « En plein jour » : contraste et luminosité relevés, pointe de turquoise dans les clairs
     float lum = dot(tex, vec3(0.299, 0.587, 0.114));
@@ -72,7 +108,7 @@ const fragmentShader = /* glsl */ `
 `;
 
 /** Photo de fond du hero en WebGL, réactive au survol. Le fond CSS reste en dessous en secours. */
-export default function HeroImage({ src, className }: { src: string; className?: string }) {
+export default function HeroImage({ src, maskSrc, className }: { src: string; maskSrc?: string; className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -90,6 +126,8 @@ export default function HeroImage({ src, className }: { src: string; className?:
 
     const uniforms = {
       uMap: { value: null as THREE.Texture | null },
+      uMask: { value: null as THREE.Texture | null },
+      uFlow: { value: 0 },
       uImageRes: { value: new THREE.Vector2(1920, 1080) },
       uPlaneRes: { value: new THREE.Vector2(1, 1) },
       uMouse: { value: new THREE.Vector2(0.75, 0.5) },
@@ -112,6 +150,16 @@ export default function HeroImage({ src, className }: { src: string; className?:
       uniforms.uImageRes.value.set(t.image.width, t.image.height);
       canvas.style.opacity = "1";
     });
+
+    let mask: THREE.Texture | null = null;
+    if (maskSrc) {
+      new THREE.TextureLoader().load(maskSrc, (t) => {
+        t.colorSpace = THREE.NoColorSpace;
+        t.minFilter = THREE.LinearFilter;
+        mask = t;
+        uniforms.uMask.value = t;
+      });
+    }
 
     const resize = () => {
       const { width, height } = host.getBoundingClientRect();
@@ -154,6 +202,8 @@ export default function HeroImage({ src, className }: { src: string; className?:
       const k = 1 - Math.exp(-dt * 7);
       uniforms.uTime.value += dt;
       uniforms.uMouse.value.lerp(target, k);
+      // La foule se met en mouvement en douceur une fois le masque chargé
+      uniforms.uFlow.value += ((mask ? 1 : 0) - uniforms.uFlow.value) * (1 - Math.exp(-dt * 0.8));
       uniforms.uHover.value += ((inside ? 1 : 0) - uniforms.uHover.value) * (1 - Math.exp(-dt * 4));
       speed *= Math.exp(-dt * 3);
       uniforms.uSpeed.value += (Math.min(speed, 1) - uniforms.uSpeed.value) * k;
@@ -168,11 +218,12 @@ export default function HeroImage({ src, className }: { src: string; className?:
       host.removeEventListener("pointermove", onMove);
       host.removeEventListener("pointerleave", onLeave);
       texture?.dispose();
+      mask?.dispose();
       geometry.dispose();
       material.dispose();
       renderer.dispose();
     };
-  }, [src]);
+  }, [src, maskSrc]);
 
   return <canvas ref={canvasRef} className={className} aria-hidden="true" />;
 }

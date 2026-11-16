@@ -19,8 +19,21 @@ export type NavItem = {
 };
 
 export const navigation: NavItem[] = [
-  // Page dédiée à venir : affichée, sans lien pour l'instant
-  { key: "expertises", label: "Expertises" },
+  // Page dédiée à venir : sans lien pour l'instant. Sous-menu : les 6 expertises des cartes de l'accueil,
+  // dont les pages restent à construire (404 en attendant).
+  {
+    key: "expertises",
+    label: "Expertises",
+    pitch: "Six expertises réunies dans une agence 360, pour des actions qui se renforcent.",
+    links: [
+      { label: "Conseil", href: "/conseil/" },
+      { label: "Développement commercial", href: "/developpement-commercial/" },
+      { label: "Branding et contenu", href: "/branding/" },
+      { label: "Digital Experience", href: "/digital/" },
+      { label: "Acquisition et performance", href: "/acquisition/" },
+      { label: "Cybersécurité", href: "/cybersecurite/" },
+    ],
+  },
   { key: "casClients", label: "Cas clients", href: "#cas-clients" },
   { key: "agence", label: "L’agence", href: "/agence/" },
   { key: "contact", label: "Contact", href: "#contact" },

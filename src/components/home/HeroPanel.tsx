@@ -1,24 +1,23 @@
 import type { CSSProperties } from "react";
 import RichText from "@/components/RichText";
 import { clean } from "@/sanity/lib/clean";
-import { imageUrl } from "@/sanity/lib/image";
 import Constellation from "./Constellation";
 import HeroImage from "./HeroImage";
-import { nativeSize, type HeroData } from "./homeTypes";
+import type { HeroData } from "./homeTypes";
 import styles from "./HeroPanel.module.css";
 
 const delay = (i: number) => ({ "--i": i }) as CSSProperties;
 
-/** Lame 01 · Hero (maquette « Section1 - Option2 »). */
+// Photo de fond statique (maquette « Section1 -Header - Piste 1 Le héros dans la foule ») : prime sur l'image Sanity.
+const photo = "/images/hero-bg.jpg";
+
+/** Lame 01 · Hero (maquette « Section1 -Header - Piste 1 Le héros dans la foule »). */
 export default function HeroPanel({ hero }: { hero: HeroData }) {
-  // Toute l'image est conservée (le shader fait déjà son « cover ») : on garde le ratio natif.
-  const size = nativeSize(hero.image?.asset);
-  const photo = imageUrl(hero.image, 1920, size ? Math.round((1920 * size.h) / size.w) : undefined);
 
   return (
     <section className={styles.hero} data-panel data-tone="dark" aria-labelledby="hero-title">
       <div className={styles.bg} aria-hidden="true" />
-      {photo && <HeroImage src={photo} className={styles.photo} />}
+      <HeroImage src={photo} maskSrc="/images/hero-mask.png" className={styles.photo} />
       <Constellation className={styles.constellation} />
       <div className="fx-grain" aria-hidden="true" />
 

@@ -3,14 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
-// Tracé de la maquette « Section1 - Option2 » (repère 1920 × 1080).
+// Tracé de la maquette « Section1 -Header - Piste 1 Le héros dans la foule » (repère 1920 × 1080).
 // Chaque point porte une pastille turquoise, coude compris (maquette « Section1 -Header new »).
 const POINTS: [number, number][] = [
-  [1801, 223],
-  [1248, 479],
-  [1385, 532],
-  [1243, 936],
-  [1599, 769],
+  [1738, 176],
+  [1097, 441],
+  [1253, 507],
+  [1071, 956],
+  [1486, 786],
 ];
 const DOTS = [0, 1, 2, 3, 4];
 // Mobile et tablette portrait : cadrage resserré sur la forme (placée dans l'espace vide en haut
@@ -24,6 +24,7 @@ const PATH = [0, 1, 2, 3, 4, 0];
  */
 export default function Constellation({ className }: { className?: string }) {
   const lineRef = useRef<SVGPolylineElement>(null);
+  const fillRef = useRef<SVGPolygonElement>(null);
   const dotRefs = useRef<(SVGGElement | null)[]>([]);
   const [compact, setCompact] = useState(false);
   const dotR = compact ? 16 : 6;
@@ -38,18 +39,22 @@ export default function Constellation({ className }: { className?: string }) {
 
   useEffect(() => {
     const line = lineRef.current!;
+    const fill = fillRef.current!;
     const dots = dotRefs.current;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const pts = POINTS.map(([x, y]) => ({ x, y }));
 
     const draw = () => {
-      line.setAttribute("points", PATH.map((i) => `${pts[i].x},${pts[i].y}`).join(" "));
+      const d = PATH.map((i) => `${pts[i].x},${pts[i].y}`).join(" ");
+      line.setAttribute("points", d);
+      fill.setAttribute("points", d);
       DOTS.forEach((p, k) => dots[k]?.setAttribute("transform", `translate(${pts[p].x} ${pts[p].y})`));
     };
 
     if (reduce) {
       draw();
       gsap.set(line, { strokeDashoffset: 0 });
+      gsap.set(fill, { opacity: 1 });
       gsap.set(dots, { opacity: 1 });
       return;
     }
@@ -64,7 +69,9 @@ export default function Constellation({ className }: { className?: string }) {
       intro
         .to(dots, { opacity: 1, duration: 0.6, stagger: 0.12, ease: "power2.out" }, 0)
         .to(pts, { x: (i) => POINTS[i][0], y: (i) => POINTS[i][1], duration: 2.2, stagger: 0.1, ease: "expo.out" }, 0)
-        .to(line, { strokeDashoffset: 0, duration: 2.4, ease: "power3.inOut" }, 0.3);
+        .to(line, { strokeDashoffset: 0, duration: 2.4, ease: "power3.inOut" }, 0.3)
+        // Voile blanc translucide de la forme, une fois le tracé presque fermé
+        .to(fill, { opacity: 1, duration: 1.2, ease: "power2.out" }, 1.8);
 
       // Dérive continue : chaque point flotte autour de sa position
       intro.add(() => {
@@ -107,6 +114,7 @@ export default function Constellation({ className }: { className?: string }) {
       preserveAspectRatio={compact ? "xMidYMid meet" : "xMaxYMid slice"}
       aria-hidden="true"
     >
+      <polygon ref={fillRef} fill="rgba(255,255,255,0.1)" opacity="0" />
       <polyline
         ref={lineRef}
         fill="none"

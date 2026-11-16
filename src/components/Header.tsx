@@ -146,9 +146,11 @@ export default function Header({
                           <span className={styles.megaNum}>{num(i)}</span>
                           <p className={styles.megaTitle}>{labelOf(item)}</p>
                           {item.pitch && <p className={styles.megaPitch}>{item.pitch}</p>}
-                          <a href={to(item.href ?? "")} className={styles.megaAll} onClick={navigate}>
-                            Tout voir <span aria-hidden="true">→</span>
-                          </a>
+                          {item.href && (
+                            <a href={to(item.href)} className={styles.megaAll} onClick={navigate}>
+                              Tout voir <span aria-hidden="true">→</span>
+                            </a>
+                          )}
                         </div>
                         <SubLinks item={item} onNavigate={closeAll} to={to} />
                       </div>
